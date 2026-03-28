@@ -45,39 +45,45 @@ export default function App() {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Layout />}>
+          {/* 시민참여 */}
           <Route index element={<LivingLabIntro />} />
-          <Route path="openlab" element={<OpenLabIntro />} />
-          <Route path="openlab/announcements" element={<OpenLabAnnouncements />} />
-          <Route path="openlab/suggestion" element={<OpenLabSuggestion />} />
-          <Route path="openlab/support" element={<OpenLabSupport />} />
-          <Route path="citizen-edu" element={<CitizenEducationIntro />} />
-          <Route path="citizen-edu/announcements" element={<CitizenEducationAnnouncements />} />
+          <Route path="citizen/lab/intro" element={<LivingLabIntro />} />
+          <Route path="citizen/lab/announcements" element={<LivingLabAnnouncements />} />
+          <Route path="citizen/lab/suggestion" element={<LivingLabSuggestion />} />
+          <Route path="citizen/openlab/intro" element={<OpenLabIntro />} />
+          <Route path="citizen/openlab/announcements" element={<OpenLabAnnouncements />} />
+          <Route path="citizen/openlab/suggestion" element={<OpenLabSuggestion />} />
+          <Route path="citizen/openlab/support" element={<OpenLabSupport />} />
+          <Route path="citizen/education/intro" element={<CitizenEducationIntro />} />
+          <Route path="citizen/education/announcements" element={<CitizenEducationAnnouncements />} />
+          {/* 데이터 */}
           <Route path="data/list" element={<DataSearchList />} />
-          <Route path="data/list/detail" element={<DataDetail />} />
-          <Route path="data/list/download" element={<DataDownloadRequest />} />
-          <Route path="data/list/request" element={<NewDataRequest />} />
-          <Route path="data/list/guide" element={<DataUsageGuide />} />
-          <Route path="carbon/neutral" element={<CarbonNeutralStatus />} />
+          <Route path="data/detail" element={<DataDetail />} />
+          <Route path="data/download" element={<DataDownloadRequest />} />
+          <Route path="data/new-request" element={<NewDataRequest />} />
+          <Route path="data/guide" element={<DataUsageGuide />} />
+          {/* 탄소중립 스마트도시 */}
+          <Route path="carbon/status" element={<CarbonNeutralStatus />} />
           <Route path="carbon/reduction" element={<CarbonReductionStatus />} />
           <Route path="carbon/insights" element={<CarbonInsights />} />
-          <Route path="carbon/indicators" element={<CarbonIndicators />} />
-          <Route path="smart-city/indicators" element={<SmartCityIndicators />} />
-          <Route path="smart-city/map/cctv" element={<SmartCityMapCCTV />} />
-          <Route path="smart-city/map/safety" element={<SmartCityMapSafety />} />
-          <Route path="smart-city/map/convenience" element={<SmartCityMapConvenience />} />
+          {/* 도시지표 */}
+          <Route path="indicators/carbon" element={<CarbonIndicators />} />
+          <Route path="indicators/smart" element={<SmartCityIndicators />} />
+          {/* 스마트 시티맵 */}
+          <Route path="map/cctv" element={<SmartCityMapCCTV />} />
+          <Route path="map/safety" element={<SmartCityMapSafety />} />
+          <Route path="map/convenience" element={<SmartCityMapConvenience />} />
+          {/* 이용안내 */}
+          <Route path="intro/site" element={<SiteIntro />} />
+          <Route path="intro/business" element={<BusinessIntro />} />
+          <Route path="notice" element={<NoticeList />} />
+          <Route path="guide" element={<SiteGuide />} />
+          <Route path="related-sites" element={<RelatedSites />} />
+          {/* 마이페이지 */}
           <Route path="my/applications" element={<MyApplications />} />
           <Route path="my/data" element={<MyDataRequests />} />
           <Route path="my/interests" element={<MyInterests />} />
           <Route path="my/account" element={<MyAccount />} />
-          <Route path="announcements" element={<LivingLabAnnouncements />} />
-          <Route path="suggestion" element={<LivingLabSuggestion />} />
-          <Route path="notice" element={<NoticeList />} />
-          <Route path="intro/site" element={<SiteIntro />} />
-          <Route path="intro/business" element={<BusinessIntro />} />
-          <Route path="intro/etc" element={<EtcIntro />} />
-          <Route path="guide" element={<SiteGuide />} />
-          <Route path="related-sites" element={<RelatedSites />} />
-          {/* Add more routes here as needed */}
         </Route>
       </Routes>
     </BrowserRouter>

@@ -56,10 +56,7 @@ export default function Layout() {
 
   // Find current 1Depth menu for sidebar
   const current1Depth = NAVIGATION_MENU.find(menu => {
-    if (menu.title === '홈') return false;
-    // For non-root paths, check if the menu path matches
     if (location.pathname !== '/' && location.pathname.startsWith(menu.path) && menu.path !== '/') return true;
-    // Check if any child section is active
     return menu.children?.some(child => isSectionActive(child));
   }) || NAVIGATION_MENU.find(menu => menu.title === '데이터');
 
@@ -126,8 +123,8 @@ export default function Layout() {
 
           {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center h-full ml-auto mr-auto">
-            <ul className="grid grid-cols-7 h-full w-[1134px]">
-              {NAVIGATION_MENU.filter(menu => menu.title !== '홈').map((menu) => {
+            <ul className="grid grid-cols-6 h-full w-[1080px]">
+              {NAVIGATION_MENU.map((menu) => {
                 const isMenuOpen = current1Depth?.title === menu.title;
                 return (
                   <li 
@@ -239,30 +236,56 @@ export default function Layout() {
               onMouseLeave={() => setHoveredMenu(null)}
             >
               <div className="flex justify-center">
-                <div className="w-[1134px] grid grid-cols-7 border-x border-line-normal bg-white">
-                  {NAVIGATION_MENU.filter(menu => menu.title !== '홈').map((menu) => {
+                <div className="w-[1080px] grid grid-cols-6 border-x border-line-normal bg-white">
+                  {NAVIGATION_MENU.map((menu) => {
                     const isHovered = hoveredMenu === menu.title;
                     return (
-                      <div 
-                        key={menu.title} 
-                        className={`py-12 px-6 flex flex-col items-center transition-colors duration-200 border-r border-line-normal last:border-r-0 min-h-[320px] ${
+                      <div
+                        key={menu.title}
+                        className={`py-10 px-5 flex flex-col transition-colors duration-200 border-r border-line-normal last:border-r-0 min-h-[280px] ${
                           isHovered ? 'bg-primary' : 'bg-white'
                         }`}
                         onMouseEnter={() => setHoveredMenu(menu.title)}
                       >
-                        <div className={`w-full ${menu.children && menu.children.length > 5 ? 'grid grid-cols-2 gap-x-8 gap-y-4' : 'flex flex-col items-center space-y-4'}`}>
+                        <div className="w-full space-y-0.5">
                           {menu.children?.map((child) => {
-                            const isItemActive = isActive(child.path);
+                            const hasSubChildren = !!(child.children && child.children.length > 0);
+                            if (hasSubChildren) {
+                              return (
+                                <div key={child.title} className="pt-3 first:pt-0">
+                                  <p className={`text-[12px] font-black mb-1.5 uppercase tracking-wide ${isHovered ? 'text-white/60' : 'text-slate-900'}`}>
+                                    {child.title}
+                                  </p>
+                                  <div className="space-y-1">
+                                    {child.children?.map((sub) => (
+                                      <Link
+                                        key={sub.title}
+                                        to={sub.path}
+                                        className={`block text-[13px] transition-all hover:underline underline-offset-4 ${
+                                          isHovered
+                                            ? 'text-white'
+                                            : isActive(sub.path)
+                                              ? 'text-primary font-bold'
+                                              : 'text-gray-600 hover:text-primary'
+                                        }`}
+                                      >
+                                        {sub.title}
+                                      </Link>
+                                    ))}
+                                  </div>
+                                </div>
+                              );
+                            }
                             return (
-                              <Link 
+                              <Link
                                 key={child.title}
-                                to={child.path} 
-                                className={`text-[15px] font-medium transition-all text-center hover:underline underline-offset-4 ${
-                                  isHovered 
-                                    ? 'text-white' 
-                                    : isItemActive 
-                                      ? 'text-primary font-bold' 
-                                      : 'text-gray-700 hover:text-primary'
+                                to={child.path}
+                                className={`block text-[13px] transition-all hover:underline underline-offset-4 py-0.5 ${
+                                  isHovered
+                                    ? 'text-white'
+                                    : isActive(child.path)
+                                      ? 'text-primary font-bold'
+                                      : 'text-gray-600 hover:text-primary'
                                 }`}
                               >
                                 {child.title}
@@ -344,14 +367,14 @@ export default function Layout() {
 
       {/* Main Content Area */}
       <div className={`flex-grow flex flex-col ${
-        location.pathname.startsWith('/smart-city/map')
+        location.pathname.startsWith('/map/')
           ? 'w-full'
           : location.pathname.startsWith('/my/')
             ? 'max-w-[1560px] mx-auto w-full px-4 sm:px-6 py-8 sm:py-12'
             : 'max-w-[1560px] mx-auto w-full px-4 sm:px-6 py-8 sm:py-12 lg:flex-row gap-8 sm:gap-12'
       }`}>
         {/* Sidebar (LNB) */}
-        {!location.pathname.startsWith('/smart-city/map') && !location.pathname.startsWith('/my/') && (
+        {!location.pathname.startsWith('/map/') && !location.pathname.startsWith('/my/') && (
           <aside className="lg:w-[240px] flex-shrink-0">
             <div className="sticky top-28">
               <div className="mb-10">
@@ -363,37 +386,55 @@ export default function Layout() {
               
               <nav className="flex flex-col">
                 {current1Depth?.children?.map((section) => {
+                  const hasSubChildren = !!(section.children && section.children.length > 0);
                   const active = isSectionActive(section);
-                  
+
+                  if (hasSubChildren) {
+                    return (
+                      <div key={section.title} className="py-5 first:pt-0 border-b border-line-neutral last:border-0">
+                        <Link
+                          to={section.path}
+                          className={`block text-[13px] font-medium mb-3 transition-colors ${
+                            active ? 'text-primary' : 'text-label-normal hover:text-primary'
+                          }`}
+                        >
+                          {section.title}
+                        </Link>
+                        <ul className="space-y-2">
+                          {section.children?.map((item) => {
+                            const isItemActive = isActive(item.path);
+                            return (
+                              <li key={item.title}>
+                                <Link
+                                  to={item.path}
+                                  className={`block text-sm transition-colors ${
+                                    isItemActive
+                                      ? 'text-primary font-medium'
+                                      : 'text-label-alternative hover:text-primary'
+                                  }`}
+                                >
+                                  {item.title}
+                                </Link>
+                              </li>
+                            );
+                          })}
+                        </ul>
+                      </div>
+                    );
+                  }
+
                   return (
-                    <div key={section.title} className="py-8 first:pt-0 border-b border-line-neutral last:border-0">
-                      <Link 
+                    <div key={section.title} className="py-3 border-b border-line-neutral last:border-0">
+                      <Link
                         to={section.path}
-                        className={`block text-xl font-bold mb-6 hover:opacity-80 transition-opacity ${
-                          active ? 'text-primary' : 'text-gray-900'
+                        className={`block text-sm transition-colors ${
+                          isActive(section.path)
+                            ? 'text-primary font-medium'
+                            : 'text-label-alternative hover:text-primary'
                         }`}
                       >
                         {section.title}
                       </Link>
-                      <ul className="space-y-4">
-                        {section.children?.map((item) => {
-                          const isItemActive = isActive(item.path);
-                          return (
-                            <li key={item.title}>
-                              <Link 
-                                to={item.path} 
-                                className={`block text-[17px] transition-colors ${
-                                  isItemActive 
-                                    ? 'text-gray-900 font-bold' 
-                                    : 'text-gray-400 hover:text-gray-600'
-                                }`}
-                              >
-                                - {item.title}
-                              </Link>
-                            </li>
-                          );
-                        })}
-                      </ul>
                     </div>
                   );
                 })}
