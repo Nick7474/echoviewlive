@@ -278,19 +278,13 @@ export default function Layout() {
                               );
                             }
                             return (
-                              <Link
-                                key={child.title}
-                                to={child.path}
-                                className={`block text-[13px] transition-all hover:underline underline-offset-4 py-0.5 ${prevHasGroup ? 'mt-3' : ''} ${
-                                  isHovered
-                                    ? 'text-white'
-                                    : isActive(child.path)
-                                      ? 'text-[var(--color-primary)] font-bold'
-                                      : 'text-gray-600 hover:text-[var(--color-primary)]'
-                                }`}
-                              >
-                                {child.title}
-                              </Link>
+                              <div key={child.title} className={`${prevHasGroup ? 'pt-3 first:pt-0' : 'pt-3 first:pt-0'}`}>
+                                <p className={`text-[12px] font-black uppercase tracking-wide ${isHovered ? 'text-white/60' : 'text-slate-900'}`}>
+                                  <Link to={child.path} className="hover:opacity-80 transition-opacity">
+                                    {child.title}
+                                  </Link>
+                                </p>
+                              </div>
                             );
                           })}
                         </div>
@@ -395,9 +389,7 @@ export default function Layout() {
                       <div key={section.title} className="py-8 first:pt-0 border-b border-line-neutral last:border-0">
                         <Link
                           to={section.path}
-                          className={`block text-base font-bold mb-6 hover:opacity-80 transition-opacity ${
-                            active ? 'text-[var(--color-primary)]' : 'text-gray-900'
-                          }`}
+                          className="block text-base font-bold mb-6 text-gray-900 hover:opacity-80 transition-opacity"
                         >
                           {section.title}
                         </Link>
@@ -425,16 +417,12 @@ export default function Layout() {
                   }
 
                   return (
-                    <div key={section.title} className="py-3 border-b border-line-neutral last:border-0">
+                    <div key={section.title} className="py-8 first:pt-0 border-b border-line-neutral last:border-0">
                       <Link
                         to={section.path}
-                        className={`block text-sm transition-colors ${
-                          isActive(section.path)
-                            ? 'text-[var(--color-primary)] font-medium'
-                            : 'text-label-alternative hover:text-[var(--color-primary)]'
-                        }`}
+                        className="block text-base font-bold text-gray-900 hover:opacity-80 transition-opacity"
                       >
-                        - {section.title}
+                        {section.title}
                       </Link>
                     </div>
                   );
