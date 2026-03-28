@@ -118,24 +118,8 @@ export const NAVIGATION_MENU: NavItem[] = [
           { title: '사이트 소개', path: '/intro/site' },
           { title: '사업 소개', path: '/intro/business' },
           { title: '공지사항', path: '/notice' },
-          { title: '이용안내', path: '/data/list/guide' },
-          { title: '기타 홈페이지', path: '/intro/etc' },
-        ]
-      }
-    ],
-  },
-  {
-    title: '마이페이지',
-    path: '/mypage/applications',
-    children: [
-      {
-        title: '회원 서비스',
-        path: '/mypage/applications',
-        children: [
-          { title: '사업신청내역', path: '/mypage/applications' },
-          { title: '데이터 신청/활용 내역', path: '/mypage/data-requests' },
-          { title: '관심사업 관리', path: '/mypage/interests' },
-          { title: '계정 및 정보 관리', path: '/mypage/account' },
+          { title: '이용안내', path: '/guide' },
+          { title: '기타 홈페이지', path: '/related-sites' },
         ]
       }
     ],

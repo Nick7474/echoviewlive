@@ -36,6 +36,8 @@ import SmartCityMapConvenience from './pages/SmartCityMapConvenience';
 import SiteIntro from './pages/SiteIntro';
 import BusinessIntro from './pages/BusinessIntro';
 import EtcIntro from './pages/EtcIntro';
+import SiteGuide from './pages/SiteGuide';
+import RelatedSites from './pages/RelatedSites';
 
 export default function App() {
   return (
@@ -63,16 +65,18 @@ export default function App() {
           <Route path="smart-city/map/cctv" element={<SmartCityMapCCTV />} />
           <Route path="smart-city/map/safety" element={<SmartCityMapSafety />} />
           <Route path="smart-city/map/convenience" element={<SmartCityMapConvenience />} />
-          <Route path="mypage/applications" element={<MyApplications />} />
-          <Route path="mypage/data-requests" element={<MyDataRequests />} />
-          <Route path="mypage/interests" element={<MyInterests />} />
-          <Route path="mypage/account" element={<MyAccount />} />
+          <Route path="my/applications" element={<MyApplications />} />
+          <Route path="my/data" element={<MyDataRequests />} />
+          <Route path="my/interests" element={<MyInterests />} />
+          <Route path="my/account" element={<MyAccount />} />
           <Route path="announcements" element={<LivingLabAnnouncements />} />
           <Route path="suggestion" element={<LivingLabSuggestion />} />
           <Route path="notice" element={<NoticeList />} />
           <Route path="intro/site" element={<SiteIntro />} />
           <Route path="intro/business" element={<BusinessIntro />} />
           <Route path="intro/etc" element={<EtcIntro />} />
+          <Route path="guide" element={<SiteGuide />} />
+          <Route path="related-sites" element={<RelatedSites />} />
           {/* Add more routes here as needed */}
         </Route>
       </Routes>

@@ -1,93 +1,117 @@
-import { motion } from 'motion/react';
-import { ClipboardList, Search, Filter, Download, ChevronRight } from 'lucide-react';
+import { useState } from 'react';
+import { ClipboardList, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import MyPageLayout from '../components/MyPageLayout';
+
+const ALL_ROWS = [
+  { title: '태양광 모니터링 리빙랩 참여 (3기)', type: '리빙랩',   date: '26.03.13', status: '참여 중', action: '상세보기',  actionStyle: 'text-[var(--color-primary)]' },
+  { title: '전기버스 DRT 수요 실증 리빙랩 (2기)', type: '리빙랩', date: '25.11.10', status: '완료',   action: '결과보기',  actionStyle: 'text-slate-500' },
+  { title: '스마트시티 시민 아카데미 3월반',      type: '시민교육', date: '26.02.20', status: '수료',   action: '수료증',    actionStyle: 'text-slate-500' },
+];
+
+const STATUS_STYLE: Record<string, string> = {
+  '참여 중': 'bg-[var(--color-primary-subtle)] text-[var(--color-primary)]',
+  '완료':   'bg-slate-100 text-slate-500',
+  '수료':   'bg-blue-50 text-blue-500',
+};
+
+const FILTER_TABS = ['전체', '리빙랩', '오픈랩', '시민교육'];
 
 export default function MyApplications() {
-  const applications = [
-    { id: 1, title: '2024년 상반기 리빙랩 시민참여단 모집', date: '2024-03-15', status: '심사중', type: '리빙랩' },
-    { id: 2, title: '스마트도시 아이디어 공모전', date: '2024-02-20', status: '선정', type: '공모전' },
-    { id: 3, title: '데이터 활용 교육 프로그램', date: '2024-01-10', status: '종료', type: '교육' },
-  ];
+  const [filter, setFilter] = useState('전체');
+  const rows = filter === '전체' ? ALL_ROWS : ALL_ROWS.filter(r => r.type === filter);
 
   return (
-    <div className="max-w-[1200px] mx-auto space-y-8 pb-20">
-      <header className="space-y-4">
-        <h1 className="text-3xl font-black text-slate-900">사업 신청내역</h1>
-        <p className="text-slate-500 font-medium text-lg">참여하신 사업 및 프로그램의 신청 현황을 확인하실 수 있습니다.</p>
-      </header>
+    <MyPageLayout>
+      {/* Page title */}
+      <div className="flex items-center gap-3">
+        <ClipboardList className="text-[var(--color-primary)]" size={28} />
+        <h1 className="text-2xl font-black text-slate-900">사업신청내역</h1>
+      </div>
 
-      <div className="bg-white rounded-[24px] shadow-sm border border-line-normal overflow-hidden">
-        <div className="p-8 border-b border-line-neutral flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-4">
-            <div className="relative">
-              <input 
-                type="text" 
-                placeholder="사업명 검색..." 
-                className="pl-12 pr-6 py-3 bg-slate-50 border border-line-normal rounded-2xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all"
-              />
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
-            </div>
-            <button className="p-3 bg-slate-50 text-slate-600 rounded-2xl hover:bg-slate-100 transition-all">
-              <Filter size={20} />
-            </button>
+      {/* Summary Cards */}
+      <div className="grid grid-cols-3 gap-4">
+        {[
+          { label: '전체 신청', value: '3건', color: 'text-slate-900' },
+          { label: '참여 중',   value: '1건', color: 'text-[var(--color-primary)]' },
+          { label: '완료',      value: '2건', color: 'text-slate-400' },
+        ].map(c => (
+          <div key={c.label} className="bg-white border border-line-normal rounded-[16px] p-6 text-center space-y-1">
+            <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">{c.label}</p>
+            <p className={`text-3xl font-black ${c.color}`}>{c.value}</p>
           </div>
-          <button className="px-6 py-3 bg-slate-900 text-white rounded-2xl font-black text-sm hover:bg-slate-800 transition-all flex items-center gap-2">
-            <Download size={18} /> 전체 내역 다운로드
-          </button>
-        </div>
+        ))}
+      </div>
 
+      {/* Filter Tabs */}
+      <div className="flex flex-wrap gap-2">
+        {FILTER_TABS.map(tab => (
+          <button
+            key={tab}
+            onClick={() => setFilter(tab)}
+            className={`px-5 py-2 rounded-full text-sm font-bold transition-all ${
+              filter === tab
+                ? 'bg-slate-900 text-white'
+                : 'bg-white border border-line-normal text-slate-500 hover:border-slate-400'
+            }`}
+          >
+            {tab}
+          </button>
+        ))}
+      </div>
+
+      {/* Table */}
+      <div className="bg-white border border-line-normal rounded-[16px] overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-slate-50/50 border-b border-line-neutral">
-                <th className="px-8 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest">유형</th>
-                <th className="px-8 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest">사업명</th>
-                <th className="px-8 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest">신청일</th>
-                <th className="px-8 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest">상태</th>
-                <th className="px-8 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest">관리</th>
+              <tr className="bg-gray-50 border-b border-line-neutral">
+                <th className="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest">사업명</th>
+                <th className="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest">유형</th>
+                <th className="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest">신청일</th>
+                <th className="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest text-center">상태</th>
+                <th className="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest text-center">비고</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-line-neutral">
-              {applications.map((app) => (
-                <motion.tr 
-                  key={app.id}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className="hover:bg-slate-50/50 transition-colors group"
-                >
-                  <td className="px-8 py-6">
-                    <span className="px-3 py-1 bg-slate-100 text-slate-500 text-[10px] font-black rounded uppercase tracking-widest">{app.type}</span>
+              {rows.map((row, i) => (
+                <tr key={i} className="hover:bg-gray-50/50 transition-colors">
+                  <td className="px-6 py-4 text-sm font-medium text-slate-900">{row.title}</td>
+                  <td className="px-6 py-4 text-sm font-bold text-slate-500">{row.type}</td>
+                  <td className="px-6 py-4 text-sm font-medium text-slate-500">{row.date}</td>
+                  <td className="px-6 py-4 text-center">
+                    <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${STATUS_STYLE[row.status]}`}>
+                      {row.status}
+                    </span>
                   </td>
-                  <td className="px-8 py-6">
-                    <span className="text-sm font-black text-slate-900">{app.title}</span>
-                  </td>
-                  <td className="px-8 py-6">
-                    <span className="text-sm font-bold text-slate-400">{app.date}</span>
-                  </td>
-                  <td className="px-8 py-6">
-                    <div className="flex items-center gap-2">
-                      <div className={`w-2 h-2 rounded-full ${
-                        app.status === '선정' ? 'bg-emerald-500' : 
-                        app.status === '심사중' ? 'bg-blue-500' : 'bg-slate-300'
-                      }`} />
-                      <span className={`text-xs font-black ${
-                        app.status === '선정' ? 'text-emerald-500' : 
-                        app.status === '심사중' ? 'text-blue-500' : 'text-slate-400'
-                      }`}>
-                        {app.status}
-                      </span>
-                    </div>
-                  </td>
-                  <td className="px-8 py-6">
-                    <button className="p-2 text-slate-300 group-hover:text-blue-500 transition-colors">
-                      <ChevronRight size={20} />
+                  <td className="px-6 py-4 text-center">
+                    <button className={`text-sm font-bold hover:underline underline-offset-4 ${row.actionStyle}`}>
+                      {row.action}
                     </button>
                   </td>
-                </motion.tr>
+                </tr>
               ))}
             </tbody>
           </table>
         </div>
+        {rows.length === 0 && (
+          <div className="py-16 text-center text-slate-400 font-medium">해당 유형의 신청 내역이 없습니다.</div>
+        )}
       </div>
-    </div>
+
+      {/* CTA Banner */}
+      <div className="bg-[var(--color-primary-subtle)] border border-[var(--color-primary-border)]/20 rounded-[16px] p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div className="space-y-1 text-center sm:text-left">
+          <h3 className="text-lg font-black text-slate-900">새 리빙랩 과제에 참여해 보세요!</h3>
+          <p className="text-slate-500 font-medium text-sm">제3기 리빙랩 모집이 진행 중입니다.</p>
+        </div>
+        <Link
+          to="/announcements"
+          className="flex items-center gap-2 px-6 py-3 bg-[var(--color-primary)] text-white rounded-[16px] font-black text-sm hover:bg-[var(--color-primary-hover)] transition-all shadow-lg shadow-[var(--color-primary)]/20 whitespace-nowrap"
+        >
+          리빙랩 바로가기 <ArrowRight size={16} />
+        </Link>
+      </div>
+    </MyPageLayout>
   );
 }

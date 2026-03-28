@@ -16,8 +16,10 @@ export default function Layout() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isFullMenuOpen, setIsFullMenuOpen] = useState(false);
   const [hoveredMenu, setHoveredMenu] = useState<string | null>(null);
+  const [isAccountDropdownOpen, setIsAccountDropdownOpen] = useState(false);
   const location = useLocation();
   const menuRef = useRef<HTMLDivElement>(null);
+  const accountRef = useRef<HTMLDivElement>(null);
 
   // Helper to determine active menu
   const isActive = (path: string) => location.pathname === path;
@@ -27,6 +29,17 @@ export default function Layout() {
     const handleClickOutside = (event: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
         setIsFullMenuOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  // Close account dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (accountRef.current && !accountRef.current.contains(event.target as Node)) {
+        setIsAccountDropdownOpen(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -144,11 +157,65 @@ export default function Layout() {
                 <Bell size={20} />
                 <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
               </button>
-              <div className="flex items-center gap-2 text-gray-700">
-                <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">
-                  <User size={18} />
-                </div>
-                <span className="text-sm font-medium">홍길동</span>
+              <div
+                ref={accountRef}
+                className="relative"
+                onMouseEnter={() => setIsAccountDropdownOpen(true)}
+                onMouseLeave={() => setIsAccountDropdownOpen(false)}
+              >
+                <Link
+                  to="/my/applications"
+                  className="flex items-center gap-2 text-gray-700 hover:text-primary transition-colors"
+                >
+                  <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">
+                    <User size={18} />
+                  </div>
+                  <span className="text-sm font-medium">홍길동</span>
+                </Link>
+
+                {isAccountDropdownOpen && (
+                  <div className="absolute right-0 top-full mt-2 w-[220px] bg-[var(--color-bg-elevated)] border border-line-normal rounded-lg shadow-md z-50">
+                    {/* Profile */}
+                    <div className="px-4 py-3">
+                      <p className="text-sm font-bold text-slate-900">홍길동</p>
+                      <p className="text-xs text-slate-400 mt-0.5">citizen@gwangmyeong.kr</p>
+                      <span className="inline-block mt-2 px-2 py-0.5 bg-[var(--color-primary-subtle)] text-[var(--color-primary)] text-[10px] font-bold rounded">
+                        🌿 탄소중립 실천자
+                      </span>
+                    </div>
+                    <div className="border-t border-line-normal" />
+                    {/* Menu items */}
+                    <div className="py-1">
+                      {[
+                        { icon: '📑', title: '사업신청내역', path: '/my/applications' },
+                        { icon: '💾', title: '데이터 신청내역', path: '/my/data' },
+                        { icon: '⭐', title: '관심사업 관리', path: '/my/interests' },
+                        { icon: '👤', title: '계정 및 정보관리', path: '/my/account' },
+                      ].map(item => (
+                        <Link
+                          key={item.path}
+                          to={item.path}
+                          className={`flex items-center gap-2 px-4 py-2 text-sm hover:bg-fill-normal transition-colors ${
+                            isActive(item.path) ? 'text-primary font-medium' : 'text-slate-700'
+                          }`}
+                        >
+                          <span>{item.icon}</span>
+                          {item.title}
+                        </Link>
+                      ))}
+                    </div>
+                    <div className="border-t border-line-normal" />
+                    {/* Logout */}
+                    <div className="py-1">
+                      <Link
+                        to="/"
+                        className="flex items-center px-4 py-2 text-sm text-slate-500 hover:bg-fill-normal transition-colors"
+                      >
+                        로그아웃
+                      </Link>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
             
