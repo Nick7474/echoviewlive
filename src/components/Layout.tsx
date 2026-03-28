@@ -389,7 +389,9 @@ export default function Layout() {
                       <div key={section.title} className="py-8 first:pt-0 border-b border-line-neutral last:border-0">
                         <Link
                           to={section.path}
-                          className="block text-base font-bold mb-6 text-gray-900 hover:opacity-80 transition-opacity"
+                          className={`block text-base font-bold mb-6 hover:opacity-80 transition-opacity ${
+                            active ? 'text-[var(--color-primary)]' : 'text-gray-900'
+                          }`}
                         >
                           {section.title}
                         </Link>
@@ -402,8 +404,8 @@ export default function Layout() {
                                   to={item.path}
                                   className={`block text-sm transition-colors ${
                                     isItemActive
-                                      ? 'text-[var(--color-primary)] font-medium'
-                                      : 'text-label-alternative hover:text-[var(--color-primary)]'
+                                      ? 'text-gray-900 font-bold'
+                                      : 'text-label-alternative hover:text-gray-900'
                                   }`}
                                 >
                                   - {item.title}
@@ -420,7 +422,9 @@ export default function Layout() {
                     <div key={section.title} className="py-8 first:pt-0 border-b border-line-neutral last:border-0">
                       <Link
                         to={section.path}
-                        className="block text-base font-bold text-gray-900 hover:opacity-80 transition-opacity"
+                        className={`block text-base font-bold hover:opacity-80 transition-opacity ${
+                          isActive(section.path) ? 'text-[var(--color-primary)]' : 'text-gray-900'
+                        }`}
                       >
                         {section.title}
                       </Link>
