@@ -122,7 +122,7 @@ export default function Layout() {
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center h-full ml-auto mr-auto">
+          <nav className="hidden lg:flex items-center h-full ml-auto mr-auto -translate-x-5">
             <ul className="grid grid-cols-6 h-full w-[1080px]">
               {NAVIGATION_MENU.map((menu) => {
                 const isMenuOpen = current1Depth?.title === menu.title;
@@ -391,16 +391,16 @@ export default function Layout() {
 
                   if (hasSubChildren) {
                     return (
-                      <div key={section.title} className="py-5 first:pt-0 border-b border-line-neutral last:border-0">
+                      <div key={section.title} className="py-8 first:pt-0 border-b border-line-neutral last:border-0">
                         <Link
                           to={section.path}
-                          className={`block text-[13px] font-medium mb-3 transition-colors ${
-                            active ? 'text-primary' : 'text-label-normal hover:text-primary'
+                          className={`block text-base font-bold mb-6 hover:opacity-80 transition-opacity ${
+                            active ? 'text-primary' : 'text-gray-900'
                           }`}
                         >
                           {section.title}
                         </Link>
-                        <ul className="space-y-2">
+                        <ul className="space-y-4">
                           {section.children?.map((item) => {
                             const isItemActive = isActive(item.path);
                             return (
@@ -413,7 +413,7 @@ export default function Layout() {
                                       : 'text-label-alternative hover:text-primary'
                                   }`}
                                 >
-                                  {item.title}
+                                  - {item.title}
                                 </Link>
                               </li>
                             );
@@ -433,7 +433,7 @@ export default function Layout() {
                             : 'text-label-alternative hover:text-primary'
                         }`}
                       >
-                        {section.title}
+                        - {section.title}
                       </Link>
                     </div>
                   );
