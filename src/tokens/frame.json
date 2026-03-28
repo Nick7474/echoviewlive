@@ -1,0 +1,31 @@
+{
+  "Radius": {
+    "$value": {
+      "Medium": 14,
+      "Small": 12,
+      "Large": 16,
+      "Xlarge": 20
+    },
+    "$type": "number"
+  },
+  "Padding": {
+    "Horizontal": {
+      "$value": {
+        "Medium": 16,
+        "Small": 12,
+        "Large": 20,
+        "Xlarge": 24
+      },
+      "$type": "number"
+    },
+    "Vertical": {
+      "$value": {
+        "Medium": 4,
+        "Small": 4,
+        "Large": 4,
+        "Xlarge": 8
+      },
+      "$type": "number"
+    }
+  }
+}

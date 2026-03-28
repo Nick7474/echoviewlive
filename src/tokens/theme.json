@@ -1,0 +1,435 @@
+{
+  "Primary": {
+    "Normal": {
+      "$value": {
+        "Light": "{Atomic.Teal.50}",
+        "Dark": "{Atomic.Teal.60}"
+      },
+      "$type": "color"
+    },
+    "Strong": {
+      "$value": {
+        "Light": "{Atomic.Teal.45}",
+        "Dark": "{Atomic.Teal.55}"
+      },
+      "$type": "color"
+    },
+    "Heavy": {
+      "$value": {
+        "Light": "{Atomic.Teal.40}",
+        "Dark": "{Atomic.Teal.50}"
+      },
+      "$type": "color"
+    }
+  },
+  "Label": {
+    "Normal": {
+      "$value": {
+        "Light": "{Atomic.Cool Neutral.10}",
+        "Dark": "{Atomic.Cool Neutral.99}"
+      },
+      "$type": "color"
+    },
+    "Strong": {
+      "$value": {
+        "Light": "{Atomic.Common.0}",
+        "Dark": "{Atomic.Common.100}"
+      },
+      "$type": "color"
+    },
+    "Neutral": {
+      "$value": {
+        "Light": "rgba(46, 47, 51, 0.88)",
+        "Dark": "rgba(194, 196, 200, 0.88)"
+      },
+      "$type": "color",
+      "$description": "Light: Cool Neutral/22, Opacity/88\nDark: Cool Neutral/90, Opacity/88"
+    },
+    "Alternative": {
+      "$value": {
+        "Light": "rgba(55, 56, 60, 0.61)",
+        "Dark": "rgba(174, 176, 182, 0.61)"
+      },
+      "$type": "color",
+      "$description": "Light: Cool Neutral/25, Opacity/61\nDark: Cool Neutral/80, Opacity/61"
+    },
+    "Assistive": {
+      "$value": {
+        "Light": "rgba(55, 56, 60, 0.28)",
+        "Dark": "rgba(174, 176, 182, 0.28)"
+      },
+      "$type": "color",
+      "$description": "Light: Cool Neutral/25, Opacity/28\nDark: Cool Neutral/80, Opacity/28"
+    },
+    "Disable": {
+      "$value": {
+        "Light": "rgba(55, 56, 60, 0.16)",
+        "Dark": "rgba(152, 155, 162, 0.16)"
+      },
+      "$type": "color",
+      "$description": "Light: Cool Neutral/25, Opacity/16\nDark: Cool Neutral/70, Opacity/16"
+    }
+  },
+  "Background": {
+    "Normal": {
+      "Normal": {
+        "$value": {
+          "Light": "{Atomic.Common.100}",
+          "Dark": "{Atomic.Cool Neutral.15}"
+        },
+        "$type": "color"
+      },
+      "Alternative": {
+        "$value": {
+          "Light": "{Atomic.Cool Neutral.99}",
+          "Dark": "{Atomic.Cool Neutral.5}"
+        },
+        "$type": "color"
+      }
+    },
+    "Elevated": {
+      "Normal": {
+        "$value": {
+          "Light": "{Atomic.Common.100}",
+          "Dark": "{Atomic.Cool Neutral.17}"
+        },
+        "$type": "color"
+      },
+      "Alternative": {
+        "$value": {
+          "Light": "{Atomic.Cool Neutral.99}",
+          "Dark": "{Atomic.Cool Neutral.7}"
+        },
+        "$type": "color"
+      }
+    },
+    "Transparent": {
+      "Normal": {
+        "$value": {
+          "Light": "rgba(255, 255, 255, 0.08)",
+          "Dark": "rgba(33, 34, 37, 0.61)"
+        },
+        "$type": "color"
+      },
+      "Alternative": {
+        "$value": {
+          "Light": "rgba(255, 255, 255, 0.28)",
+          "Dark": "rgba(33, 34, 37, 0.61)"
+        },
+        "$type": "color"
+      }
+    }
+  },
+  "Interaction": {
+    "Inactive": {
+      "$value": {
+        "Light": "{Atomic.Cool Neutral.70}",
+        "Dark": "{Atomic.Cool Neutral.40}"
+      },
+      "$type": "color"
+    },
+    "Disable": {
+      "$value": {
+        "Light": "{Atomic.Cool Neutral.98}",
+        "Dark": "{Atomic.Cool Neutral.22}"
+      },
+      "$type": "color"
+    }
+  },
+  "Line": {
+    "Normal": {
+      "Normal": {
+        "$value": {
+          "Light": "rgba(112, 115, 124, 0.22)",
+          "Dark": "rgba(112, 115, 124, 0.32)"
+        },
+        "$type": "color",
+        "$description": "Light: Cool Neutral/50, Opacity/22\nDark: Cool Neutral/50, Opacity/32"
+      },
+      "Neutral": {
+        "$value": {
+          "Light": "rgba(112, 115, 124, 0.16)",
+          "Dark": "rgba(112, 115, 124, 0.28)"
+        },
+        "$type": "color",
+        "$description": "Light: Cool Neutral/50, Opacity/16\nDark: Cool Neutral/50, Opacity/28"
+      },
+      "Alternative": {
+        "$value": {
+          "Light": "rgba(112, 115, 124, 0.08)",
+          "Dark": "rgba(112, 115, 124, 0.22)"
+        },
+        "$type": "color",
+        "$description": "Light: Cool Neutral/50, Opacity/8\nDark: Cool Neutral/50, Opacity/22"
+      },
+      "-Strong": {
+        "$value": {
+          "Light": "rgba(112, 115, 124, 0.52)",
+          "Dark": "rgba(194, 196, 200, 0.52)"
+        },
+        "$type": "color",
+        "$description": "Light: Cool Neutral/50, Opacity/52\nDark: Cool Neutral/90, Opacity/52"
+      }
+    },
+    "Solid": {
+      "Normal": {
+        "$value": {
+          "Light": "{Atomic.Cool Neutral.96}",
+          "Dark": "{Atomic.Cool Neutral.25}"
+        },
+        "$type": "color"
+      },
+      "Neutral": {
+        "$value": {
+          "Light": "{Atomic.Cool Neutral.97}",
+          "Dark": "{Atomic.Cool Neutral.23}"
+        },
+        "$type": "color"
+      },
+      "Alternative": {
+        "$value": {
+          "Light": "{Atomic.Cool Neutral.98}",
+          "Dark": "{Atomic.Cool Neutral.22}"
+        },
+        "$type": "color"
+      },
+      "-Strong": {
+        "$value": {
+          "Light": "{Atomic.Cool Neutral.80}",
+          "Dark": "{Atomic.Cool Neutral.50}"
+        },
+        "$type": "color"
+      }
+    }
+  },
+  "Fill": {
+    "Normal": {
+      "$value": {
+        "Light": "rgba(112, 115, 124, 0.08)",
+        "Dark": "rgba(112, 115, 124, 0.22)"
+      },
+      "$type": "color",
+      "$description": "Light: Cool Neutral/50, Opacity/8\nDark: Cool Neutral/50, Opacity/22"
+    },
+    "Strong": {
+      "$value": {
+        "Light": "rgba(112, 115, 124, 0.16)",
+        "Dark": "rgba(112, 115, 124, 0.28)"
+      },
+      "$type": "color",
+      "$description": "Light: Cool Neutral/50, Opacity/16\nDark: Cool Neutral/50, Opacity/28"
+    },
+    "Alternative": {
+      "$value": {
+        "Light": "rgba(112, 115, 124, 0.05)",
+        "Dark": "rgba(112, 115, 124, 0.12)"
+      },
+      "$type": "color",
+      "$description": "Light: Cool Neutral/50, Opacity/5\nDark: Cool Neutral/50, Opacity/12"
+    }
+  },
+  "Status": {
+    "Positive": {
+      "$value": {
+        "Light": "{Atomic.Green.50}",
+        "Dark": "{Atomic.Green.60}"
+      },
+      "$type": "color"
+    },
+    "Cautionary": {
+      "$value": {
+        "Light": "{Atomic.Orange.50}",
+        "Dark": "{Atomic.Orange.60}"
+      },
+      "$type": "color"
+    },
+    "Negative": {
+      "$value": {
+        "Light": "{Atomic.Red.50}",
+        "Dark": "{Atomic.Red.60}"
+      },
+      "$type": "color"
+    }
+  },
+  "Static": {
+    "White": {
+      "$value": {
+        "Light": "{Atomic.Common.100}",
+        "Dark": "{Atomic.Common.100}"
+      },
+      "$type": "color"
+    },
+    "Black": {
+      "$value": {
+        "Light": "{Atomic.Common.0}",
+        "Dark": "{Atomic.Common.0}"
+      },
+      "$type": "color"
+    }
+  },
+  "Accent": {
+    "Background": {
+      "Lime": {
+        "$value": {
+          "Light": "{Atomic.Lime.50}",
+          "Dark": "{Atomic.Lime.60}"
+        },
+        "$type": "color"
+      },
+      "Cyan": {
+        "$value": {
+          "Light": "{Atomic.Cyan.50}",
+          "Dark": "{Atomic.Cyan.60}"
+        },
+        "$type": "color"
+      },
+      "Light-Blue": {
+        "$value": {
+          "Light": "{Atomic.Light Blue.50}",
+          "Dark": "{Atomic.Light Blue.60}"
+        },
+        "$type": "color"
+      },
+      "Violet": {
+        "$value": {
+          "Light": "{Atomic.Violet.50}",
+          "Dark": "{Atomic.Violet.60}"
+        },
+        "$type": "color"
+      },
+      "Purple": {
+        "$value": {
+          "Light": "{Atomic.Purple.50}",
+          "Dark": "{Atomic.Purple.60}"
+        },
+        "$type": "color"
+      },
+      "Pink": {
+        "$value": {
+          "Light": "{Atomic.Pink.50}",
+          "Dark": "{Atomic.Pink.60}"
+        },
+        "$type": "color"
+      },
+      "Red-Orange": {
+        "$value": {
+          "Light": "{Atomic.Red Orange.50}",
+          "Dark": "{Atomic.Red Orange.60}"
+        },
+        "$type": "color"
+      }
+    },
+    "Foreground": {
+      "Red": {
+        "$value": {
+          "Light": "{Atomic.Red.40}",
+          "Dark": "{Atomic.Red.60}"
+        },
+        "$type": "color"
+      },
+      "Red-Orange": {
+        "$value": {
+          "Light": "{Atomic.Red Orange.48}",
+          "Dark": "{Atomic.Red Orange.60}"
+        },
+        "$type": "color"
+      },
+      "Orange": {
+        "$value": {
+          "Light": "{Atomic.Orange.39}",
+          "Dark": "{Atomic.Orange.50}"
+        },
+        "$type": "color"
+      },
+      "Lime": {
+        "$value": {
+          "Light": "{Atomic.Lime.37}",
+          "Dark": "{Atomic.Lime.50}"
+        },
+        "$type": "color"
+      },
+      "Green": {
+        "$value": {
+          "Light": "{Atomic.Green.40}",
+          "Dark": "{Atomic.Green.60}"
+        },
+        "$type": "color"
+      },
+      "Cyan": {
+        "$value": {
+          "Light": "{Atomic.Cyan.40}",
+          "Dark": "{Atomic.Cyan.50}"
+        },
+        "$type": "color"
+      },
+      "Light-Blue": {
+        "$value": {
+          "Light": "{Atomic.Light Blue.40}",
+          "Dark": "{Atomic.Light Blue.50}"
+        },
+        "$type": "color"
+      },
+      "Blue": {
+        "$value": {
+          "Light": "{Atomic.Blue.45}",
+          "Dark": "{Atomic.Blue.65}"
+        },
+        "$type": "color"
+      },
+      "Violet": {
+        "$value": {
+          "Light": "{Atomic.Violet.45}",
+          "Dark": "{Atomic.Violet.70}"
+        },
+        "$type": "color"
+      },
+      "Purple": {
+        "$value": {
+          "Light": "{Atomic.Purple.40}",
+          "Dark": "{Atomic.Purple.60}"
+        },
+        "$type": "color"
+      },
+      "Pink": {
+        "$value": {
+          "Light": "{Atomic.Pink.46}",
+          "Dark": "{Atomic.Pink.60}"
+        },
+        "$type": "color"
+      }
+    }
+  },
+  "Material": {
+    "Dimmer": {
+      "$value": {
+        "Light": "rgba(23, 23, 25, 0.52)",
+        "Dark": "rgba(23, 23, 25, 0.74)"
+      },
+      "$type": "color",
+      "$description": "Light: Cool Neutral/10, Opacity/52\nDark: Cool Neutral/50, Opacity/74"
+    }
+  },
+  "Inverse": {
+    "Primary": {
+      "$value": {
+        "Light": "{Atomic.Teal.60}",
+        "Dark": "{Atomic.Teal.50}"
+      },
+      "$type": "color"
+    },
+    "Background": {
+      "$value": {
+        "Light": "{Atomic.Cool Neutral.15}",
+        "Dark": "{Atomic.Common.100}"
+      },
+      "$type": "color"
+    },
+    "Label": {
+      "$value": {
+        "Light": "{Atomic.Cool Neutral.99}",
+        "Dark": "{Atomic.Cool Neutral.10}"
+      },
+      "$type": "color"
+    }
+  }
+}

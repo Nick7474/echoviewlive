@@ -1,0 +1,62 @@
+{
+  "Value": {
+    "Width": {
+      "Viewport": {
+        "lg": {
+          "$value": {
+            "Mobile": 1100,
+            "Desktop": 1100
+          },
+          "$type": "size"
+        },
+        "xl": {
+          "$value": {
+            "Mobile": 1440,
+            "Desktop": 1440
+          },
+          "$type": "number"
+        }
+      }
+    },
+    "Space": {
+      "Gap": {
+        "Normal": {
+          "$value": {
+            "Mobile": 16,
+            "Desktop": 20
+          },
+          "$type": "spacing"
+        }
+      }
+    },
+    "Padding": {
+      "Card": {
+        "Tiny": {
+          "$value": {
+            "Mobile": 4,
+            "Desktop": 6
+          },
+          "$type": "spacing"
+        }
+      }
+    },
+    "Margin": {
+      "Platform": {
+        "$value": {
+          "Mobile": 20,
+          "Desktop": 20
+        },
+        "$type": "spacing"
+      }
+    }
+  },
+  "Variant": {
+    "Platform": {
+      "$value": {
+        "Mobile": "Mobile",
+        "Desktop": "Desktop"
+      },
+      "$type": "string"
+    }
+  }
+}

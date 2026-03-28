@@ -1,0 +1,55 @@
+@import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
+@import './tokens/tokens.css';
+
+@theme {
+  /* Primary */
+  --color-primary:        var(--teal-50);
+  --color-primary-strong: var(--teal-45);
+  --color-primary-heavy:  var(--teal-40);
+  --color-primary-hover:  var(--teal-45);
+  --color-primary-active: var(--teal-40);
+  --color-primary-subtle: var(--teal-95);
+  --color-primary-muted:  var(--teal-90);
+  --color-primary-border: var(--teal-70);
+
+  /* Label */
+  --color-label-normal:      #171719;
+  --color-label-strong:      #000000;
+  --color-label-neutral:     rgba(46, 47, 51, 0.88);
+  --color-label-alternative: rgba(55, 56, 60, 0.61);
+  --color-label-assistive:   rgba(55, 56, 60, 0.28);
+  --color-label-disable:     rgba(55, 56, 60, 0.16);
+
+  /* Background */
+  --color-bg-normal:     #ffffff;
+  --color-bg-normal-alt: #f5f5f7;
+  --color-bg-elevated:   #ffffff;
+
+  /* Line */
+  --color-line-normal:  rgba(112, 115, 124, 0.22);
+  --color-line-neutral: rgba(112, 115, 124, 0.16);
+  --color-line-strong:  rgba(112, 115, 124, 0.52);
+
+  /* Fill */
+  --color-fill-normal:      rgba(112, 115, 124, 0.08);
+  --color-fill-strong:      rgba(112, 115, 124, 0.16);
+  --color-fill-alternative: rgba(112, 115, 124, 0.05);
+
+  /* Status */
+  --color-status-positive:   #00bf40;
+  --color-status-cautionary: #f58900;
+  --color-status-negative:   #f03030;
+
+  /* Radius */
+  --radius-sm: 12px;
+  --radius-md: 14px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+}
+
+@layer base {
+  body {
+    @apply text-gray-800 bg-white;
+  }
+}

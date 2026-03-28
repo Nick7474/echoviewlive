@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -oP '\\(border-line|text-accent|bg-accent|text-secondary|bg-bg-light\\)\\(?=[^-\\\\w]|$\\)')",
+      "Bash(python3:*)",
+      "Bash(python3 -c \":*)",
+      "Bash(npm run:*)",
+      "Bash(echo $SHELL)",
+      "Bash(mdfind -name npm -onlyin /usr/local)",
+      "Bash(mdfind -name npm -onlyin /opt)",
+      "Bash(mdfind -name npm -onlyin /Applications)"
+    ]
+  }
+}

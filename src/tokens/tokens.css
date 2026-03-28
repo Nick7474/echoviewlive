@@ -1,0 +1,75 @@
+/* ============================================
+   Design Tokens — Teal Primary Scale
+   Base color: #069F7C (step 50)
+   Generated from Figma token system
+   ============================================ */
+
+:root {
+  /* ── Atomic: Teal scale ── */
+  --teal-10: #002119;
+  --teal-20: #014133;
+  --teal-30: #01654E;
+  --teal-40: #028567;
+  --teal-45: #059171;
+  --teal-50: #069F7C;
+  --teal-55: #07BD94;
+  --teal-60: #08E0AE;
+  --teal-65: #26E5BA;
+  --teal-70: #46E9C4;
+  --teal-80: #8DE3CF;
+  --teal-90: #C7E8E0;
+  --teal-95: #E3EFED;
+  --teal-99: #F4F9F8;
+
+  /* ── Theme: Primary (Light) ── */
+  --color-primary:       var(--teal-50);  /* #069F7C */
+  --color-primary-strong: var(--teal-45); /* #059171 */
+  --color-primary-heavy:  var(--teal-40); /* #028567 */
+
+  /* ── Primary utility variants ── */
+  --color-primary-hover:   var(--teal-45);
+  --color-primary-active:  var(--teal-40);
+  --color-primary-subtle:  var(--teal-95);
+  --color-primary-muted:   var(--teal-90);
+  --color-primary-border:  var(--teal-70);
+  --color-primary-text-on: #ffffff;
+
+  /* ── Label (Light) ── */
+  --color-label-normal:      #171719;
+  --color-label-strong:      #000000;
+  --color-label-neutral:     rgba(46, 47, 51, 0.88);
+  --color-label-alternative: rgba(55, 56, 60, 0.61);
+  --color-label-assistive:   rgba(55, 56, 60, 0.28);
+  --color-label-disable:     rgba(55, 56, 60, 0.16);
+
+  /* ── Background (Light) ── */
+  --color-bg-normal:     #ffffff;
+  --color-bg-normal-alt: #f5f5f7;
+  --color-bg-elevated:   #ffffff;
+
+  /* ── Line (Light) ── */
+  --color-line-normal:    rgba(112, 115, 124, 0.22);
+  --color-line-neutral:   rgba(112, 115, 124, 0.16);
+  --color-line-strong:    rgba(112, 115, 124, 0.52);
+
+  /* ── Fill (Light) ── */
+  --color-fill-normal:      rgba(112, 115, 124, 0.08);
+  --color-fill-strong:      rgba(112, 115, 124, 0.16);
+  --color-fill-alternative: rgba(112, 115, 124, 0.05);
+
+  /* ── Status ── */
+  --color-status-positive:   #00bf40;
+  --color-status-cautionary: #f58900;
+  --color-status-negative:   #f03030;
+
+  /* ── Frame ── */
+  --radius-small:  12px;
+  --radius-medium: 14px;
+  --radius-large:  16px;
+  --radius-xlarge: 20px;
+
+  /* ── Spacing (Desktop) ── */
+  --gap-normal:        20px;
+  --padding-card-tiny: 6px;
+  --margin-platform:   20px;
+}
