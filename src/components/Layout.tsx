@@ -409,8 +409,8 @@ export default function Layout() {
                                   to={item.path}
                                   className={`block text-sm transition-colors ${
                                     isItemActive
-                                      ? 'text-primary font-medium'
-                                      : 'text-label-alternative hover:text-primary'
+                                      ? 'text-[var(--color-primary)] font-medium'
+                                      : 'text-label-alternative hover:text-[var(--color-primary)]'
                                   }`}
                                 >
                                   - {item.title}
@@ -429,8 +429,8 @@ export default function Layout() {
                         to={section.path}
                         className={`block text-sm transition-colors ${
                           isActive(section.path)
-                            ? 'text-primary font-medium'
-                            : 'text-label-alternative hover:text-primary'
+                            ? 'text-[var(--color-primary)] font-medium'
+                            : 'text-label-alternative hover:text-[var(--color-primary)]'
                         }`}
                       >
                         - {section.title}
