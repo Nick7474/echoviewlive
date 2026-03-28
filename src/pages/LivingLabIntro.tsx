@@ -225,7 +225,7 @@ export default function LivingLabIntro() {
         <div className="overflow-x-auto pb-4 scrollbar-hide">
           <div className="min-w-[800px]">
             {/* Timeline Header (Months) */}
-            <div className="grid grid-cols-[160px_1fr] border-b border-line-normal pb-4 mb-6">
+            <div className="grid grid-cols-[160px_1fr] border-b border-line-neutral pb-4 mb-6">
               <div />
               <div className="grid grid-cols-12 text-center text-xs font-bold text-gray-400">
                 {Array.from({ length: 12 }).map((_, i) => (

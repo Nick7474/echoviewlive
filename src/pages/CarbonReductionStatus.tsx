@@ -197,7 +197,7 @@ export default function CarbonReductionStatus() {
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-slate-50/50 border-b border-line-normal">
+              <tr className="bg-slate-50/50 border-b border-line-neutral">
                 <th className="px-8 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">마일스톤 항목</th>
                 <th className="px-8 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest text-center">목표치</th>
                 <th className="px-8 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest text-center">현재 달성</th>
@@ -205,7 +205,7 @@ export default function CarbonReductionStatus() {
                 <th className="px-8 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest text-center">상태</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-line">
+            <tbody className="divide-y divide-line-neutral">
               {[
                 { name: '재생에너지 전환율 목표', target: '30%', current: '24.8%', percent: 82.7, status: '진행 중', color: 'emerald' },
                 { name: '친환경 차량 보급률', target: '25%', current: '18.2%', percent: 72.8, status: '진행 중', color: 'blue' },

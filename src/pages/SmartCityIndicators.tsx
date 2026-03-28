@@ -241,7 +241,7 @@ export default function SmartCityIndicators() {
 
       {/* Detailed Indicators Table */}
       <section className="bg-white rounded-[24px] shadow-sm border border-line-normal overflow-hidden">
-        <div className="p-10 border-b border-line-normal flex flex-col sm:flex-row items-center justify-between gap-8">
+        <div className="p-10 border-b border-line-neutral flex flex-col sm:flex-row items-center justify-between gap-8">
           <div className="space-y-1">
             <h3 className="text-2xl font-black text-slate-900">세부 지표 목록</h3>
             <p className="text-slate-400 font-medium">광명시 스마트도시 기본계획에 따른 32개 세부 지표입니다.</p>
@@ -260,7 +260,7 @@ export default function SmartCityIndicators() {
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-slate-50/50 border-b border-line-normal">
+              <tr className="bg-slate-50/50 border-b border-line-neutral">
                 <th className="px-10 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest">분야</th>
                 <th className="px-10 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest">지표명</th>
                 <th className="px-10 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest">단위</th>
@@ -269,7 +269,7 @@ export default function SmartCityIndicators() {
                 <th className="px-10 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest">상태</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-line">
+            <tbody className="divide-y divide-line-neutral">
               {[
                 { cat: '모빌리티', name: '스마트 주차장 이용률', unit: '%', current: '68.4', target: '80.0', status: 'normal' },
                 { cat: '환경', name: '스마트 쓰레기통 보급률', unit: '%', current: '42.5', target: '60.0', status: 'warning' },

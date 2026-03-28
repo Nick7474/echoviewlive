@@ -143,14 +143,14 @@ export default function DataDetail() {
               <div className="overflow-x-auto rounded-[16px] border border-line-normal">
                 <table className="w-full text-left border-collapse">
                   <thead>
-                    <tr className="bg-gray-50 border-b border-line-normal">
+                    <tr className="bg-gray-50 border-b border-line-neutral">
                       <th className="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest">측정일시</th>
                       <th className="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest">측정소명</th>
                       <th className="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest text-center">미세먼지(PM10)</th>
                       <th className="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest text-center">초미세먼지(PM2.5)</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-line">
+                  <tbody className="divide-y divide-line-neutral">
                     {[1, 2, 3, 4, 5].map((i) => (
                       <tr key={i} className="hover:bg-gray-50/50 transition-colors">
                         <td className="px-6 py-4 text-sm font-medium text-slate-600">2024-03-26 14:00</td>
@@ -190,31 +190,31 @@ export default function DataDetail() {
             <div className="space-y-4">
               <h4 className="text-sm font-black text-slate-400 uppercase tracking-widest">데이터 상세 정보</h4>
               <div className="space-y-4">
-                <div className="flex items-center justify-between py-3 border-b border-line-normal">
+                <div className="flex items-center justify-between py-3 border-b border-line-neutral">
                   <div className="flex items-center gap-2 text-slate-500 font-bold text-sm">
                     <Building2 size={16} /> 제공부서
                   </div>
                   <span className="text-slate-900 font-black text-sm">{mockDetailData.department}</span>
                 </div>
-                <div className="flex items-center justify-between py-3 border-b border-line-normal">
+                <div className="flex items-center justify-between py-3 border-b border-line-neutral">
                   <div className="flex items-center gap-2 text-slate-500 font-bold text-sm">
                     <Calendar size={16} /> 등록일
                   </div>
                   <span className="text-slate-900 font-black text-sm">{mockDetailData.regDate}</span>
                 </div>
-                <div className="flex items-center justify-between py-3 border-b border-line-normal">
+                <div className="flex items-center justify-between py-3 border-b border-line-neutral">
                   <div className="flex items-center gap-2 text-slate-500 font-bold text-sm">
                     <RefreshCw size={16} /> 갱신주기
                   </div>
                   <span className="text-slate-900 font-black text-sm">{mockDetailData.updateCycle}</span>
                 </div>
-                <div className="flex items-center justify-between py-3 border-b border-line-normal">
+                <div className="flex items-center justify-between py-3 border-b border-line-neutral">
                   <div className="flex items-center gap-2 text-slate-500 font-bold text-sm">
                     <Database size={16} /> 데이터 형식
                   </div>
                   <span className="text-slate-900 font-black text-sm">{mockDetailData.format}</span>
                 </div>
-                <div className="flex items-center justify-between py-3 border-b border-line-normal">
+                <div className="flex items-center justify-between py-3 border-b border-line-neutral">
                   <div className="flex items-center gap-2 text-slate-500 font-bold text-sm">
                     {mockDetailData.accessStatus === '공개' ? <Unlock size={16} /> : <Lock size={16} />} 
                     이용상태

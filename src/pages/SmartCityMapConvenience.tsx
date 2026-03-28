@@ -122,7 +122,7 @@ export default function SmartCityMapConvenience() {
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
       {/* Real-time Table */}
       <div className="bg-white rounded-2xl border border-line-normal shadow-sm overflow-hidden">
-        <div className="p-5 border-b border-line-normal flex items-center gap-2">
+        <div className="p-5 border-b border-line-neutral flex items-center gap-2">
           <Siren size={20} className="text-primary" />
           <h3 className="font-bold text-gray-900">실시간 재난안전</h3>
         </div>
@@ -136,7 +136,7 @@ export default function SmartCityMapConvenience() {
                 <th className="px-6 py-3">처리상태</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-line">
+            <tbody className="divide-y divide-line-neutral">
                 { [
                 { type: '구조', time: '26-03-27 14:43', addr: '광명시 철산동', status: '출동보고' },
                 { type: '구조', time: '26-03-27 13:13', addr: '광명시 하안동', status: '출동보고' },

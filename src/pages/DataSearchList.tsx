@@ -330,7 +330,7 @@ export default function DataSearchList() {
 
       {/* Section 3: Filters & Data List (Restored Design) */}
       <section className="space-y-8">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pb-6 border-b border-line-normal">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pb-6 border-b border-line-neutral">
           <div className="flex items-center gap-4">
             <h3 className="text-xl font-black text-gray-900">데이터 목록</h3>
             <span className="text-sm font-bold text-gray-400">총 {filteredData.length}건</span>
@@ -664,7 +664,7 @@ export default function DataSearchList() {
                           <th className="px-6 py-4">상태</th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-line font-medium text-gray-600">
+                      <tbody className="divide-y divide-line-neutral font-medium text-gray-600">
                         {[1, 2, 3].map(i => (
                           <tr key={i}>
                             <td className="px-6 py-4 font-mono">000{i}</td>

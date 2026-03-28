@@ -16,7 +16,7 @@ export default function MyInterests() {
       </header>
 
       <div className="bg-white rounded-[24px] shadow-sm border border-line-normal overflow-hidden">
-        <div className="p-8 border-b border-line-normal flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div className="p-8 border-b border-line-neutral flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-4">
             <div className="relative">
               <input 
@@ -37,7 +37,7 @@ export default function MyInterests() {
           </div>
         </div>
 
-        <div className="divide-y divide-line">
+        <div className="divide-y divide-line-neutral">
           {interests.map((item) => (
             <motion.div 
               key={item.id}

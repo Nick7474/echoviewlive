@@ -106,7 +106,7 @@ export default function OpenLabAnnouncements() {
       <div className="bg-white p-8 rounded-[32px] border border-line-normal shadow-sm space-y-8">
         <div className="flex flex-wrap items-center justify-between gap-8">
           {/* Status Tabs */}
-          <div className="flex border-b border-line-normal">
+          <div className="flex border-b border-line-neutral">
             {['전체', '모집 중', '검토 중', '마감'].map((tab) => (
               <button
                 key={tab}
@@ -163,7 +163,7 @@ export default function OpenLabAnnouncements() {
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-gray-50/50 border-b border-line-normal">
+              <tr className="bg-gray-50/50 border-b border-line-neutral">
                 <th className="px-8 py-5 text-[11px] font-black text-gray-400 uppercase tracking-widest">공고 제목</th>
                 <th className="px-8 py-5 text-[11px] font-black text-gray-400 uppercase tracking-widest text-center">분야</th>
                 <th className="px-8 py-5 text-[11px] font-black text-gray-400 uppercase tracking-widest text-center">신청기간</th>
@@ -172,7 +172,7 @@ export default function OpenLabAnnouncements() {
                 <th className="px-8 py-5 text-[11px] font-black text-gray-400 uppercase tracking-widest text-center">신청</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-line">
+            <tbody className="divide-y divide-line-neutral">
               {filteredAnnouncements.map((item) => (
                 <tr key={item.id} className="hover:bg-sky-50/20 transition-colors group">
                   <td className="px-8 py-6">

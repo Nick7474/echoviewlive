@@ -69,7 +69,7 @@ export default function MyAccount() {
             <h3 className="text-xl font-black text-slate-900 flex items-center gap-3">
               <Shield className="text-emerald-500" size={24} /> 보안 및 알림 설정
             </h3>
-            <div className="divide-y divide-line">
+            <div className="divide-y divide-line-neutral">
               {[
                 { title: '비밀번호 변경', desc: '주기적인 비밀번호 변경으로 계정을 안전하게 보호하세요.', icon: <Shield size={20} /> },
                 { title: '마케팅 알림 수신', desc: '새로운 사업 공고 및 이벤트 소식을 받아보실 수 있습니다.', icon: <Bell size={20} />, toggle: true },

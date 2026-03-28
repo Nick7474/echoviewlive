@@ -49,7 +49,7 @@
 
   /* ── Line (Light) ── */
   --color-line-normal:    rgba(112, 115, 124, 0.22);
-  --color-line-neutral:   rgba(112, 115, 124, 0.16);
+  --color-line-neutral:   rgba(112, 115, 124, 0.10);
   --color-line-strong:    rgba(112, 115, 124, 0.52);
 
   /* ── Fill (Light) ── */

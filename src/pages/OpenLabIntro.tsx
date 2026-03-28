@@ -344,7 +344,7 @@ export default function OpenLabIntro() {
         <div className="overflow-x-auto pb-4 scrollbar-hide">
           <div className="min-w-[1000px]">
             {/* Timeline Header (Months) */}
-            <div className="grid grid-cols-[200px_1fr] border-b border-line-normal pb-6 mb-8">
+            <div className="grid grid-cols-[200px_1fr] border-b border-line-neutral pb-6 mb-8">
               <div />
               <div className="grid grid-cols-12 text-center text-xs font-black text-gray-400">
                 {Array.from({ length: 12 }).map((_, i) => (

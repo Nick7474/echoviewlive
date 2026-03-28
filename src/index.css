@@ -4,14 +4,14 @@
 
 @theme {
   /* Primary */
-  --color-primary:        var(--teal-50);
-  --color-primary-strong: var(--teal-45);
-  --color-primary-heavy:  var(--teal-40);
-  --color-primary-hover:  var(--teal-45);
-  --color-primary-active: var(--teal-40);
-  --color-primary-subtle: var(--teal-95);
-  --color-primary-muted:  var(--teal-90);
-  --color-primary-border: var(--teal-70);
+  --color-primary:        #069F7C;
+  --color-primary-strong: #059171;
+  --color-primary-heavy:  #028567;
+  --color-primary-hover:  #059171;
+  --color-primary-active: #028567;
+  --color-primary-subtle: #E3EFED;
+  --color-primary-muted:  #C7E8E0;
+  --color-primary-border: #46E9C4;
 
   /* Label */
   --color-label-normal:      #171719;
@@ -27,8 +27,8 @@
   --color-bg-elevated:   #ffffff;
 
   /* Line */
-  --color-line-normal:  rgba(112, 115, 124, 0.22);
-  --color-line-neutral: rgba(112, 115, 124, 0.16);
+  --color-line-normal:  rgba(112, 115, 124, 0.12);
+  --color-line-neutral: rgba(112, 115, 124, 0.07);
   --color-line-strong:  rgba(112, 115, 124, 0.52);
 
   /* Fill */

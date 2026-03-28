@@ -135,7 +135,7 @@ export default function LivingLabSuggestion() {
       {/* Suggestion Form */}
       <section className="grid grid-cols-1 lg:grid-cols-3 gap-12">
         <div className="lg:col-span-2 space-y-8">
-          <div className="flex items-center justify-between border-b border-line-normal pb-6">
+          <div className="flex items-center justify-between border-b border-line-neutral pb-6">
             <h3 className="text-2xl font-bold text-gray-900">주제 제안하기</h3>
             <button className="text-primary text-sm font-bold flex items-center gap-1 hover:underline">
               <Download size={16} /> 제안 양식 다운로드
@@ -225,7 +225,7 @@ export default function LivingLabSuggestion() {
         <div className="space-y-8">
           {/* Data Status Card */}
           <div className="bg-white rounded-[32px] border border-line-normal shadow-sm p-8 space-y-6">
-            <div className="flex items-center gap-3 border-b border-line-normal pb-4">
+            <div className="flex items-center gap-3 border-b border-line-neutral pb-4">
               <Database className="text-primary" size={24} />
               <h4 className="font-bold text-gray-900">활용 가능 데이터 현황</h4>
             </div>

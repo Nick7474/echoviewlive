@@ -200,7 +200,7 @@ export default function CarbonNeutralStatus() {
                 { label: '산림·녹지 흡수', value: '-312', unit: 'tCO2', color: 'text-emerald-500' },
                 { label: '재생에너지 상쇄', value: '-428', unit: 'tCO2', color: 'text-emerald-500' },
               ].map((item, idx) => (
-                <div key={idx} className="flex items-center justify-between py-2 border-b border-line-normal last:border-0">
+                <div key={idx} className="flex items-center justify-between py-2 border-b border-line-neutral last:border-0">
                   <span className="text-sm font-bold text-slate-500">{item.label}</span>
                   <span className={`text-sm font-black ${item.color}`}>{item.value} {item.unit}</span>
                 </div>
@@ -283,7 +283,7 @@ export default function CarbonNeutralStatus() {
 
       {/* Real-time Sensor Data Grid */}
       <section className="bg-white rounded-[16px] shadow-sm border border-line-normal overflow-hidden">
-        <div className="p-8 border-b border-line-normal flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div className="p-8 border-b border-line-neutral flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="space-y-1">
             <h3 className="text-xl font-black text-slate-900 flex items-center gap-2">
               <MapPin className="text-emerald-500" size={24} /> 지점별 실시간 탄소 지표
@@ -307,7 +307,7 @@ export default function CarbonNeutralStatus() {
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-slate-50/50 border-b border-line-normal">
+              <tr className="bg-slate-50/50 border-b border-line-neutral">
                 <th className="px-8 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">상태</th>
                 <th className="px-8 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">지점명</th>
                 <th className="px-8 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">에너지 사용량</th>
@@ -317,7 +317,7 @@ export default function CarbonNeutralStatus() {
                 <th className="px-8 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest"></th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-line">
+            <tbody className="divide-y divide-line-neutral">
               {[
                 { name: '광명시청 본관', status: 'Normal', energy: '124 kWh', carbon: '56.2 kg', temp: '22.4°C / 45%', time: '2분 전' },
                 { name: '철산역 광장', status: 'Warning', energy: '245 kWh', carbon: '112.8 kg', temp: '24.1°C / 42%', time: '5분 전' },

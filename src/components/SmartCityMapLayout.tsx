@@ -133,7 +133,7 @@ export default function SmartCityMapLayout({ children, title, description, filte
             {/* Floating Controls (Over Map) */}
             <div className="absolute top-4 right-4 z-10 flex flex-col gap-2">
               <div className="bg-white rounded-lg shadow-md border border-line-normal flex flex-col">
-                <button className="p-2 hover:bg-gray-50 text-gray-600 border-b border-line-normal"><Plus size={18} /></button>
+                <button className="p-2 hover:bg-gray-50 text-gray-600 border-b border-line-neutral"><Plus size={18} /></button>
                 <button className="p-2 hover:bg-gray-50 text-gray-600"><Minus size={18} /></button>
               </div>
               <button className="bg-white p-2 rounded-lg shadow-md border border-line-normal text-gray-600 hover:bg-gray-50">

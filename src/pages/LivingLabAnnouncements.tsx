@@ -101,7 +101,7 @@ export default function LivingLabAnnouncements() {
       <div className="bg-white p-6 rounded-[24px] border border-line-normal shadow-sm space-y-6">
         <div className="flex flex-wrap items-center justify-between gap-6">
           {/* Status Tabs */}
-          <div className="flex border-b border-line-normal">
+          <div className="flex border-b border-line-neutral">
             {['전체', '모집 중', '검토 중', '완료'].map((tab) => (
               <button
                 key={tab}
@@ -158,7 +158,7 @@ export default function LivingLabAnnouncements() {
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-gray-50/50 border-b border-line-normal">
+              <tr className="bg-gray-50/50 border-b border-line-neutral">
                 <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider">공고 제목</th>
                 <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider text-center">마일 분야</th>
                 <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider text-center">신청기간</th>
@@ -167,7 +167,7 @@ export default function LivingLabAnnouncements() {
                 <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase tracking-wider text-center">신청</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-line">
+            <tbody className="divide-y divide-line-neutral">
               {filteredAnnouncements.map((item) => (
                 <tr key={item.id} className="hover:bg-gray-50/30 transition-colors group">
                   <td className="px-6 py-5">

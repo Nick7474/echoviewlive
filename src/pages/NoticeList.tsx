@@ -138,7 +138,7 @@ export default function NoticeList() {
               <div className="overflow-x-auto">
                 <table className="w-full text-left border-collapse">
                   <thead>
-                    <tr className="bg-gray-50/50 border-b border-line-normal">
+                    <tr className="bg-gray-50/50 border-b border-line-neutral">
                       <th className="px-8 py-5 text-sm font-black text-gray-400">번호</th>
                       <th className="px-8 py-5 text-sm font-black text-gray-400">구분</th>
                       <th className="px-8 py-5 text-sm font-black text-gray-400">제목</th>
@@ -146,7 +146,7 @@ export default function NoticeList() {
                       <th className="px-8 py-5 text-sm font-black text-gray-400 text-center">조회</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-line">
+                  <tbody className="divide-y divide-line-neutral">
                     {notices.map((notice) => (
                       <tr key={notice.id} className="hover:bg-gray-50/50 transition-colors cursor-pointer group">
                         <td className="px-8 py-6 text-sm font-bold text-gray-400">{notice.id}</td>
@@ -207,7 +207,7 @@ export default function NoticeList() {
               <div className="overflow-x-auto">
                 <table className="w-full text-left border-collapse">
                   <thead>
-                    <tr className="bg-gray-50/50 border-b border-line-normal">
+                    <tr className="bg-gray-50/50 border-b border-line-neutral">
                       <th className="px-8 py-5 text-sm font-black text-gray-400">행사명</th>
                       <th className="px-8 py-5 text-sm font-black text-gray-400 text-center">일시</th>
                       <th className="px-8 py-5 text-sm font-black text-gray-400 text-center">장소</th>
@@ -215,7 +215,7 @@ export default function NoticeList() {
                       <th className="px-8 py-5 text-sm font-black text-gray-400 text-center">신청</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-line">
+                  <tbody className="divide-y divide-line-neutral">
                     {events.map((event, idx) => (
                       <tr key={idx} className="hover:bg-gray-50/50 transition-colors cursor-pointer group">
                         <td className="px-8 py-6 text-sm font-bold text-gray-800 group-hover:text-primary transition-colors">

@@ -16,7 +16,7 @@ export default function MyDataRequests() {
       </header>
 
       <div className="bg-white rounded-[24px] shadow-sm border border-line-normal overflow-hidden">
-        <div className="p-8 border-b border-line-normal flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div className="p-8 border-b border-line-neutral flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-4">
             <div className="relative">
               <input 
@@ -38,7 +38,7 @@ export default function MyDataRequests() {
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-slate-50/50 border-b border-line-normal">
+              <tr className="bg-slate-50/50 border-b border-line-neutral">
                 <th className="px-8 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest">유형</th>
                 <th className="px-8 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest">데이터명</th>
                 <th className="px-8 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest">신청일</th>
@@ -46,7 +46,7 @@ export default function MyDataRequests() {
                 <th className="px-8 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest">관리</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-line">
+            <tbody className="divide-y divide-line-neutral">
               {requests.map((req) => (
                 <motion.tr 
                   key={req.id}

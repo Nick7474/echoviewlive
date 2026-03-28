@@ -95,7 +95,7 @@ export default function Layout() {
       {/* GNB (Global Navigation Bar) */}
       <header 
         ref={menuRef}
-        className="sticky top-0 z-50 bg-white border-b border-line-normal shadow-sm"
+        className="sticky top-0 z-50 bg-white border-b border-line-neutral shadow-sm"
         onMouseEnter={() => setIsFullMenuOpen(true)}
         onMouseLeave={() => setIsFullMenuOpen(false)}
       >
@@ -222,7 +222,7 @@ export default function Layout() {
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
               className="lg:hidden fixed inset-0 z-[60] bg-white flex flex-col"
             >
-              <div className="h-16 flex items-center justify-between px-4 border-b border-line-normal">
+              <div className="h-16 flex items-center justify-between px-4 border-b border-line-neutral">
                 <Link to="/" className="flex items-center gap-2" onClick={() => setIsMobileMenuOpen(false)}>
                   <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white font-bold">E</div>
                   <span className="text-primary font-bold text-sm">ECOVIEW</span>
@@ -232,7 +232,7 @@ export default function Layout() {
               <div className="flex-grow overflow-y-auto p-4 space-y-6">
                 {NAVIGATION_MENU.map((menu) => (
                   <div key={menu.title} className="space-y-3">
-                    <h4 className="text-lg font-bold text-primary border-b border-line-normal pb-2">{menu.title}</h4>
+                    <h4 className="text-lg font-bold text-primary border-b border-line-neutral pb-2">{menu.title}</h4>
                     <div className="grid grid-cols-2 gap-2">
                       {menu.children?.map((child) => (
                         <Link 
@@ -297,7 +297,7 @@ export default function Layout() {
                   const active = isSectionActive(section);
                   
                   return (
-                    <div key={section.title} className="py-8 first:pt-0 border-b border-line-normal last:border-0">
+                    <div key={section.title} className="py-8 first:pt-0 border-b border-line-neutral last:border-0">
                       <Link 
                         to={section.path}
                         className={`block text-xl font-bold mb-6 hover:opacity-80 transition-opacity ${
