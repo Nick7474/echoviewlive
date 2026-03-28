@@ -12,9 +12,9 @@ interface SmartCityMapLayoutProps {
 }
 
 const MENU_ITEMS = [
-  { icon: Video, title: 'CCTV', path: '/smart-city/map/cctv' },
-  { icon: ShieldCheck, title: '안전 시설', path: '/smart-city/map/safety' },
-  { icon: Heart, title: '편의 시설', path: '/smart-city/map/convenience' },
+  { icon: Video, title: 'CCTV', path: '/map/cctv' },
+  { icon: ShieldCheck, title: '안전 시설', path: '/map/safety' },
+  { icon: Heart, title: '편의 시설', path: '/map/convenience' },
 ];
 
 export default function SmartCityMapLayout({ children, title, description, filterContent, bottomContent }: SmartCityMapLayoutProps) {
@@ -33,7 +33,7 @@ export default function SmartCityMapLayout({ children, title, description, filte
         {/* Map Container Section */}
         <div className="relative w-full h-[600px] border border-line-normal rounded-2xl overflow-hidden flex shadow-sm">
           {/* 1. Leftmost Icon Menu */}
-          <aside className="w-[80px] bg-white border-r border-line-normal flex flex-col items-center py-6 z-30">
+          <aside className="w-[96px] bg-white border-r border-line-normal flex flex-col items-center py-6 z-30">
             <div className="flex flex-col gap-4 w-full px-2">
               {MENU_ITEMS.map((item) => {
                 const isActive = location.pathname === item.path;
@@ -42,13 +42,18 @@ export default function SmartCityMapLayout({ children, title, description, filte
                     key={item.path}
                     to={item.path}
                     className={`flex flex-col items-center gap-1.5 p-3 rounded-2xl transition-all group border-2 ${
-                      isActive 
-                        ? 'bg-white border-primary text-primary shadow-sm' 
-                        : 'bg-white border-transparent text-gray-400 hover:border-line-normal hover:text-primary'
+                      isActive
+                        ? 'bg-white border-[var(--color-primary)] shadow-sm'
+                        : 'bg-white border-transparent hover:border-line-normal'
                     }`}
                   >
-                    <item.icon size={24} className={isActive ? 'text-primary' : 'group-hover:scale-110 transition-transform'} />
-                    <span className={`text-[11px] font-bold text-center leading-tight ${isActive ? 'text-primary' : 'text-gray-500'}`}>
+                    <item.icon
+                      size={24}
+                      className={isActive ? 'text-[var(--color-primary)]' : 'text-gray-400 group-hover:scale-110 transition-transform'}
+                    />
+                    <span className={`text-[11px] font-bold text-center leading-tight whitespace-nowrap ${
+                      isActive ? 'text-[var(--color-primary)]' : 'text-label-alternative'
+                    }`}>
                       {item.title}
                     </span>
                   </Link>

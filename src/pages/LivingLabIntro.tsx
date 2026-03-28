@@ -1,16 +1,18 @@
-import { 
-  Users, 
-  MapPin, 
-  Cpu, 
-  Search, 
-  Lightbulb, 
-  Settings, 
+import {
+  Users,
+  MapPin,
+  Cpu,
+  Search,
+  Lightbulb,
+  Settings,
   CheckCircle,
   Calendar,
   Bell,
   PencilRuler,
   MessageSquare,
-  FlaskConical
+  FlaskConical,
+  Trophy,
+  Leaf,
 } from 'lucide-react';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
@@ -76,10 +78,10 @@ export default function LivingLabIntro() {
   };
 
   const stats = [
-    { icon: '🏆', label: '누적 리빙랩 과제', value: '18', unit: '건', color: 'bg-yellow-50' },
-    { icon: '👥', label: '시민 참여자', value: '1,248', unit: '명', color: 'bg-blue-50' },
-    { icon: '🔬', label: '현재 진행 과제', value: '6', unit: '건', color: 'bg-orange-50' },
-    { icon: '🌱', label: '탄소감축 기여량', value: '320', unit: 't', color: 'bg-red-50' },
+    { icon: Trophy,      label: '누적 리빙랩 과제', value: '18',   unit: '건', bg: 'bg-amber-50',  color: 'text-amber-500' },
+    { icon: Users,       label: '시민 참여자',      value: '1,248', unit: '명', bg: 'bg-blue-50',   color: 'text-blue-500' },
+    { icon: FlaskConical,label: '현재 진행 과제',   value: '6',    unit: '건', bg: 'bg-orange-50', color: 'text-orange-500' },
+    { icon: Leaf,        label: '탄소감축 기여량',  value: '320',  unit: 't',  bg: 'bg-green-50',  color: 'text-green-500' },
   ];
 
   return (
@@ -111,8 +113,8 @@ export default function LivingLabIntro() {
             transition={{ delay: idx * 0.1 }}
             className="bg-white p-6 rounded-[24px] shadow-sm border border-line-normal flex items-center gap-5 hover:shadow-md transition-shadow"
           >
-            <div className={`w-14 h-14 ${stat.color} rounded-2xl flex items-center justify-center text-2xl shadow-inner`}>
-              {stat.icon}
+            <div className={`w-14 h-14 ${stat.bg} rounded-2xl flex items-center justify-center shadow-inner`}>
+              <stat.icon size={24} className={stat.color} />
             </div>
             <div>
               <div className="flex items-baseline gap-1">
@@ -126,36 +128,29 @@ export default function LivingLabIntro() {
       </div>
 
       {/* Hero Section */}
-      <section className="relative rounded-[32px] overflow-hidden mb-12 sm:mb-20 shadow-xl group">
-        <img 
-          src="https://images.unsplash.com/photo-1590483736622-39da8af75620?auto=format&fit=crop&q=80&w=2000" 
-          alt="Cycling at Han River" 
-          className="w-full h-[320px] sm:h-[480px] object-cover group-hover:scale-105 transition-transform duration-1000"
-          onError={(e) => {
-            const target = e.target as HTMLImageElement;
-            target.src = "https://picsum.photos/seed/han-river-cycling/1600/600";
-          }}
-          referrerPolicy="no-referrer"
+      <section className="relative rounded-xl overflow-hidden mb-12 sm:mb-20 shadow-xl group">
+        <div
+          className="w-full h-72 group-hover:scale-105 transition-transform duration-1000"
+          style={{ backgroundImage: "url('/images/vs1.jpg')", backgroundSize: 'cover', backgroundPosition: 'center 30%' }}
         />
-        <div className="absolute inset-0 flex items-center justify-start p-6 sm:p-12">
-          <motion.div 
+        <div className="absolute inset-0 flex items-center justify-start p-6 sm:p-10">
+          <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="bg-white/70 backdrop-blur-xl p-8 sm:p-12 rounded-[40px] w-full max-w-[640px] border border-white/40 shadow-2xl"
+            className="bg-white/85 backdrop-blur-sm p-6 rounded-xl w-full max-w-[420px] border border-white/40 shadow-2xl"
           >
-            <div className="inline-flex items-center gap-2 bg-[#00a37b] text-white px-5 py-2 rounded-full text-sm font-black mb-6 shadow-lg shadow-emerald-200/50 hover:scale-105 transition-transform cursor-default">
-              <FlaskConical size={16} fill="white" fillOpacity={0.2} />
+            <div className="inline-flex items-center gap-2 bg-[#00a37b] text-white px-4 py-1.5 rounded-full text-xs font-black mb-4 shadow-lg shadow-emerald-200/50">
+              <FlaskConical size={14} fill="white" fillOpacity={0.2} />
               <span>Living Lab</span>
             </div>
-            <h3 className="text-2xl sm:text-[36px] font-black text-gray-900 leading-[1.2] mb-6 tracking-tight">
+            <h3 className="text-2xl font-bold text-gray-900 leading-snug mb-3 tracking-tight">
               우리 동네의 문제를<br />
-              시민의 아이디어로<br />
-              직접 해결합니다.
+              시민의 아이디어로 해결합니다.
             </h3>
-            <p className="text-gray-800 text-sm sm:text-[17px] font-medium leading-relaxed">
-              리빙랩(Living Lab)은 시민이 주인공이 되어 일상 속 도시 문제를 발굴하고,<br className="hidden sm:block" />
-              데이터와 스마트 기술을 접목해 해결책을 찾는 '생활 속 실험실'입니다
+            <p className="text-gray-700 text-sm leading-relaxed">
+              시민이 주인공이 되어 도시 문제를 발굴하고,<br />
+              데이터와 스마트 기술로 해결책을 찾는 생활 속 실험실입니다.
             </p>
           </motion.div>
         </div>
@@ -166,23 +161,26 @@ export default function LivingLabIntro() {
         <h4 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-8 sm:mb-12">왜 리빙랩인가?</h4>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
           {[
-            { 
-              icon: <Users className="text-primary" size={32} />, 
-              title: '시민 주도', 
-              desc: '공무원 중심의 행정에서 벗어나 시민이 직접 도시 문제의 해결사가 됩니다.' 
+            {
+              img: '/images/ic_citizen.png',
+              alt: '시민 주도',
+              title: '시민 주도',
+              desc: '공무원 중심의 행정에서 벗어나 시민이 직접 도시 문제의 해결사가 됩니다.',
             },
-            { 
-              icon: <MapPin className="text-primary" size={32} />, 
-              title: '현장 중심', 
-              desc: '책상이 아닌 우리가 사는 골목과 거리에서 실제 데이터를 기반으로 답을 찾습니다.' 
+            {
+              img: '/images/ic_location.png',
+              alt: '현장 중심',
+              title: '현장 중심',
+              desc: '책상이 아닌 우리가 사는 골목과 거리에서 실제 데이터를 기반으로 답을 찾습니다.',
             },
-            { 
-              icon: <Cpu className="text-primary" size={32} />, 
-              title: '기술 융합', 
-              desc: '에코뷰(EcoView) 플랫폼의 데이터를 활용해 기후위기 대응과 탄소중립을 과학적으로 실현합니다.' 
-            }
+            {
+              img: '/images/ic_data.png',
+              alt: '기술 융합',
+              title: '기술 융합',
+              desc: '에코뷰(EcoView) 플랫폼의 데이터를 활용해 기후위기 대응과 탄소중립을 과학적으로 실현합니다.',
+            },
           ].map((card, idx) => (
-            <motion.div 
+            <motion.div
               key={idx}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -190,9 +188,7 @@ export default function LivingLabIntro() {
               transition={{ delay: idx * 0.1 }}
               className="bg-white p-6 sm:p-8 rounded-2xl border border-line-normal shadow-sm hover:shadow-md transition-shadow text-center"
             >
-              <div className="w-16 h-16 bg-secondary rounded-2xl flex items-center justify-center mx-auto mb-6">
-                {card.icon}
-              </div>
+              <img src={card.img} alt={card.alt} width={86} height={84} className="mx-auto mb-6" />
               <h5 className="text-lg sm:text-xl font-bold mb-3">{card.title}</h5>
               <p className="text-gray-500 text-sm sm:text-base leading-relaxed">{card.desc}</p>
             </motion.div>

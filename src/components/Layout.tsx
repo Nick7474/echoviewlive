@@ -1,12 +1,16 @@
 import { useState, ReactNode, useRef, useEffect } from 'react';
-import { 
-  Home, 
-  User, 
-  Bell, 
-  ChevronRight, 
+import {
+  Home,
+  User,
+  Bell,
+  ChevronRight,
   Menu,
   X,
-  ChevronDown
+  ChevronDown,
+  FileText,
+  Database,
+  Star,
+  Leaf,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Link, useLocation, Outlet } from 'react-router-dom';
@@ -87,6 +91,15 @@ export default function Layout() {
       return false;
     };
 
+    // Mypage paths
+    const mypageMap: Record<string, string[]> = {
+      '/my/applications': ['마이페이지', '사업신청내역'],
+      '/my/data':         ['마이페이지', '데이터 신청내역'],
+      '/my/interests':    ['마이페이지', '관심사업 관리'],
+      '/my/account':      ['마이페이지', '계정 및 정보관리'],
+    };
+    if (mypageMap[location.pathname]) return mypageMap[location.pathname];
+
     findInMenu(NAVIGATION_MENU, location.pathname, breadcrumbs);
 
     // Fallback for specific paths not directly in menu or root
@@ -112,12 +125,10 @@ export default function Layout() {
         <div className="max-w-[1560px] mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-primary rounded-full flex items-center justify-center text-white font-bold text-lg sm:text-xl">
-              E
-            </div>
+            <img src="/images/echo_logo.png" alt="에코뷰" className="h-9 w-auto" />
             <div className="flex flex-col">
-              <span className="text-primary font-bold text-sm sm:text-base leading-tight">광명시 통합플랫폼</span>
-              <span className="text-primary font-black text-lg sm:text-xl leading-none tracking-tighter">ECOVIEW</span>
+              <span className="text-xs font-medium text-gray-500 leading-tight">광명시 통합플랫폼</span>
+              <span className="text-lg font-bold text-[var(--color-primary)] leading-none tracking-tighter">ECOVIEW</span>
             </div>
           </Link>
 
@@ -176,18 +187,18 @@ export default function Layout() {
                     <div className="px-4 py-3">
                       <p className="text-sm font-bold text-slate-900">홍길동</p>
                       <p className="text-xs text-slate-400 mt-0.5">citizen@gwangmyeong.kr</p>
-                      <span className="inline-block mt-2 px-2 py-0.5 bg-[var(--color-primary-subtle)] text-[var(--color-primary)] text-[10px] font-bold rounded">
-                        🌿 탄소중립 실천자
+                      <span className="inline-flex items-center gap-1 mt-2 px-2 py-0.5 bg-[var(--color-primary-subtle)] text-[var(--color-primary)] text-[10px] font-bold rounded">
+                        <Leaf size={13} className="fill-current" /> 탄소중립 실천자
                       </span>
                     </div>
                     <div className="border-t border-line-normal" />
                     {/* Menu items */}
                     <div className="py-1">
                       {[
-                        { icon: '📑', title: '사업신청내역', path: '/my/applications' },
-                        { icon: '💾', title: '데이터 신청내역', path: '/my/data' },
-                        { icon: '⭐', title: '관심사업 관리', path: '/my/interests' },
-                        { icon: '👤', title: '계정 및 정보관리', path: '/my/account' },
+                        { icon: FileText, title: '사업신청내역',   path: '/my/applications' },
+                        { icon: Database, title: '데이터 신청내역', path: '/my/data' },
+                        { icon: Star,     title: '관심사업 관리',  path: '/my/interests' },
+                        { icon: User,     title: '계정 및 정보관리', path: '/my/account' },
                       ].map(item => (
                         <Link
                           key={item.path}
@@ -196,7 +207,7 @@ export default function Layout() {
                             isActive(item.path) ? 'text-[var(--color-primary)] font-medium' : 'text-slate-700'
                           }`}
                         >
-                          <span>{item.icon}</span>
+                          <item.icon size={16} className="text-label-alternative flex-shrink-0" />
                           {item.title}
                         </Link>
                       ))}
@@ -446,11 +457,8 @@ export default function Layout() {
       <footer className="bg-gray-50 border-t border-line-normal py-10 sm:py-16">
         <div className="max-w-[1560px] mx-auto px-4 sm:px-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-            <div className="flex items-center gap-3 grayscale opacity-70">
-              <div className="w-10 h-10 bg-gray-400 rounded-full flex items-center justify-center text-white font-bold text-xl">
-                G
-              </div>
-              <span className="text-xl font-bold text-gray-600 tracking-tighter">광명시</span>
+            <div className="flex items-center">
+              <img src="/images/Footer_logo.png" alt="광명시" className="h-10 w-auto" />
             </div>
             <div className="text-center md:text-right">
               <p className="text-sm text-gray-500 mb-2">우)14234 경기도 광명시 시청로 20 | 광명시 민원콜센터: 1688-3399 (02-2680-2114)</p>

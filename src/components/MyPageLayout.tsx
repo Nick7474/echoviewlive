@@ -1,11 +1,12 @@
 import { ReactNode } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { FileText, Database, Star, User, Leaf } from 'lucide-react';
 
 const MENU = [
-  { icon: '📑', label: '사업신청내역',   path: '/my/applications' },
-  { icon: '💾', label: '데이터 신청내역', path: '/my/data' },
-  { icon: '⭐', label: '관심사업 관리',  path: '/my/interests' },
-  { icon: '👤', label: '계정 및 정보관리', path: '/my/account' },
+  { icon: FileText, label: '사업신청내역',   path: '/my/applications' },
+  { icon: Database, label: '데이터 신청내역', path: '/my/data' },
+  { icon: Star,     label: '관심사업 관리',  path: '/my/interests' },
+  { icon: User,     label: '계정 및 정보관리', path: '/my/account' },
 ];
 
 export default function MyPageLayout({ children }: { children: ReactNode }) {
@@ -25,8 +26,8 @@ export default function MyPageLayout({ children }: { children: ReactNode }) {
               <p className="font-black text-slate-900 text-lg leading-tight">홍길동</p>
               <p className="text-xs text-slate-400 mt-0.5">citizen@gwangmyeong.kr</p>
             </div>
-            <span className="px-3 py-1 bg-[var(--color-primary-subtle)] text-[var(--color-primary)] text-xs font-bold rounded-full">
-              🌿 탄소중립 실천자
+            <span className="inline-flex items-center gap-1 px-3 py-1 bg-[var(--color-primary-subtle)] text-[var(--color-primary)] text-xs font-bold rounded-full">
+              <Leaf size={14} className="fill-current" /> 탄소중립 실천자
             </span>
           </div>
 
@@ -38,13 +39,16 @@ export default function MyPageLayout({ children }: { children: ReactNode }) {
                 <Link
                   key={item.path}
                   to={item.path}
-                  className={`flex items-center gap-3 px-5 py-4 text-sm border-b border-line-neutral last:border-0 transition-colors ${
+                  className={`flex items-center gap-2 px-5 py-4 text-sm border-b border-line-neutral last:border-0 transition-colors ${
                     active
                       ? 'text-[var(--color-primary)] font-medium border-l-2 border-l-[var(--color-primary)] bg-[var(--color-primary-subtle)]'
                       : 'text-slate-600 hover:bg-fill-normal border-l-2 border-l-transparent'
                   }`}
                 >
-                  <span>{item.icon}</span>
+                  <item.icon
+                    size={18}
+                    className={active ? 'text-[var(--color-primary)]' : 'text-label-alternative'}
+                  />
                   {item.label}
                 </Link>
               );
