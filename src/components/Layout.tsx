@@ -193,7 +193,7 @@ export default function Layout() {
                           key={item.path}
                           to={item.path}
                           className={`flex items-center gap-2 px-4 py-2 text-sm hover:bg-fill-normal transition-colors ${
-                            isActive(item.path) ? 'text-primary font-medium' : 'text-slate-700'
+                            isActive(item.path) ? 'text-[var(--color-primary)] font-medium' : 'text-slate-700'
                           }`}
                         >
                           <span>{item.icon}</span>
@@ -248,8 +248,9 @@ export default function Layout() {
                         onMouseEnter={() => setHoveredMenu(menu.title)}
                       >
                         <div className="w-full space-y-0.5">
-                          {menu.children?.map((child) => {
+                          {menu.children?.map((child, idx) => {
                             const hasSubChildren = !!(child.children && child.children.length > 0);
+                            const prevHasGroup = idx > 0 && !!(menu.children?.[idx - 1]?.children?.length);
                             if (hasSubChildren) {
                               return (
                                 <div key={child.title} className="pt-3 first:pt-0">
@@ -265,8 +266,8 @@ export default function Layout() {
                                           isHovered
                                             ? 'text-white'
                                             : isActive(sub.path)
-                                              ? 'text-primary font-bold'
-                                              : 'text-gray-600 hover:text-primary'
+                                              ? 'text-[var(--color-primary)] font-bold'
+                                              : 'text-gray-600 hover:text-[var(--color-primary)]'
                                         }`}
                                       >
                                         {sub.title}
@@ -280,12 +281,12 @@ export default function Layout() {
                               <Link
                                 key={child.title}
                                 to={child.path}
-                                className={`block text-[13px] transition-all hover:underline underline-offset-4 py-0.5 ${
+                                className={`block text-[13px] transition-all hover:underline underline-offset-4 py-0.5 ${prevHasGroup ? 'mt-3' : ''} ${
                                   isHovered
                                     ? 'text-white'
                                     : isActive(child.path)
-                                      ? 'text-primary font-bold'
-                                      : 'text-gray-600 hover:text-primary'
+                                      ? 'text-[var(--color-primary)] font-bold'
+                                      : 'text-gray-600 hover:text-[var(--color-primary)]'
                                 }`}
                               >
                                 {child.title}
@@ -395,7 +396,7 @@ export default function Layout() {
                         <Link
                           to={section.path}
                           className={`block text-base font-bold mb-6 hover:opacity-80 transition-opacity ${
-                            active ? 'text-primary' : 'text-gray-900'
+                            active ? 'text-[var(--color-primary)]' : 'text-gray-900'
                           }`}
                         >
                           {section.title}
