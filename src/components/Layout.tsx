@@ -344,12 +344,14 @@ export default function Layout() {
 
       {/* Main Content Area */}
       <div className={`flex-grow flex flex-col ${
-        location.pathname.startsWith('/smart-city/map') 
-          ? 'w-full' 
-          : 'max-w-[1560px] mx-auto w-full px-4 sm:px-6 py-8 sm:py-12 lg:flex-row gap-8 sm:gap-12'
+        location.pathname.startsWith('/smart-city/map')
+          ? 'w-full'
+          : location.pathname.startsWith('/my/')
+            ? 'max-w-[1560px] mx-auto w-full px-4 sm:px-6 py-8 sm:py-12'
+            : 'max-w-[1560px] mx-auto w-full px-4 sm:px-6 py-8 sm:py-12 lg:flex-row gap-8 sm:gap-12'
       }`}>
         {/* Sidebar (LNB) */}
-        {!location.pathname.startsWith('/smart-city/map') && (
+        {!location.pathname.startsWith('/smart-city/map') && !location.pathname.startsWith('/my/') && (
           <aside className="lg:w-[240px] flex-shrink-0">
             <div className="sticky top-28">
               <div className="mb-10">
