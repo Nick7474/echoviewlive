@@ -28,7 +28,7 @@ import {
   AlertCircle
 } from 'lucide-react';
 import { useState, useMemo } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { Link, useNavigate } from 'react-router-dom';
 
 interface DataItem {
@@ -158,6 +158,7 @@ const categories = [
 
 export default function DataSearchList() {
   const navigate = useNavigate();
+  const shouldReduceMotion = useReducedMotion();
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [selectedCategory, setSelectedCategory] = useState('전체');
   const [searchQuery, setSearchQuery] = useState('');
@@ -229,7 +230,7 @@ export default function DataSearchList() {
       <section 
         className="rounded-[16px] p-8 sm:p-16 relative overflow-hidden shadow-sm"
         style={{
-          background: 'linear-gradient(135deg, #D5EDDF 0%, #BAE5D4 21%, #D4EDDF 52%, #B7E3BD 77%, #B5E3B5 100%)'
+          background: 'linear-gradient(135deg, var(--color-primary-subtle) 0%, var(--color-primary-muted) 100%)'
         }}
       >
         <div className="absolute top-0 right-0 w-full h-full opacity-20 pointer-events-none">
@@ -238,9 +239,10 @@ export default function DataSearchList() {
         
         <div className="relative z-10 max-w-4xl mx-auto text-center space-y-10">
           <div className="space-y-4">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
               className="inline-flex items-center gap-2 bg-white/40 text-emerald-700 px-4 py-1.5 rounded-full text-xs font-black tracking-widest uppercase backdrop-blur-sm"
             >
               <Zap size={14} /> Gwangmyeong Open Data Portal
@@ -300,6 +302,7 @@ export default function DataSearchList() {
         {categories.map((cat) => (
           <button
             key={cat.name}
+            aria-label={`${cat.name} 카테고리 필터`}
             onClick={() => setSelectedCategory(cat.name)}
             className={`flex flex-col items-center justify-center p-6 rounded-[16px] border transition-all duration-300 group ${
               selectedCategory === cat.name 

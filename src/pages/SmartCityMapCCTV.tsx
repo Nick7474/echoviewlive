@@ -47,10 +47,10 @@ const CHART_DATA = [
 ];
 
 const TYPE_COLORS: Record<string, string> = {
-  '방범': 'var(--color-primary)',
-  '교통': '#3B82F6',
-  '어린이보호': '#F59E0B',
-  '시설관리': '#8B5CF6',
+  '방범':    'var(--color-primary)',
+  '교통':    'var(--color-status-info)',
+  '어린이보호': 'var(--color-status-cautionary)',
+  '시설관리': '#7c3aed',
 };
 
 export default function SmartCityMapCCTV() {

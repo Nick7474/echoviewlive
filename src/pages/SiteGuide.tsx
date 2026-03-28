@@ -11,7 +11,7 @@ import {
   Users,
   Building2,
 } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 
 const TABS = [
   { id: 'signup', label: '회원가입', icon: <UserPlus size={16} /> },
@@ -51,6 +51,7 @@ const faqs = [
 ];
 
 export default function SiteGuide() {
+  const shouldReduceMotion = useReducedMotion();
   const [activeTab, setActiveTab] = useState<TabId>('signup');
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
@@ -97,7 +98,7 @@ export default function SiteGuide() {
 
         {/* ── 회원가입 ── */}
         {activeTab === 'signup' && (
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-10">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: shouldReduceMotion ? 0 : 0.2 }} className="space-y-10">
             <div className="text-center space-y-2">
               <h2 className="text-2xl font-black text-slate-900">회원가입 절차</h2>
               <p className="text-slate-500 font-medium">4단계를 통해 에코뷰 서비스를 이용하실 수 있습니다.</p>
@@ -143,7 +144,7 @@ export default function SiteGuide() {
 
         {/* ── 데이터 이용 ── */}
         {activeTab === 'data' && (
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-10">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: shouldReduceMotion ? 0 : 0.2 }} className="space-y-10">
             <div className="text-center space-y-2">
               <h2 className="text-2xl font-black text-slate-900">데이터 이용 안내</h2>
               <p className="text-slate-500 font-medium">파일 다운로드와 Open API 두 가지 방식으로 데이터를 활용할 수 있습니다.</p>
@@ -203,7 +204,7 @@ export default function SiteGuide() {
 
         {/* ── 리빙랩·오픈랩 참여 ── */}
         {activeTab === 'lab' && (
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-10">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: shouldReduceMotion ? 0 : 0.2 }} className="space-y-10">
             <div className="text-center space-y-2">
               <h2 className="text-2xl font-black text-slate-900">리빙랩·오픈랩 참여 안내</h2>
               <p className="text-slate-500 font-medium">시민과 기업·연구자 모두를 위한 개방형 혁신 프로그램입니다.</p>
@@ -263,7 +264,7 @@ export default function SiteGuide() {
 
         {/* ── FAQ ── */}
         {activeTab === 'faq' && (
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-8">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: shouldReduceMotion ? 0 : 0.2 }} className="space-y-8">
             <div className="space-y-4">
               <h3 className="text-2xl font-black text-slate-900 flex items-center gap-2">
                 <HelpCircle className="text-[var(--color-primary)]" size={28} /> 자주 묻는 질문
@@ -291,6 +292,7 @@ export default function SiteGuide() {
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
                         className="bg-gray-50 px-8 py-6 border-t border-line-normal"
                       >
                         <p className="text-slate-600 font-medium leading-relaxed">

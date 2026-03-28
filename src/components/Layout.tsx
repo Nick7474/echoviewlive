@@ -12,7 +12,7 @@ import {
   Star,
   Leaf,
 } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { Link, useLocation, Outlet } from 'react-router-dom';
 import { NAVIGATION_MENU, NavItem } from '../constants/navigation';
 
@@ -24,6 +24,7 @@ export default function Layout() {
   const location = useLocation();
   const menuRef = useRef<HTMLDivElement>(null);
   const accountRef = useRef<HTMLDivElement>(null);
+  const shouldReduceMotion = useReducedMotion();
 
   // Helper to determine active menu
   const isActive = (path: string) => location.pathname === path;
@@ -161,7 +162,7 @@ export default function Layout() {
           {/* User Info & Mobile Menu Toggle */}
           <div className="flex items-center gap-3 sm:gap-6">
             <div className="hidden sm:flex items-center gap-4">
-              <button className="p-2 text-gray-500 hover:bg-gray-100 rounded-full transition-colors relative">
+              <button aria-label="알림" className="p-2 text-gray-500 hover:bg-gray-100 rounded-full transition-colors relative">
                 <Bell size={20} />
                 <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
               </button>
@@ -173,6 +174,7 @@ export default function Layout() {
               >
                 <Link
                   to="/my/applications"
+                  aria-label="내 계정"
                   className="flex items-center gap-2 text-gray-700 hover:text-primary transition-colors"
                 >
                   <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">
@@ -227,7 +229,8 @@ export default function Layout() {
               </div>
             </div>
             
-            <button 
+            <button
+              aria-label={isMobileMenuOpen ? '메뉴 닫기' : '메뉴 열기'}
               className="lg:hidden p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
@@ -239,10 +242,11 @@ export default function Layout() {
         {/* Full-down Menu (Mega Menu) */}
         <AnimatePresence>
           {isFullMenuOpen && (
-            <motion.div 
+            <motion.div
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
               className="absolute top-full left-0 right-0 bg-white border-t border-line-normal shadow-2xl overflow-hidden hidden lg:block"
               onMouseLeave={() => setHoveredMenu(null)}
             >
@@ -311,11 +315,11 @@ export default function Layout() {
         {/* Mobile Menu */}
         <AnimatePresence>
           {isMobileMenuOpen && (
-            <motion.div 
+            <motion.div
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
-              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+              transition={shouldReduceMotion ? { duration: 0 } : { type: 'spring', damping: 25, stiffness: 200 }}
               className="lg:hidden fixed inset-0 z-[60] bg-white flex flex-col"
             >
               <div className="h-16 flex items-center justify-between px-4 border-b border-line-neutral">
@@ -323,7 +327,7 @@ export default function Layout() {
                   <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white font-bold">E</div>
                   <span className="text-primary font-bold text-sm">ECOVIEW</span>
                 </Link>
-                <button onClick={() => setIsMobileMenuOpen(false)} className="p-2"><X size={24} /></button>
+                <button aria-label="메뉴 닫기" onClick={() => setIsMobileMenuOpen(false)} className="p-2"><X size={24} /></button>
               </div>
               <div className="flex-grow overflow-y-auto p-4 space-y-6">
                 {NAVIGATION_MENU.map((menu) => (

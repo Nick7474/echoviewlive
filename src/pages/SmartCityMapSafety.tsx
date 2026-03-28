@@ -58,9 +58,9 @@ const CHART_DATA = [
 ];
 
 const TYPE_COLORS: Record<string, string> = {
-  '소화전': '#EF4444',
-  'AED': '#EC4899',
-  '비상벨': '#F59E0B',
+  '소화전': 'var(--color-status-negative)',
+  'AED':   '#7c3aed',
+  '비상벨': 'var(--color-status-cautionary)',
   '대피소': 'var(--color-primary)',
 };
 

@@ -11,9 +11,10 @@ import {
   Clock
 } from 'lucide-react';
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 
 export default function NoticeList() {
+  const shouldReduceMotion = useReducedMotion();
   const [activeTab, setActiveTab] = useState('notice');
   const [filter, setFilter] = useState('전체');
 
@@ -75,7 +76,7 @@ export default function NoticeList() {
             key={idx}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: idx * 0.1 }}
+            transition={shouldReduceMotion ? { duration: 0 } : { delay: idx * 0.1 }}
             className="bg-white p-8 rounded-[32px] border border-line-normal shadow-sm flex items-center gap-6"
           >
             <div className={`w-14 h-14 ${stat.bg} ${stat.color} rounded-2xl flex items-center justify-center`}>
@@ -97,6 +98,7 @@ export default function NoticeList() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
             className="space-y-6"
           >
             <div className="flex items-center gap-3 mb-2">
@@ -196,6 +198,7 @@ export default function NoticeList() {
             key="event-list"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
             className="space-y-6"
           >
             <div className="flex items-center gap-3 mb-2">

@@ -11,7 +11,7 @@ import {
   MoreHorizontal
 } from 'lucide-react';
 import { useState } from 'react';
-import { motion } from 'motion/react';
+import { motion, useReducedMotion } from 'motion/react';
 
 interface Announcement {
   id: number;
@@ -75,6 +75,7 @@ const CATEGORY_CONFIG = {
 };
 
 export default function LivingLabAnnouncements() {
+  const shouldReduceMotion = useReducedMotion();
   const [activeTab, setActiveTab] = useState('전체');
   const [activeCategory, setActiveCategory] = useState('전체');
 
@@ -112,7 +113,7 @@ export default function LivingLabAnnouncements() {
               >
                 {tab}
                 {activeTab === tab && (
-                  <motion.div layoutId="activeTab" className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary" />
+                  <motion.div layoutId="activeTab" className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary" transition={{ duration: shouldReduceMotion ? 0 : 0.2 }} />
                 )}
               </button>
             ))}

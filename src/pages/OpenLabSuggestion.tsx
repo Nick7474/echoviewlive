@@ -20,7 +20,7 @@ import {
   Download
 } from 'lucide-react';
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 
 const STEPS = [
   { id: 1, title: '아이디어 제안', icon: <Lightbulb size={20} /> },
@@ -37,6 +37,7 @@ const CATEGORIES = [
 ];
 
 export default function OpenLabSuggestion() {
+  const shouldReduceMotion = useReducedMotion();
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState('');
 

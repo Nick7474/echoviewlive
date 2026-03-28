@@ -15,7 +15,7 @@ import {
   Calendar,
   Send
 } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 
 interface RequestItem {
   id: number;
@@ -62,6 +62,7 @@ const mockRequests: RequestItem[] = [
 ];
 
 export default function NewDataRequest() {
+  const shouldReduceMotion = useReducedMotion();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [filter, setFilter] = useState('전체');
 
@@ -164,6 +165,7 @@ export default function NewDataRequest() {
                 key={item.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
                 className="bg-white border border-line-normal rounded-[16px] p-8 space-y-6 hover:shadow-xl transition-all duration-500 group cursor-pointer"
               >
                 <div className="flex items-center justify-between">
@@ -219,17 +221,19 @@ export default function NewDataRequest() {
       <AnimatePresence>
         {isModalOpen && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-8">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
               onClick={() => setIsModalOpen(false)}
               className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
             />
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
               className="relative w-full max-w-2xl bg-white rounded-[16px] shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
             >
               <div className="p-8 sm:p-12 overflow-y-auto space-y-8">

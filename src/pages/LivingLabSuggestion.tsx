@@ -14,7 +14,7 @@ import {
   Download
 } from 'lucide-react';
 import { useState } from 'react';
-import { motion } from 'motion/react';
+import { motion, useReducedMotion } from 'motion/react';
 
 const STEPS = [
   { title: '아이디어 제안', desc: '시민의 일상 속 불편함과 해결 아이디어를 자유롭게 제안합니다.', icon: <Lightbulb size={24} /> },
@@ -60,6 +60,7 @@ const ACHIEVEMENTS = [
 ];
 
 export default function LivingLabSuggestion() {
+  const shouldReduceMotion = useReducedMotion();
   const [category, setCategory] = useState('에너지');
 
   return (
@@ -67,27 +68,28 @@ export default function LivingLabSuggestion() {
       {/* Hero Section */}
       <section className="relative overflow-hidden rounded-[40px] bg-emerald-900 text-white p-10 sm:p-16">
         <div className="relative z-10 max-w-3xl space-y-6">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
             className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-bold border border-white/20"
           >
             <Lightbulb size={14} className="text-primary" />
             <span>시민 참여 리빙랩</span>
           </motion.div>
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
+            transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.1 }}
             className="text-4xl sm:text-5xl font-black leading-tight tracking-tighter"
           >
             리빙랩 주제를 <br />
             <span className="text-primary">직접 제안해 보세요!</span>
           </motion.h2>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
+            transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.2 }}
             className="text-lg text-emerald-100/80 leading-relaxed"
           >
             광명시에서 해결하고 싶은 도시 문제나 아이디어가 있으신가요? <br />

@@ -23,10 +23,11 @@ import {
   PenTool
 } from 'lucide-react';
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { Link } from 'react-router-dom';
 
 export default function OpenLabIntro() {
+  const shouldReduceMotion = useReducedMotion();
   const [activeYear, setActiveYear] = useState(2026);
 
   const stats = [
@@ -108,9 +109,10 @@ export default function OpenLabIntro() {
     <div className="max-w-[1560px] mx-auto">
       {/* Notice Bar */}
       <Link to="/openlab/announcements" className="block mb-6">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
           className="bg-[#0f2a4a] text-white rounded-2xl p-4 flex items-center justify-between shadow-lg hover:bg-sky-900 transition-colors"
         >
           <div className="flex items-center gap-4 overflow-hidden">
@@ -132,7 +134,7 @@ export default function OpenLabIntro() {
             key={idx}
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: idx * 0.1 }}
+            transition={shouldReduceMotion ? { duration: 0 } : { delay: idx * 0.1 }}
             className="bg-white p-6 rounded-[24px] shadow-sm border border-line-normal flex items-center gap-5 hover:shadow-md transition-shadow"
           >
             <div className={`w-14 h-14 ${stat.color.split(' ')[0]} rounded-2xl flex items-center justify-center text-current shadow-inner`}>
@@ -244,7 +246,7 @@ export default function OpenLabIntro() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: idx * 0.1 }}
+              transition={shouldReduceMotion ? { duration: 0 } : { delay: idx * 0.1 }}
               className="bg-white p-8 rounded-[32px] border border-line-normal shadow-sm hover:shadow-md transition-all text-center group"
             >
               <div className="w-16 h-16 bg-sky-50 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
@@ -295,9 +297,9 @@ export default function OpenLabIntro() {
           <div className="absolute inset-0 border-2 border-dashed border-line-normal rounded-full"></div>
           
           {/* Center Node */}
-          <motion.div 
+          <motion.div
             animate={{ scale: [1, 1.05, 1] }}
-            transition={{ duration: 4, repeat: Infinity }}
+            transition={shouldReduceMotion ? { duration: 0 } : { duration: 4, repeat: Infinity }}
             className="w-32 h-32 sm:w-48 sm:h-48 bg-sky-500 rounded-full flex flex-col items-center justify-center text-white shadow-2xl z-20"
           >
             <span className="text-xl sm:text-2xl font-black mb-1">스타트업/연구자</span>
@@ -364,6 +366,7 @@ export default function OpenLabIntro() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
                   className="space-y-8"
                 >
                   {scheduleData[activeYear as keyof typeof scheduleData].map((row, idx) => (
@@ -378,7 +381,7 @@ export default function OpenLabIntro() {
                             key={pIdx}
                             initial={{ scaleX: 0 }}
                             animate={{ scaleX: 1 }}
-                            transition={{ delay: pIdx * 0.1 + idx * 0.05, duration: 0.5 }}
+                            transition={shouldReduceMotion ? { duration: 0 } : { delay: pIdx * 0.1 + idx * 0.05, duration: 0.5 }}
                             style={{ 
                               gridColumnStart: phase.start, 
                               gridColumnEnd: phase.end + 1,

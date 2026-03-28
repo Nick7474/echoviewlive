@@ -18,7 +18,7 @@ import {
   Lock,
   Unlock
 } from 'lucide-react';
-import { motion } from 'motion/react';
+import { motion, useReducedMotion } from 'motion/react';
 import { Link, useNavigate } from 'react-router-dom';
 
 interface DataItem {
@@ -54,6 +54,7 @@ const mockDetailData: DataItem = {
 };
 
 export default function DataDetail() {
+  const shouldReduceMotion = useReducedMotion();
   const navigate = useNavigate();
   const [isBookmarked, setIsBookmarked] = useState(false);
 

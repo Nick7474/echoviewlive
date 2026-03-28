@@ -18,9 +18,10 @@ import {
   Search,
   Download
 } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 
 export default function DataUsageGuide() {
+  const shouldReduceMotion = useReducedMotion();
   const [activeTab, setActiveTab] = useState<'portal' | 'api' | 'format'>('portal');
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
@@ -87,9 +88,10 @@ export default function DataUsageGuide() {
       {/* Tab Content */}
       <section className="bg-white rounded-[16px] p-8 sm:p-12 shadow-sm border border-line-normal min-h-[600px]">
         {activeTab === 'portal' && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
             className="space-y-12"
           >
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -127,10 +129,11 @@ export default function DataUsageGuide() {
                     </button>
                     <AnimatePresence>
                       {openFaq === faq.id && (
-                        <motion.div 
+                        <motion.div
                           initial={{ height: 0, opacity: 0 }}
                           animate={{ height: 'auto', opacity: 1 }}
                           exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
                           className="bg-gray-50 px-8 py-6 border-t border-line-normal"
                         >
                           <p className="text-slate-600 font-medium leading-relaxed">{faq.answer}</p>
@@ -145,9 +148,10 @@ export default function DataUsageGuide() {
         )}
 
         {activeTab === 'api' && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
             className="space-y-12"
           >
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -211,9 +215,10 @@ fetch(url)
         )}
 
         {activeTab === 'format' && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
             className="space-y-12"
           >
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

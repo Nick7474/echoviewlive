@@ -7,9 +7,10 @@ import {
   ArrowRight,
   ChevronRight
 } from 'lucide-react';
-import { motion } from 'motion/react';
+import { motion, useReducedMotion } from 'motion/react';
 
 export default function BusinessIntro() {
+  const shouldReduceMotion = useReducedMotion();
   const businesses = [
     {
       title: '탄소중립 스마트시티',
@@ -69,7 +70,7 @@ export default function BusinessIntro() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: idx * 0.1 }}
+            transition={shouldReduceMotion ? { duration: 0 } : { delay: idx * 0.1 }}
             className="p-10 bg-white rounded-[32px] border border-line-normal shadow-sm hover:shadow-xl transition-all duration-500 group"
           >
             <div className={`w-16 h-16 ${biz.color} rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform`}>

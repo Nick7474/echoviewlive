@@ -23,7 +23,7 @@ import {
   Share2,
   Calendar
 } from 'lucide-react';
-import { motion } from 'motion/react';
+import { motion, useReducedMotion } from 'motion/react';
 import { 
   AreaChart, 
   Area, 
@@ -54,10 +54,10 @@ const data = [
 ];
 
 const sectorData = [
-  { name: '에너지', value: 45, color: '#10b981' },
-  { name: '교통', value: 28, color: '#3b82f6' },
-  { name: '건물', value: 15, color: '#f59e0b' },
-  { name: '폐기물', value: 12, color: '#ef4444' },
+  { name: '에너지', value: 45, color: 'var(--color-status-positive)' },
+  { name: '교통',   value: 28, color: 'var(--color-status-info)' },
+  { name: '건물',   value: 15, color: 'var(--color-status-cautionary)' },
+  { name: '폐기물', value: 12, color: 'var(--color-status-negative)' },
 ];
 
 const coreIndicators = [
@@ -154,6 +154,7 @@ const radialData = [
 ];
 
 export default function CarbonIndicators() {
+  const shouldReduceMotion = useReducedMotion();
   const [activeTab, setActiveTab] = useState('전체');
 
   return (
@@ -224,7 +225,7 @@ export default function CarbonIndicators() {
             key={idx}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: idx * 0.1 }}
+            transition={shouldReduceMotion ? { duration: 0 } : { delay: idx * 0.1 }}
             className="bg-white p-8 rounded-[24px] shadow-sm border border-line-normal space-y-4 group hover:shadow-xl transition-all duration-500 hover:-translate-y-1"
           >
             <div className="flex items-center justify-between">
@@ -265,7 +266,7 @@ export default function CarbonIndicators() {
               key={indicator.id}
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: idx * 0.05 }}
+              transition={shouldReduceMotion ? { duration: 0 } : { delay: idx * 0.05 }}
               className={`relative overflow-hidden bg-white p-8 rounded-[32px] border border-line-normal shadow-sm hover:shadow-2xl transition-all duration-500 group ${
                 idx === 0 ? 'lg:col-span-2 lg:row-span-1' : ''
               }`}

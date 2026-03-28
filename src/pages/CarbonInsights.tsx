@@ -17,7 +17,7 @@ import {
   Globe,
   Zap
 } from 'lucide-react';
-import { motion } from 'motion/react';
+import { motion, useReducedMotion } from 'motion/react';
 
 const insights = [
   {
@@ -59,6 +59,7 @@ const insights = [
 ];
 
 export default function CarbonInsights() {
+  const shouldReduceMotion = useReducedMotion();
   const [activeCategory, setActiveCategory] = useState('전체');
 
   return (
@@ -78,26 +79,27 @@ export default function CarbonInsights() {
         
         <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-7 space-y-6">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
               className="inline-flex items-center gap-2 bg-emerald-500/20 backdrop-blur-md border border-[var(--color-primary-border)]/30 text-emerald-400 px-4 py-1.5 rounded-full text-[10px] font-black tracking-widest uppercase"
             >
               <Lightbulb size={14} /> Carbon Neutral Insights
             </motion.div>
-            <motion.h2 
+            <motion.h2
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
+              transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.1 }}
               className="text-3xl sm:text-6xl font-light leading-[1.1] tracking-tighter"
             >
               데이터로 읽는<br />
               <span className="font-black text-emerald-400">탄소중립의 미래</span>
             </motion.h2>
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
+              transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.2 }}
               className="text-slate-300 text-base sm:text-xl font-medium leading-relaxed max-w-2xl"
             >
               광명시의 탄소중립 정책, 기술 트렌드, 그리고 시민들의 목소리를 담은 깊이 있는 인사이트를 제공합니다.
@@ -158,7 +160,7 @@ export default function CarbonInsights() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: idx * 0.1 }}
+            transition={shouldReduceMotion ? { duration: 0 } : { delay: idx * 0.1 }}
             className="group flex flex-col sm:flex-row gap-8 bg-white rounded-[32px] overflow-hidden hover:shadow-2xl transition-all duration-500 cursor-pointer"
           >
             <div className="sm:w-2/5 h-64 sm:h-auto relative overflow-hidden">

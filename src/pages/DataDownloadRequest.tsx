@@ -13,9 +13,10 @@ import {
   HelpCircle,
   ArrowRight
 } from 'lucide-react';
-import { motion } from 'motion/react';
+import { motion, useReducedMotion } from 'motion/react';
 
 export default function DataDownloadRequest() {
+  const shouldReduceMotion = useReducedMotion();
   const [step, setStep] = useState(1);
   const [requestType, setRequestType] = useState<'download' | 'api'>('download');
 
@@ -71,9 +72,10 @@ export default function DataDownloadRequest() {
       {/* Main Form Content */}
       <section className="bg-white rounded-[16px] p-8 sm:p-12 shadow-sm border border-line-normal min-h-[500px]">
         {step === 1 && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
             className="space-y-10 max-w-4xl mx-auto"
           >
             <div className="text-center space-y-2">
@@ -135,9 +137,10 @@ export default function DataDownloadRequest() {
         )}
 
         {step === 2 && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
             className="space-y-10 max-w-4xl mx-auto"
           >
             <div className="text-center space-y-2">
@@ -193,9 +196,10 @@ export default function DataDownloadRequest() {
         )}
 
         {step === 3 && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
             className="space-y-10 max-w-4xl mx-auto"
           >
             <div className="text-center space-y-2">
@@ -259,9 +263,10 @@ export default function DataDownloadRequest() {
         )}
 
         {step === 4 && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
             className="flex flex-col items-center justify-center py-20 space-y-8 text-center"
           >
             <div className="w-24 h-24 bg-emerald-100 text-emerald-500 rounded-full flex items-center justify-center">

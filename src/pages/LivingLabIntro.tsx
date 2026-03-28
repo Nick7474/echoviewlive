@@ -15,9 +15,10 @@ import {
   Leaf,
 } from 'lucide-react';
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 
 export default function LivingLabIntro() {
+  const shouldReduceMotion = useReducedMotion();
   const [activeYear, setActiveYear] = useState(2026);
   const [selectedPhase, setSelectedPhase] = useState<{ category: string, label: string, start: number, end: number } | null>(null);
 
@@ -87,9 +88,10 @@ export default function LivingLabIntro() {
   return (
     <>
       {/* Notice Bar */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
         className="bg-[#1a3a2a] text-white rounded-2xl p-4 mb-6 flex items-center justify-between shadow-lg"
       >
         <div className="flex items-center gap-4 overflow-hidden">
@@ -110,7 +112,7 @@ export default function LivingLabIntro() {
             key={idx}
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: idx * 0.1 }}
+            transition={shouldReduceMotion ? { duration: 0 } : { delay: idx * 0.1 }}
             className="bg-white p-6 rounded-[24px] shadow-sm border border-line-normal flex items-center gap-5 hover:shadow-md transition-shadow"
           >
             <div className={`w-14 h-14 ${stat.bg} rounded-2xl flex items-center justify-center shadow-inner`}>
@@ -138,9 +140,10 @@ export default function LivingLabIntro() {
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
             className="bg-white/85 backdrop-blur-sm p-6 rounded-xl w-full max-w-[420px] border border-white/40 shadow-2xl"
           >
-            <div className="inline-flex items-center gap-2 bg-[#00a37b] text-white px-4 py-1.5 rounded-full text-xs font-black mb-4 shadow-lg shadow-emerald-200/50">
+            <div className="inline-flex items-center gap-2 bg-[var(--color-primary)] text-white px-4 py-1.5 rounded-full text-xs font-black mb-4 shadow-lg shadow-emerald-200/50">
               <FlaskConical size={14} fill="white" fillOpacity={0.2} />
               <span>Living Lab</span>
             </div>
@@ -185,7 +188,7 @@ export default function LivingLabIntro() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: idx * 0.1 }}
+              transition={shouldReduceMotion ? { duration: 0 } : { delay: idx * 0.1 }}
               className="bg-white p-6 sm:p-8 rounded-2xl border border-line-normal shadow-sm hover:shadow-md transition-shadow text-center"
             >
               <img src={card.img} alt={card.alt} width={86} height={84} className="mx-auto mb-6" />
@@ -249,6 +252,7 @@ export default function LivingLabIntro() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
                   className="space-y-6"
                 >
                   {scheduleData[activeYear as keyof typeof scheduleData].map((row, idx) => (
@@ -263,7 +267,7 @@ export default function LivingLabIntro() {
                             key={pIdx}
                             initial={{ scaleX: 0 }}
                             animate={{ scaleX: 1 }}
-                            transition={{ delay: pIdx * 0.1 + idx * 0.05, duration: 0.5 }}
+                            transition={shouldReduceMotion ? { duration: 0 } : { delay: pIdx * 0.1 + idx * 0.05, duration: 0.5 }}
                             style={{ 
                               gridColumnStart: phase.start, 
                               gridColumnEnd: phase.end + 1,
@@ -289,17 +293,19 @@ export default function LivingLabIntro() {
       <AnimatePresence>
         {selectedPhase && (
           <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
               onClick={() => setSelectedPhase(null)}
               className="absolute inset-0 bg-black/40 backdrop-blur-sm"
             />
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.2 }}
               className="relative bg-white rounded-[32px] p-8 w-full max-w-md shadow-2xl border border-line-normal"
             >
               <div className="flex items-center justify-between mb-6">
@@ -397,17 +403,18 @@ export default function LivingLabIntro() {
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
+                    transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
                     className={`mb-4 px-3 py-1 rounded-full text-[10px] font-black tracking-widest text-white ${step.color} shadow-sm`}
                   >
                     STEP {step.step}
                   </motion.div>
 
                   {/* Icon Container */}
-                  <motion.div 
+                  <motion.div
                     initial={{ scale: 0.8, opacity: 0 }}
                     whileInView={{ scale: 1, opacity: 1 }}
                     viewport={{ once: true }}
-                    transition={{ delay: idx * 0.1 }}
+                    transition={shouldReduceMotion ? { duration: 0 } : { delay: idx * 0.1 }}
                     className={`w-24 h-24 ${step.lightColor} rounded-[32px] flex items-center justify-center mb-6 shadow-sm group-hover:shadow-md transition-all duration-300 relative`}
                   >
                     <div className={`text-white p-4 rounded-2xl ${step.color} shadow-lg group-hover:scale-110 transition-transform`}>
@@ -450,10 +457,11 @@ export default function LivingLabIntro() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center relative z-10">
             {/* Left Column */}
             <div className="space-y-12 md:space-y-32">
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
+                transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
                 className="bg-white p-6 rounded-3xl border border-line-normal shadow-sm text-right relative"
               >
                 <div className="absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-emerald-500 rounded-full border-4 border-white shadow-sm hidden md:block" />
@@ -461,11 +469,11 @@ export default function LivingLabIntro() {
                 <p className="text-sm text-gray-500 leading-relaxed">행정적 지원, 예산 확보 및<br />리빙랩 결과의 정책 반영</p>
               </motion.div>
 
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.2 }}
+                transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.2 }}
                 className="bg-white p-6 rounded-3xl border border-line-normal shadow-sm text-right relative"
               >
                 <div className="absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-emerald-500 rounded-full border-4 border-white shadow-sm hidden md:block" />
@@ -476,11 +484,12 @@ export default function LivingLabIntro() {
 
             {/* Center Column */}
             <div className="flex justify-center">
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                className="w-56 h-56 sm:w-72 sm:h-72 bg-[#00a37b] rounded-full flex flex-col items-center justify-center text-white shadow-[0_30px_60px_rgba(0,163,123,0.3)] text-center p-8 relative"
+                transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
+                className="w-56 h-56 sm:w-72 sm:h-72 bg-[var(--color-primary)] rounded-full flex flex-col items-center justify-center text-white shadow-[0_30px_60px_rgba(6,159,124,0.3)] text-center p-8 relative"
               >
                 <div className="absolute inset-0 rounded-full border-8 border-white/20 animate-pulse" />
                 <span className="text-4xl sm:text-5xl font-black mb-3 tracking-tight">시민</span>
@@ -490,11 +499,11 @@ export default function LivingLabIntro() {
 
             {/* Right Column */}
             <div className="space-y-12 md:space-y-32">
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.1 }}
+                transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.1 }}
                 className="bg-white p-6 rounded-3xl border border-line-normal shadow-sm text-left relative"
               >
                 <div className="absolute -left-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-emerald-500 rounded-full border-4 border-white shadow-sm hidden md:block" />
@@ -502,11 +511,11 @@ export default function LivingLabIntro() {
                 <p className="text-sm text-gray-500 leading-relaxed">기술 자문, 솔루션 구현 및<br />데이터 분석 지원</p>
               </motion.div>
 
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.3 }}
+                transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.3 }}
                 className="bg-white p-6 rounded-3xl border border-line-normal shadow-sm text-left relative"
               >
                 <div className="absolute -left-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-emerald-500 rounded-full border-4 border-white shadow-sm hidden md:block" />
@@ -520,8 +529,8 @@ export default function LivingLabIntro() {
 
       {/* Bottom CTA */}
       <section 
-        style={{ 
-          background: 'linear-gradient(90deg, #D5EDDF 0%, #BAE5D4 21%, #D4EDDF 52%, #B7E3BD 77%, #B5E3B5 100%)' 
+        style={{
+          background: 'linear-gradient(135deg, var(--color-primary-subtle) 0%, var(--color-primary-muted) 100%)'
         }}
         className="rounded-[24px] p-12 sm:p-16 text-center shadow-sm"
       >

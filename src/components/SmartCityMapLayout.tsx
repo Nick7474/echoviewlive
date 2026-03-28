@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Video, ShieldCheck, Heart, Info, Search, Layers, Map as MapIcon, List, ChevronLeft, ChevronRight, Flame, Siren, Plus, Minus, Target } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 
 interface SmartCityMapLayoutProps {
   children: React.ReactNode;
@@ -18,6 +18,7 @@ const MENU_ITEMS = [
 ];
 
 export default function SmartCityMapLayout({ children, title, description, filterContent, bottomContent }: SmartCityMapLayoutProps) {
+  const shouldReduceMotion = useReducedMotion();
   const location = useLocation();
   const [isFilterOpen, setIsFilterOpen] = useState(true);
 
@@ -72,10 +73,11 @@ export default function SmartCityMapLayout({ children, title, description, filte
           {/* 2. Filter/Detail Panel */}
           <AnimatePresence initial={false}>
             {isFilterOpen && (
-              <motion.aside 
+              <motion.aside
                 initial={{ width: 0, opacity: 0 }}
                 animate={{ width: 240, opacity: 1 }}
                 exit={{ width: 0, opacity: 0 }}
+                transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
                 className="bg-white border-r border-line-normal z-20 overflow-hidden flex flex-col"
               >
                 <div className="p-5 w-[240px]">

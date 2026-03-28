@@ -101,6 +101,7 @@ export default function MyDataRequests() {
               </div>
               <button
                 onClick={() => setShowKey(!showKey)}
+                aria-label={showKey ? 'API 키 숨기기' : 'API 키 보기'}
                 className="p-3 rounded-xl border border-line-normal text-slate-400 hover:border-slate-400 hover:text-slate-700 transition-all"
               >
                 {showKey ? <EyeOff size={18} /> : <Eye size={18} />}

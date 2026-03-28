@@ -27,7 +27,7 @@ import {
   CheckCircle2,
   AlertCircle
 } from 'lucide-react';
-import { motion } from 'motion/react';
+import { motion, useReducedMotion } from 'motion/react';
 import { 
   AreaChart, 
   Area, 
@@ -65,6 +65,7 @@ const barData = [
 ];
 
 export default function SmartCityIndicators() {
+  const shouldReduceMotion = useReducedMotion();
   const [activeTab, setActiveTab] = useState('전체');
 
   return (
@@ -135,7 +136,7 @@ export default function SmartCityIndicators() {
             key={idx}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: idx * 0.1 }}
+            transition={shouldReduceMotion ? { duration: 0 } : { delay: idx * 0.1 }}
             className="bg-white p-8 rounded-[24px] shadow-sm border border-line-normal space-y-4 group hover:shadow-xl transition-all duration-500 hover:-translate-y-1"
           >
             <div className="flex items-center justify-between">

@@ -16,7 +16,7 @@ import {
   Info,
   CheckCircle2
 } from 'lucide-react';
-import { motion } from 'motion/react';
+import { motion, useReducedMotion } from 'motion/react';
 import { 
   BarChart, 
   Bar, 
@@ -41,13 +41,14 @@ const yearlyData = [
 ];
 
 const sectorReduction = [
-  { name: '에너지 전환', value: 420, color: '#10b981', icon: <Zap size={20} /> },
-  { name: '그린 모빌리티', value: 280, color: '#3b82f6', icon: <Bus size={20} /> },
-  { name: '건물 효율화', value: 150, color: '#f59e0b', icon: <Building2 size={20} /> },
-  { name: '자원 순환', value: 120, color: '#ef4444', icon: <Trash2 size={20} /> },
+  { name: '에너지 전환',  value: 420, color: 'var(--color-status-positive)',   icon: <Zap size={20} /> },
+  { name: '그린 모빌리티', value: 280, color: 'var(--color-status-info)',        icon: <Bus size={20} /> },
+  { name: '건물 효율화',  value: 150, color: 'var(--color-status-cautionary)', icon: <Building2 size={20} /> },
+  { name: '자원 순환',    value: 120, color: 'var(--color-status-negative)',    icon: <Trash2 size={20} /> },
 ];
 
 export default function CarbonReductionStatus() {
+  const shouldReduceMotion = useReducedMotion();
   const [activeYear, setActiveYear] = useState('2026');
 
   return (
@@ -66,36 +67,37 @@ export default function CarbonReductionStatus() {
         </div>
 
         <div className="relative z-10 space-y-6">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
             className="inline-flex items-center gap-2 bg-emerald-500/20 backdrop-blur-md border border-[var(--color-primary-border)]/30 text-emerald-400 px-4 py-1.5 rounded-full text-[10px] font-black tracking-widest uppercase"
           >
             <Target size={14} /> Carbon Reduction Goal
           </motion.div>
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
+            transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.1 }}
             className="text-3xl sm:text-6xl font-black leading-[1.1] tracking-tighter"
           >
             2050 탄소중립,<br />
             <span className="text-emerald-400">광명의 약속입니다</span>
           </motion.h2>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
+            transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.2 }}
             className="text-slate-300 text-base sm:text-xl font-medium leading-relaxed max-w-2xl"
           >
             광명시는 2030년까지 탄소 배출량을 40% 감축하고, 2050년 탄소중립(Net-Zero) 달성을 목표로 달리고 있습니다. 
             시민과 함께 만들어가는 지속가능한 미래를 확인하세요.
           </motion.p>
           
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
+            transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.3 }}
             className="flex flex-wrap gap-8 pt-4"
           >
             <div className="space-y-1">
@@ -165,10 +167,10 @@ export default function CarbonReductionStatus() {
                   <span className="text-sm font-black">{item.value} tCO2eq</span>
                 </div>
                 <div className="h-2 bg-white/20 rounded-full overflow-hidden">
-                  <motion.div 
+                  <motion.div
                     initial={{ width: 0 }}
                     whileInView={{ width: `${(item.value / 450) * 100}%` }}
-                    transition={{ duration: 1, delay: idx * 0.1 }}
+                    transition={shouldReduceMotion ? { duration: 0 } : { duration: 1, delay: idx * 0.1 }}
                     className="h-full bg-white rounded-full"
                   />
                 </div>
@@ -225,10 +227,10 @@ export default function CarbonReductionStatus() {
                   <td className="px-8 py-6 min-w-[200px]">
                     <div className="flex items-center gap-4">
                       <div className="flex-grow h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                        <motion.div 
+                        <motion.div
                           initial={{ width: 0 }}
                           whileInView={{ width: `${item.percent}%` }}
-                          transition={{ duration: 1, delay: idx * 0.1 }}
+                          transition={shouldReduceMotion ? { duration: 0 } : { duration: 1, delay: idx * 0.1 }}
                           className={`h-full bg-${item.color}-500 rounded-full`}
                         />
                       </div>
@@ -303,7 +305,7 @@ export default function CarbonReductionStatus() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: idx * 0.1 }}
+              transition={shouldReduceMotion ? { duration: 0 } : { delay: idx * 0.1 }}
               className="bg-white rounded-[16px] border border-line-normal shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden flex flex-col"
             >
               <div className="p-8 space-y-6 flex-grow">
@@ -328,10 +330,10 @@ export default function CarbonReductionStatus() {
                     <span className="text-slate-900">{project.progress}%</span>
                   </div>
                   <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                    <motion.div 
+                    <motion.div
                       initial={{ width: 0 }}
                       whileInView={{ width: `${project.progress}%` }}
-                      transition={{ duration: 1, delay: 0.5 }}
+                      transition={shouldReduceMotion ? { duration: 0 } : { duration: 1, delay: 0.5 }}
                       className="h-full bg-emerald-500 rounded-full"
                     />
                   </div>

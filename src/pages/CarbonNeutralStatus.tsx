@@ -21,7 +21,7 @@ import {
   Thermometer,
   CloudRain
 } from 'lucide-react';
-import { motion } from 'motion/react';
+import { motion, useReducedMotion } from 'motion/react';
 import { 
   AreaChart, 
   Area, 
@@ -45,20 +45,22 @@ const data = [
   { time: '24:00', value: 460 },
 ];
 
+const CSS = (v: string) => getComputedStyle(document.documentElement).getPropertyValue(v).trim() || v;
 const sectorData = [
-  { name: '에너지', value: 45, color: '#10b981' },
-  { name: '교통', value: 28, color: '#3b82f6' },
-  { name: '건물', value: 15, color: '#f59e0b' },
-  { name: '폐기물', value: 12, color: '#ef4444' },
+  { name: '에너지', value: 45, color: 'var(--color-status-positive)' },
+  { name: '교통',   value: 28, color: 'var(--color-status-info)' },
+  { name: '건물',   value: 15, color: 'var(--color-status-cautionary)' },
+  { name: '폐기물', value: 12, color: 'var(--color-status-negative)' },
 ];
 
 export default function CarbonNeutralStatus() {
+  const shouldReduceMotion = useReducedMotion();
   const [activeTab, setActiveTab] = useState('전체');
 
   return (
     <div className="max-w-[1560px] mx-auto space-y-8 pb-20">
       {/* Header Section */}
-      <section className="relative rounded-[16px] p-6 sm:p-10 shadow-xl overflow-hidden min-h-[280px] flex flex-col lg:flex-row items-center justify-between gap-8 group">
+      <section className="relative rounded-2xl p-6 sm:p-10 shadow-xl overflow-hidden min-h-[280px] flex flex-col lg:flex-row items-center justify-between gap-8 group">
         {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0">
           <img 
@@ -71,9 +73,10 @@ export default function CarbonNeutralStatus() {
         </div>
 
         <div className="space-y-6 text-center lg:text-left relative z-10 max-w-3xl">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
             className="inline-flex items-center gap-2 px-4 py-1.5 bg-emerald-500/20 backdrop-blur-md text-emerald-300 text-[11px] font-black rounded-full uppercase tracking-[0.2em] border border-[var(--color-primary-border)]/30"
           >
             <Activity size={14} className="animate-pulse" /> Real-time Dashboard
@@ -89,12 +92,13 @@ export default function CarbonNeutralStatus() {
           </div>
         </div>
 
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
           className="relative z-10"
         >
-          <div className="bg-white/10 backdrop-blur-xl p-6 rounded-[24px] border border-white/20 flex items-center gap-5 shadow-2xl">
+          <div className="bg-white/10 backdrop-blur-xl p-6 rounded-3xl border border-white/20 flex items-center gap-5 shadow-2xl">
             <div className="w-14 h-14 bg-emerald-500 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-emerald-500/30">
               <RefreshCw size={28} className="animate-spin-slow" />
             </div>
@@ -111,7 +115,7 @@ export default function CarbonNeutralStatus() {
         {/* Left: Main Stats & Chart (3 cols) */}
         <div className="lg:col-span-3 space-y-8">
           {/* Real-time Carbon & Energy Summary Header */}
-          <div className="bg-emerald-950 rounded-[16px] p-6 text-white flex items-center justify-between shadow-lg">
+          <div className="bg-emerald-950 rounded-2xl p-6 text-white flex items-center justify-between shadow-lg">
             <h3 className="text-xl font-black flex items-center gap-3">
               <Activity size={24} className="text-emerald-400" /> 실시간 탄소·에너지 종합 현황
             </h3>
@@ -129,7 +133,7 @@ export default function CarbonNeutralStatus() {
               { label: '전력 소비량', value: '2,940', unit: 'MWh', trend: 'up', trendValue: '2.3%', color: 'rose' },
               { label: '탄소포인트 발행', value: '38,240', unit: 'P', trend: 'up', trendValue: '12%', color: 'amber' },
             ].map((stat, idx) => (
-              <div key={idx} className="bg-white p-6 rounded-[16px] shadow-sm border border-line-normal space-y-4">
+              <div key={idx} className="bg-white p-6 rounded-2xl shadow-sm border border-line-normal space-y-4">
                 <div className="flex items-center justify-between">
                   <p className="text-xs font-black text-slate-400 uppercase tracking-widest">{stat.label}</p>
                   <div className={`flex items-center gap-1 text-xs font-black ${stat.color === 'rose' ? 'text-rose-500' : 'text-emerald-500'}`}>
@@ -148,7 +152,7 @@ export default function CarbonNeutralStatus() {
           </div>
 
           {/* Main Trend Chart */}
-          <section className="bg-white rounded-[16px] p-8 shadow-sm border border-line-normal space-y-8">
+          <section className="bg-white rounded-2xl p-8 shadow-sm border border-line-normal space-y-8">
             <div className="flex items-center justify-between">
               <h3 className="text-lg font-black text-slate-900">시간별 탄소 배출량 추이 <span className="text-slate-400 font-medium text-sm ml-2">(tCO2/h, 오늘 기준)</span></h3>
               <div className="flex items-center gap-4">
@@ -190,7 +194,7 @@ export default function CarbonNeutralStatus() {
         {/* Right: Side Widgets (1 col) */}
         <div className="space-y-8">
           {/* Carbon Emission & Absorption Board */}
-          <section className="bg-white rounded-[16px] p-8 shadow-sm border border-line-normal space-y-6">
+          <section className="bg-white rounded-2xl p-8 shadow-sm border border-line-normal space-y-6">
             <h3 className="text-lg font-black text-slate-900 flex items-center gap-2">
               <Leaf className="text-emerald-500" size={20} /> 탄소 배출·흡수 현황
             </h3>
@@ -213,7 +217,7 @@ export default function CarbonNeutralStatus() {
           </section>
 
           {/* Weather Status Widget */}
-          <section className="bg-white rounded-[16px] p-8 shadow-sm border border-line-normal space-y-6">
+          <section className="bg-white rounded-2xl p-8 shadow-sm border border-line-normal space-y-6">
             <h3 className="text-lg font-black text-slate-900 flex items-center gap-2">
               <Cloud className="text-blue-500" size={20} /> 기상 현황
             </h3>
@@ -238,7 +242,7 @@ export default function CarbonNeutralStatus() {
       </div>
 
       {/* Sector Distribution Improved UI */}
-      <section className="bg-white rounded-[16px] p-10 shadow-sm border border-line-normal space-y-10">
+      <section className="bg-white rounded-2xl p-10 shadow-sm border border-line-normal space-y-10">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 bg-emerald-50 text-emerald-500 rounded-xl flex items-center justify-center">
             <Filter size={20} />
@@ -269,10 +273,10 @@ export default function CarbonNeutralStatus() {
                 <p className="text-xs font-bold text-slate-400">전체 대비 {sector.percent}%</p>
               </div>
               <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                <motion.div 
+                <motion.div
                   initial={{ width: 0 }}
                   animate={{ width: `${sector.percent}%` }}
-                  transition={{ duration: 1, delay: idx * 0.1 }}
+                  transition={shouldReduceMotion ? { duration: 0 } : { duration: 1, delay: idx * 0.1 }}
                   className={`h-full bg-${sector.color}-500 rounded-full`}
                 />
               </div>
@@ -282,7 +286,7 @@ export default function CarbonNeutralStatus() {
       </section>
 
       {/* Real-time Sensor Data Grid */}
-      <section className="bg-white rounded-[16px] shadow-sm border border-line-normal overflow-hidden">
+      <section className="bg-white rounded-2xl shadow-sm border border-line-normal overflow-hidden">
         <div className="p-8 border-b border-line-neutral flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="space-y-1">
             <h3 className="text-xl font-black text-slate-900 flex items-center gap-2">
@@ -365,7 +369,7 @@ export default function CarbonNeutralStatus() {
 
       {/* Info Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <section className="bg-slate-900 rounded-[16px] p-10 text-white space-y-6 relative overflow-hidden">
+        <section className="bg-slate-900 rounded-2xl p-10 text-white space-y-6 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
           <div className="space-y-2 relative z-10">
             <h4 className="text-2xl font-black tracking-tight">탄소중립 실천 포인트제</h4>
@@ -379,7 +383,7 @@ export default function CarbonNeutralStatus() {
           </button>
         </section>
 
-        <section className="bg-white rounded-[16px] p-10 shadow-sm border border-line-normal space-y-6">
+        <section className="bg-white rounded-2xl p-10 shadow-sm border border-line-normal space-y-6">
           <div className="flex items-center gap-4">
             <div className="w-14 h-14 bg-amber-50 text-amber-500 rounded-2xl flex items-center justify-center">
               <AlertCircle size={32} />

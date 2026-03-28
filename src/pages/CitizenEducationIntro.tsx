@@ -12,10 +12,11 @@ import {
   Lightbulb,
   Target
 } from 'lucide-react';
-import { motion } from 'motion/react';
+import { motion, useReducedMotion } from 'motion/react';
 import { Link } from 'react-router-dom';
 
 export default function CitizenEducationIntro() {
+  const shouldReduceMotion = useReducedMotion();
   const stats = [
     { label: '누적 수료생', value: '1,240', unit: '명', icon: <Users size={20} /> },
     { label: '운영 교육 과정', value: '24', unit: '개', icon: <BookOpen size={20} /> },
@@ -81,36 +82,37 @@ export default function CitizenEducationIntro() {
         
         <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-7 space-y-8">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
               className="inline-flex items-center gap-2 bg-emerald-500/20 border border-[var(--color-primary-border)]/30 text-emerald-300 px-4 py-1.5 rounded-full text-xs font-black tracking-widest uppercase"
             >
               <GraduationCap size={14} /> Citizen Education
             </motion.div>
-            <motion.h2 
+            <motion.h2
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
+              transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.1 }}
               className="text-3xl sm:text-5xl font-black leading-[1.1] tracking-tight"
             >
               데이터로 소통하는 시민,<br />
               <span className="text-emerald-400">스마트 광명의 미래를 배웁니다</span>
             </motion.h2>
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
+              transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.2 }}
               className="text-white/70 text-base sm:text-xl font-medium leading-relaxed max-w-2xl"
             >
               광명시민 누구나 데이터를 이해하고 활용하여 우리 동네의 문제를 스스로 해결하는 <br className="hidden sm:block" />
               '시민과학자'로 성장할 수 있도록 맞춤형 교육을 제공합니다.
             </motion.p>
             
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
+              transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.3 }}
               className="flex flex-wrap gap-4 pt-4"
             >
               {stats.map((stat, idx) => (
@@ -129,7 +131,7 @@ export default function CitizenEducationIntro() {
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.4 }}
+              transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.4 }}
               className="relative"
             >
               <img 
@@ -166,7 +168,7 @@ export default function CitizenEducationIntro() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: idx * 0.1 }}
+              transition={shouldReduceMotion ? { duration: 0 } : { delay: idx * 0.1 }}
               className={`group bg-white rounded-[32px] border ${item.borderColor} p-8 shadow-sm hover:shadow-xl transition-all duration-500`}
             >
               <div className="flex justify-between items-start mb-8">

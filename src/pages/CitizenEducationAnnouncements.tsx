@@ -11,7 +11,7 @@ import {
   CheckCircle2
 } from 'lucide-react';
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { Link } from 'react-router-dom';
 
 interface EducationItem {
@@ -96,6 +96,7 @@ const educationData: EducationItem[] = [
 ];
 
 export default function CitizenEducationAnnouncements() {
+  const shouldReduceMotion = useReducedMotion();
   const [filter, setFilter] = useState<'all' | 'recruiting' | 'upcoming' | 'completed'>('all');
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -175,6 +176,7 @@ export default function CitizenEducationAnnouncements() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
               className="group bg-white rounded-[32px] border border-line-normal overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500"
             >
               <div className="relative aspect-[16/10] overflow-hidden">

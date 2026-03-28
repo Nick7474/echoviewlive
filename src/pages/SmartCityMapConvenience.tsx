@@ -58,10 +58,10 @@ const CHART_DATA = [
 ];
 
 const TYPE_COLORS: Record<string, string> = {
-  '주차장': '#3B82F6',
-  '충전소': 'var(--color-primary)',
-  '화장실': '#F59E0B',
-  '스마트벤치': '#8B5CF6',
+  '주차장':   'var(--color-status-info)',
+  '충전소':   'var(--color-primary)',
+  '화장실':   'var(--color-status-cautionary)',
+  '스마트벤치': '#7c3aed',
 };
 
 export default function SmartCityMapConvenience() {

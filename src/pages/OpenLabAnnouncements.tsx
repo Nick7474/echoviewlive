@@ -15,7 +15,7 @@ import {
   ArrowRight
 } from 'lucide-react';
 import { useState } from 'react';
-import { motion } from 'motion/react';
+import { motion, useReducedMotion } from 'motion/react';
 import { Link } from 'react-router-dom';
 
 interface Announcement {
@@ -80,6 +80,7 @@ const CATEGORY_CONFIG = {
 };
 
 export default function OpenLabAnnouncements() {
+  const shouldReduceMotion = useReducedMotion();
   const [activeTab, setActiveTab] = useState('전체');
   const [activeCategory, setActiveCategory] = useState('전체');
 
@@ -117,7 +118,7 @@ export default function OpenLabAnnouncements() {
               >
                 {tab}
                 {activeTab === tab && (
-                  <motion.div layoutId="activeTabOpen" className="absolute bottom-0 left-0 right-0 h-1 bg-sky-500 rounded-t-full" />
+                  <motion.div layoutId="activeTabOpen" className="absolute bottom-0 left-0 right-0 h-1 bg-sky-500 rounded-t-full" transition={{ duration: shouldReduceMotion ? 0 : 0.2 }} />
                 )}
               </button>
             ))}

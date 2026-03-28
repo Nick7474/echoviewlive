@@ -15,10 +15,11 @@ import {
   Cpu,
   Zap
 } from 'lucide-react';
-import { motion } from 'motion/react';
+import { motion, useReducedMotion } from 'motion/react';
 import { Link } from 'react-router-dom';
 
 export default function OpenLabSupport() {
+  const shouldReduceMotion = useReducedMotion();
   const stats = [
     { label: '누적 창업 지원', value: '42', unit: '팀', icon: <Rocket size={20} /> },
     { label: '투자 유치 금액', value: '15.8', unit: '억', icon: <TrendingUp size={20} /> },
@@ -84,36 +85,37 @@ export default function OpenLabSupport() {
         
         <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-7 space-y-8">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
               className="inline-flex items-center gap-2 bg-sky-500/20 border border-sky-500/30 text-sky-300 px-4 py-1.5 rounded-full text-xs font-black tracking-widest uppercase"
             >
               <Briefcase size={14} /> Support Program
             </motion.div>
-            <motion.h2 
+            <motion.h2
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
+              transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.1 }}
               className="text-3xl sm:text-5xl font-black leading-[1.1] tracking-tight"
             >
               데이터로 여는 새로운 기회,<br />
               <span className="text-sky-400">취창업 지원 프로그램</span>
             </motion.h2>
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
+              transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.2 }}
               className="text-white/70 text-base sm:text-xl font-medium leading-relaxed max-w-2xl"
             >
               오픈랩 연계 취업·창업 지원 정보 및 신청 안내입니다. <br className="hidden sm:block" />
               단순한 아이디어 실증을 넘어 비즈니스 모델 고도화와 시장 진출을 위한 전 과정을 밀착 지원합니다.
             </motion.p>
             
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
+              transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.3 }}
               className="flex flex-wrap gap-4 pt-4"
             >
               {stats.map((stat, idx) => (
@@ -132,7 +134,7 @@ export default function OpenLabSupport() {
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.4 }}
+              transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.4 }}
               className="relative"
             >
               <img 
@@ -174,7 +176,7 @@ export default function OpenLabSupport() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: idx * 0.1 }}
+              transition={shouldReduceMotion ? { duration: 0 } : { delay: idx * 0.1 }}
               className={`group bg-white rounded-[32px] border ${program.borderColor} p-8 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500`}
             >
               <div className={`w-16 h-16 ${program.color} rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500`}>
@@ -254,7 +256,7 @@ export default function OpenLabSupport() {
                   initial={{ opacity: 0, x: -10 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: idx * 0.1 }}
+                  transition={shouldReduceMotion ? { duration: 0 } : { delay: idx * 0.1 }}
                   className="flex items-start gap-4 p-6 bg-white rounded-3xl border border-line-normal shadow-sm hover:shadow-md transition-all"
                 >
                   <div className="w-12 h-12 bg-sky-50 text-sky-500 rounded-xl flex items-center justify-center flex-shrink-0">

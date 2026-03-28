@@ -15,9 +15,10 @@ import {
   Settings,
   ArrowRight
 } from 'lucide-react';
-import { motion } from 'motion/react';
+import { motion, useReducedMotion } from 'motion/react';
 
 export default function SiteIntro() {
+  const shouldReduceMotion = useReducedMotion();
   const keyServices = [
     {
       icon: <Activity size={24} />,
@@ -71,26 +72,27 @@ export default function SiteIntro() {
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
             className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary text-white text-xs font-black rounded-full uppercase tracking-widest shadow-lg shadow-primary/20"
           >
             <Star size={14} className="fill-current" /> Smart City Platform
           </motion.div>
           
           <div className="space-y-4">
-            <motion.h1 
+            <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
+              transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.1 }}
               className="text-4xl lg:text-6xl font-black text-white leading-tight"
             >
               광명시 강소형 스마트도시 <br />
               <span className="text-primary">통합 플랫폼 에코뷰</span>
             </motion.h1>
 
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
+              transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.2 }}
               className="text-xl text-white/90 font-bold leading-relaxed max-w-2xl drop-shadow-md"
             >
               에코뷰(EcoView)는 광명시의 탄소중립과 스마트도시 비전을 실현하기 위해 구축된 통합 개방형 플랫폼입니다. 시민·기업·연구자가 함께 도시 문제를 해결하고 데이터를 공유하며, 더 나은 광명시의 미래를 만들어 갑니다.
@@ -118,7 +120,7 @@ export default function SiteIntro() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: idx * 0.05 }}
+              transition={shouldReduceMotion ? { duration: 0 } : { delay: idx * 0.05 }}
               className="p-8 bg-white rounded-[24px] border border-line-normal shadow-sm hover:shadow-xl hover:border-primary/20 transition-all duration-500 group"
             >
               <div className="w-14 h-14 bg-gray-50 text-gray-400 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary/10 group-hover:text-primary transition-colors">
@@ -148,9 +150,10 @@ export default function SiteIntro() {
         <div className="bg-gray-50 rounded-[40px] p-12 lg:p-20 border border-line-normal overflow-hidden">
           <div className="max-w-4xl mx-auto flex flex-col items-center gap-12">
             {/* Top Node */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
               className="bg-primary text-white px-10 py-4 rounded-2xl font-black shadow-lg shadow-primary/20 relative z-10"
             >
               광명시 스마트도시과
@@ -163,29 +166,30 @@ export default function SiteIntro() {
               {/* Connection Lines (Desktop) */}
               <div className="hidden md:block absolute top-1/2 left-0 right-0 h-px bg-gray-200 -z-10" />
               
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
                 className="bg-white border-2 border-primary p-6 rounded-2xl text-center shadow-md"
               >
                 <p className="text-primary font-black text-sm mb-1">에코뷰 플랫폼</p>
                 <p className="text-gray-900 font-bold">(통합 운영)</p>
               </motion.div>
 
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.1 }}
+                transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.1 }}
                 className="bg-white border border-line-normal p-6 rounded-2xl text-center shadow-md"
               >
                 <p className="text-emerald-600 font-black text-sm mb-1">광명시 데이터허브</p>
                 <p className="text-gray-900 font-bold">(488건)</p>
               </motion.div>
 
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.2 }}
+                transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.2 }}
                 className="bg-white border border-line-normal p-6 rounded-2xl text-center shadow-md"
               >
                 <p className="text-blue-600 font-black text-sm mb-1">경기도 데이터허브</p>
@@ -197,29 +201,30 @@ export default function SiteIntro() {
 
             {/* Bottom Nodes */}
             <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-8">
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
                 className="bg-white border border-line-normal p-6 rounded-full text-center shadow-sm"
               >
                 <p className="text-gray-900 font-black text-sm">시민 참여</p>
                 <p className="text-gray-400 text-xs font-bold">(리빙랩·오픈랩)</p>
               </motion.div>
 
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
+                transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.1 }}
                 className="bg-white border border-line-normal p-6 rounded-full text-center shadow-sm"
               >
                 <p className="text-gray-900 font-black text-sm">데이터 개방</p>
                 <p className="text-gray-400 text-xs font-bold">(API·다운로드)</p>
               </motion.div>
 
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
+                transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.2 }}
                 className="bg-white border border-line-normal p-6 rounded-full text-center shadow-sm"
               >
                 <p className="text-gray-900 font-black text-sm">탄소현황</p>
