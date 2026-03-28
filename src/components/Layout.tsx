@@ -128,7 +128,7 @@ export default function Layout() {
                     >
                       {menu.title}
                       {isMenuOpen && (
-                        <motion.div layoutId="activeNav" className="absolute bottom-0 left-0 right-0 h-1 bg-primary" />
+                        <div className="absolute bottom-0 left-0 right-0 h-1 bg-primary" />
                       )}
                     </Link>
                   </li>
