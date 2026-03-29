@@ -1,7 +1,73 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { MapContainer, TileLayer, GeoJSON, CircleMarker, Popup } from 'react-leaflet';
 import type { PathOptions } from 'leaflet';
 import { TreePine, Maximize2, Plus, Minus, Layers, Bus, Bike, ArrowUp, Zap, Car, ShieldCheck, Database } from 'lucide-react';
+
+// ─── Auto Scroll Container (마우스 드래그 및 자동 슬라이드) ────────────────────────
+const AutoScrollList = ({ children }: { children: React.ReactNode }) => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
+  const isDragging = useRef(false);
+  const startX = useRef(0);
+  const scrollLeft = useRef(0);
+
+  useEffect(() => {
+    let interval: ReturnType<typeof setInterval>;
+    if (!isHovered) {
+      interval = setInterval(() => {
+        if (scrollRef.current) {
+          const { scrollLeft: left, scrollWidth, clientWidth } = scrollRef.current;
+          const itemWidth = 163; 
+          
+          if (left + clientWidth >= scrollWidth - 10) {
+            scrollRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+          } else {
+            scrollRef.current.scrollBy({ left: itemWidth, behavior: 'smooth' });
+          }
+        }
+      }, 3000);
+    }
+    return () => clearInterval(interval);
+  }, [isHovered]);
+
+  const onMouseDown = (e: React.MouseEvent) => {
+    if (!scrollRef.current) return;
+    isDragging.current = true;
+    startX.current = e.pageX - scrollRef.current.offsetLeft;
+    scrollLeft.current = scrollRef.current.scrollLeft;
+  };
+
+  const onMouseLeave = () => {
+    isDragging.current = false;
+    setIsHovered(false);
+  };
+
+  const onMouseUp = () => {
+    isDragging.current = false;
+  };
+
+  const onMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging.current || !scrollRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - scrollRef.current.offsetLeft;
+    const walk = (x - startX.current) * 1.5;
+    scrollRef.current.scrollLeft = scrollLeft.current - walk;
+  };
+
+  return (
+    <div
+      ref={scrollRef}
+      className="flex gap-2.5 flex-1 min-h-0 pt-1 overflow-x-auto snap-x select-none cursor-grab active:cursor-grabbing [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={onMouseLeave}
+      onMouseDown={onMouseDown}
+      onMouseUp={onMouseUp}
+      onMouseMove={onMouseMove}
+    >
+      {children}
+    </div>
+  );
+};
 
 // ─── Card Header (compact) ────────────────────────────────────────────────────
 
@@ -546,28 +612,43 @@ export default function Home() {
             className="flex-1 min-h-0 bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3 flex flex-col overflow-hidden"
           >
             <CardHeader title="시민 참여 프로그램" />
-            <div className="flex gap-2.5 flex-1 min-h-0 pt-1">
-              <div className="flex-1 bg-[#edf8f1] rounded-[10px] p-3 flex flex-col justify-between border border-[#e2efe6]">
-                <div className="flex flex-col gap-1.5">
+            <AutoScrollList>
+              {/* Card 1: Living Lab */}
+              <div className="min-w-[153px] max-w-[153px] bg-[#edf8f1] rounded-[10px] p-3 flex flex-col justify-between border border-[#e2efe6] snap-center shrink-0">
+                <div className="flex flex-col gap-1.5 pointer-events-none">
                   <p className="text-[11px] font-bold text-[#1f8c56]">Living Lab</p>
                   <p className="text-[13.5px] font-bold text-gray-800 leading-snug tracking-tight">우리 동네 환경<br/>개선단 모집</p>
                 </div>
-                <div className="flex items-center gap-2 mt-2">
+                <div className="flex items-center gap-2 mt-2 pointer-events-none">
                   <span className="text-[10px] font-bold text-white bg-[#34a86b] px-2 py-[3px] rounded">D-7</span>
                   <span className="text-[11px] font-medium text-gray-700">모집중</span>
                 </div>
               </div>
-              <div className="flex-1 bg-[#eaf2fb] rounded-[10px] p-3 flex flex-col justify-between border border-[#e1eaf3]">
-                <div className="flex flex-col gap-1.5">
+
+              {/* Card 2: Open Lab */}
+              <div className="min-w-[153px] max-w-[153px] bg-[#eaf2fb] rounded-[10px] p-3 flex flex-col justify-between border border-[#e1eaf3] snap-center shrink-0">
+                <div className="flex flex-col gap-1.5 pointer-events-none">
                   <p className="text-[11px] font-bold text-[#077bca]">Open Lab</p>
                   <p className="text-[13.5px] font-bold text-gray-800 leading-snug tracking-tight">탄소중립<br/>혁신 아이디어<br/>공모전</p>
                 </div>
-                <div className="flex items-center gap-2 mt-2">
+                <div className="flex items-center gap-2 mt-2 pointer-events-none">
                   <span className="text-[10px] font-bold text-white bg-[#00a3e8] px-2 py-[3px] rounded">D-15</span>
                   <span className="text-[11px] font-medium text-gray-700">접수중</span>
                 </div>
               </div>
-            </div>
+
+              {/* Card 3: Cityzn Edu */}
+              <div className="min-w-[153px] max-w-[153px] bg-[#feede2] rounded-[10px] p-3 flex flex-col justify-between border border-[#f5ded4] snap-center shrink-0">
+                <div className="flex flex-col gap-1.5 pointer-events-none">
+                  <p className="text-[11px] font-bold text-[#f26522]">Cityzn Edu</p>
+                  <p className="text-[13.5px] font-bold text-gray-800 leading-snug tracking-tight">2026 상반기<br/>데이터 시각화<br/>및 분석 중급 과정</p>
+                </div>
+                <div className="flex items-center gap-2 mt-2 pointer-events-none">
+                  <span className="text-[10px] font-bold text-white bg-[#f26522] px-2 py-[3px] rounded">D-15</span>
+                  <span className="text-[11px] font-medium text-gray-700">접수중</span>
+                </div>
+              </div>
+            </AutoScrollList>
           </section>
 
           {/* R2 — 실시간 탄소 배출 / 저감 현황 */}
