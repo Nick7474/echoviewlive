@@ -362,29 +362,31 @@ export default function Layout() {
         </AnimatePresence>
       </header>
 
-      {/* Breadcrumb */}
-      <div className="bg-primary text-white py-2 sm:py-3">
-        <div className="max-w-[1560px] mx-auto px-4 sm:px-6 flex items-center gap-2 text-xs sm:text-sm font-medium overflow-x-auto whitespace-nowrap scrollbar-hide">
-          <Home size={14} className="flex-shrink-0" />
-          {breadcrumbs.map((label, index) => (
-            <div key={index} className="flex items-center gap-2">
-              <ChevronRight size={14} className="opacity-60 flex-shrink-0" />
-              <span className={index === breadcrumbs.length - 1 ? 'font-bold' : ''}>{label}</span>
-            </div>
-          ))}
+      {/* Breadcrumb — 홈(/)에서는 숨김 */}
+      {location.pathname !== '/' && (
+        <div className="bg-primary text-white py-2 sm:py-3">
+          <div className="max-w-[1560px] mx-auto px-4 sm:px-6 flex items-center gap-2 text-xs sm:text-sm font-medium overflow-x-auto whitespace-nowrap scrollbar-hide">
+            <Home size={14} className="flex-shrink-0" />
+            {breadcrumbs.map((label, index) => (
+              <div key={index} className="flex items-center gap-2">
+                <ChevronRight size={14} className="opacity-60 flex-shrink-0" />
+                <span className={index === breadcrumbs.length - 1 ? 'font-bold' : ''}>{label}</span>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Main Content Area */}
       <div className={`flex-grow flex flex-col ${
-        location.pathname.startsWith('/map/')
+        location.pathname === '/' || location.pathname.startsWith('/map/')
           ? 'w-full'
           : location.pathname.startsWith('/my/')
             ? 'max-w-[1560px] mx-auto w-full px-4 sm:px-6 py-8 sm:py-12'
             : 'max-w-[1560px] mx-auto w-full px-4 sm:px-6 py-8 sm:py-12 lg:flex-row gap-8 sm:gap-12'
       }`}>
-        {/* Sidebar (LNB) */}
-        {!location.pathname.startsWith('/map/') && !location.pathname.startsWith('/my/') && (
+        {/* Sidebar (LNB) — 홈·지도 페이지에서는 숨김 */}
+        {!location.pathname.startsWith('/map/') && !location.pathname.startsWith('/my/') && location.pathname !== '/' && (
           <aside className="lg:w-[240px] flex-shrink-0">
             <div className="sticky top-28">
               <div className="mb-10">

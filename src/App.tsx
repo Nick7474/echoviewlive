@@ -6,6 +6,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import ScrollToTop from './components/ScrollToTop';
+import Home from './pages/Home';
 import LivingLabIntro from './pages/LivingLabIntro';
 import OpenLabIntro from './pages/OpenLabIntro';
 import LivingLabAnnouncements from './pages/LivingLabAnnouncements';
@@ -45,8 +46,9 @@ export default function App() {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Layout />}>
+          {/* 홈 */}
+          <Route index element={<Home />} />
           {/* 시민참여 */}
-          <Route index element={<LivingLabIntro />} />
           <Route path="citizen/lab/intro" element={<LivingLabIntro />} />
           <Route path="citizen/lab/announcements" element={<LivingLabAnnouncements />} />
           <Route path="citizen/lab/suggestion" element={<LivingLabSuggestion />} />
