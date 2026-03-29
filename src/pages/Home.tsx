@@ -304,35 +304,77 @@ export default function Home() {
             className="flex-1 min-h-0 bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3 flex flex-col overflow-hidden"
           >
             <CardHeader title="신재생 에너지 생산현황" />
-            <div className="bg-[#f0f3f8] rounded-xl p-2 flex gap-3 mb-2 flex-shrink-0">
-              <div className="flex-1 text-center">
-                <p className="text-[9px] text-gray-500 mb-0.5">금일 생산량</p>
-                <p className="text-[13px] font-black text-[var(--color-primary)]">
-                  11.88 <span className="text-[9px] font-normal">kWh</span>
-                </p>
+            
+            <div className="flex flex-1 gap-3 min-h-0 mt-1">
+              {/* Left Column: Chart */}
+              <div className="flex-1 flex flex-col min-w-0 pr-1">
+                {/* Legend */}
+                <div className="flex items-center justify-center gap-3 mb-[2px] flex-shrink-0">
+                  <div className="flex items-center gap-1.5">
+                    <div className="w-2.5 h-2.5 rounded-full bg-[var(--color-primary)]" />
+                    <span className="text-[10px] text-gray-600 font-medium">당월 생산</span>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <div className="w-2.5 h-2.5 rounded-full bg-[#017ddd]" />
+                    <span className="text-[10px] text-gray-600 font-medium">당월 누적</span>
+                  </div>
+                </div>
+
+                {/* Bar Chart Area */}
+                <div className="flex-1 relative mt-[6px] flex flex-col justify-end">
+                  {/* Background Grid Lines */}
+                  <div className="absolute inset-x-0 top-[4px] bottom-[15px] flex flex-col justify-between pointer-events-none z-0">
+                    <div className="border-t-[1.5px] border-dashed border-[#e8eaed] w-full" />
+                    <div className="border-t-[1.5px] border-dashed border-[#e8eaed] w-full" />
+                    <div className="border-t-[1.5px] border-dashed border-[#e8eaed] w-full" />
+                    <div className="border-t-[1.5px] border-dashed border-[#e8eaed] w-full" />
+                  </div>
+                  
+                  {/* Bars */}
+                  <div className="relative z-10 flex h-full items-end justify-between px-1">
+                    {[
+                      { label: '태양광', cur: 15, acc: 25 },
+                      { label: '풍력', cur: 45, acc: 55 },
+                      { label: '지열', cur: 95, acc: 42 },
+                      { label: '바이오', cur: 50, acc: 28 },
+                    ].map((item, idx) => (
+                      <div key={idx} className="flex flex-col items-center h-full justify-end gap-1 flex-1">
+                        {/* Bars container */}
+                        <div className="flex items-end gap-[3px] flex-1 min-h-0 w-full justify-center pb-[3px]">
+                          <div
+                            className="w-[10px] bg-[var(--color-primary)] rounded-t-[1.5px]"
+                            style={{ height: `${item.cur}%` }}
+                          />
+                          <div
+                            className="w-[10px] bg-[#017ddd] rounded-t-[1.5px]"
+                            style={{ height: `${item.acc}%` }}
+                          />
+                        </div>
+                        {/* Label */}
+                        <span className="text-[10px] text-gray-700 font-semibold whitespace-nowrap flex-shrink-0">
+                          {item.label}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
-              <div className="w-px bg-gray-200" />
-              <div className="flex-1 text-center">
-                <p className="text-[9px] text-gray-500 mb-0.5">당월 누적</p>
-                <p className="text-[13px] font-black text-[#017ddd]">
-                  56.00 <span className="text-[9px] font-normal">kWh</span>
-                </p>
-              </div>
-            </div>
-            <div className="flex-1 flex flex-col justify-center gap-[8px]">
-              <EnergyBar label="태양광" cur={52} acc={40} />
-              <EnergyBar label="풍력"   cur={32} acc={22} />
-              <EnergyBar label="지열"   cur={18} acc={14} />
-              <EnergyBar label="바이오" cur={10} acc={8}  />
-            </div>
-            <div className="flex items-center gap-4 pt-1.5 border-t border-gray-100 mt-1 flex-shrink-0">
-              <div className="flex items-center gap-1.5">
-                <div className="w-2 h-2 rounded-full bg-[var(--color-primary)]" />
-                <span className="text-[9px] text-gray-500">당월 생산</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <div className="w-2 h-2 rounded-full bg-[#017ddd]" />
-                <span className="text-[9px] text-gray-500">당월 누적</span>
+
+              {/* Right Column: Summary Box */}
+              <div className="w-[110px] bg-[#f4f6f8] rounded-[10px] p-3 flex flex-col justify-center gap-3 flex-shrink-0 border border-gray-50/50">
+                <div className="flex flex-col gap-0.5">
+                  <p className="text-[10px] text-gray-600 font-semibold mb-0.5">금일 생산량</p>
+                  <p className="text-[15px] font-black text-[var(--color-primary)] tracking-tight">
+                    11.88 <span className="text-[10px] font-bold">kWh</span>
+                  </p>
+                </div>
+                <div className="w-full h-px bg-[#e4e7ea]" />
+                <div className="flex flex-col gap-0.5">
+                  <p className="text-[10px] text-gray-600 font-semibold mb-0.5">당월 누적</p>
+                  <p className="text-[15px] font-black text-[#017ddd] tracking-tight">
+                    56.00 <span className="text-[10px] font-bold">kWh</span>
+                  </p>
+                </div>
               </div>
             </div>
           </section>
