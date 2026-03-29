@@ -119,6 +119,8 @@ export default function Home() {
   }, []);
 
   const [activeTab, setActiveTab] = useState<'news' | 'notice'>('news');
+  // home_cover.png 로드 실패 시 Layer 1 숨김
+  const [coverError, setCoverError] = useState(false);
 
   const datasets = [
     { rank: 1, cat: '교통',   name: '전기차 충전소 이용 현황', count: '1,682', cls: 'bg-[#e1f1f0] text-[var(--color-primary)]' },
@@ -143,14 +145,11 @@ export default function Home() {
   ];
 
   return (
-    // ── 최상위 "스테이지": 지도가 배경 전체를 채움 ──────────────────────────
-    <div
-      className="relative w-full overflow-hidden"
-      style={{ height: 'calc(100vh - 80px)' }}
-    >
+    // ── 최상위 "스테이지": 지도 배경 전체를 채움 ────────────────────────────
+    <div className="relative h-[calc(100vh-80px)] overflow-hidden">
       <h1 className="sr-only">광명시 에코뷰 홈</h1>
 
-      {/* ── Layer 0: Leaflet 지도 (전체 배경) ─────────────────────────────── */}
+      {/* ── Layer 0: Leaflet 지도 (전체 배경) z-0 ──────────────────────────── */}
       <div
         className="absolute inset-0 z-0"
         role="img"
@@ -159,8 +158,8 @@ export default function Home() {
         <MapContainer
           center={[37.4789, 126.8644]}
           zoom={12}
-          style={{ width: '100%', height: '100%' }}
           zoomControl={false}
+          style={{ height: '100%', width: '100%' }}
         >
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -169,28 +168,29 @@ export default function Home() {
         </MapContainer>
       </div>
 
-      {/* ── Layer 1: 커버 이미지 오버레이 ─────────────────────────────────── */}
-      <img
-        src="/images/home_cover.png"
-        alt=""
-        aria-hidden="true"
-        className="absolute inset-0 w-full h-full object-cover z-10 pointer-events-none select-none"
-      />
+      {/* ── Layer 1: 커버 이미지 오버레이 z-10 ─────────────────────────────── */}
+      {!coverError && (
+        <img
+          src="/images/home_cover.png"
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 z-10 w-full h-full object-cover pointer-events-none select-none"
+          onError={() => setCoverError(true)}
+        />
+      )}
 
-      {/* ── Layer 2: 콘텐츠 (카드 패널 + 지도 컨트롤) ────────────────────── */}
-      <div className="relative z-20 w-full h-full">
-        <div className="max-w-[1560px] mx-auto w-full px-3 py-3 h-full">
-          <div className="flex gap-3 h-full">
+      {/* ── Layer 2: 콘텐츠 z-20 ────────────────────────────────────────────── */}
+      <div className="relative z-20 h-full flex items-start px-[90px] pt-[40px] gap-[30px]">
 
           {/* ════════════════════════════════════════════════════════════════ */}
           {/* LEFT PANEL                                                       */}
           {/* ════════════════════════════════════════════════════════════════ */}
-          <div className="w-[380px] flex-shrink-0 flex flex-col gap-3">
+          <div className="w-[380px] flex-shrink-0 flex flex-col gap-[30px] overflow-y-auto max-h-full scrollbar-hide">
 
             {/* L1 — 신재생 에너지 생산현황 */}
             <section
               aria-label="신재생 에너지 생산현황"
-              className="flex-1 bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3.5 flex flex-col"
+              className="bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3.5 flex flex-col min-h-[200px]"
             >
               <CardHeader title="신재생 에너지 생산현황" />
 
@@ -235,7 +235,7 @@ export default function Home() {
             {/* L2 — 스마트 모빌리티 운영현황 */}
             <section
               aria-label="스마트 모빌리티 운영현황"
-              className="flex-1 bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3.5 flex flex-col"
+              className="bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3.5 flex flex-col min-h-[200px]"
             >
               <CardHeader title="스마트 모빌리티 운영현황" />
               <div className="flex gap-3 flex-1">
@@ -269,7 +269,7 @@ export default function Home() {
             {/* L3 — 통합대기환경지수 */}
             <section
               aria-label="통합대기환경지수"
-              className="flex-1 bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3.5 flex flex-col"
+              className="bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3.5 flex flex-col min-h-[200px]"
             >
               <CardHeader title="통합대기환경지수" />
               <div className="flex-1 flex items-center justify-around px-1">
@@ -297,7 +297,7 @@ export default function Home() {
             {/* L4 — 인기 데이터 세트 TOP 5 */}
             <section
               aria-label="인기 데이터 세트 TOP 5"
-              className="flex-1 bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3.5 flex flex-col"
+              className="bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3.5 flex flex-col min-h-[200px]"
             >
               <CardHeader title="인기 데이터 세트 TOP 5" />
               <div className="flex-1 flex flex-col justify-around">
@@ -319,17 +319,17 @@ export default function Home() {
           </div>{/* /LEFT PANEL */}
 
           {/* ════════════════════════════════════════════════════════════════ */}
-          {/* CENTER — 투명 영역 (지도+커버가 배경으로 보임) + 컨트롤 버튼      */}
+          {/* CENTER — 투명 (지도+커버 비침) + 히어로 텍스트·컨트롤 버튼        */}
           {/* ════════════════════════════════════════════════════════════════ */}
-          <div className="flex-1 relative">
+          <div className="flex-1 relative h-full">
 
             {/* 히어로 텍스트 */}
-            <div className="absolute top-6 left-1/2 -translate-x-1/2 text-center pointer-events-none select-none">
-              <p className="text-sm font-medium text-[#0d2d1c] drop-shadow">데이터로 함께 그리는 미래</p>
-              <p className="text-[2.6rem] font-bold drop-shadow leading-tight">
+            <div className="absolute top-[30px] left-1/2 -translate-x-1/2 text-center pointer-events-none select-none">
+              <p className="text-2xl font-medium text-[#0d2d1c] drop-shadow">데이터로 함께 그리는 미래</p>
+              <h2 className="text-5xl font-bold drop-shadow leading-tight mt-1">
                 <span className="text-[#0d2d1c]">광명시 </span>
                 <span className="text-[var(--color-primary)]">에코뷰</span>
-              </p>
+              </h2>
             </div>
 
             {/* 마일 버튼 그룹 */}
@@ -378,12 +378,12 @@ export default function Home() {
           {/* ════════════════════════════════════════════════════════════════ */}
           {/* RIGHT PANEL                                                      */}
           {/* ════════════════════════════════════════════════════════════════ */}
-          <div className="w-[380px] flex-shrink-0 flex flex-col gap-3">
+          <div className="w-[380px] flex-shrink-0 flex flex-col gap-[30px] overflow-y-auto max-h-full scrollbar-hide">
 
             {/* R1 — 시민 참여 프로그램 */}
             <section
               aria-label="시민 참여 프로그램"
-              className="flex-1 bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3.5 flex flex-col"
+              className="bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3.5 flex flex-col min-h-[200px]"
             >
               <CardHeader title="시민 참여 프로그램" />
               <div className="flex gap-3 flex-1">
@@ -423,7 +423,7 @@ export default function Home() {
             {/* R2 — 실시간 탄소 배출/저감 현황 */}
             <section
               aria-label="실시간 탄소 배출 및 저감 현황"
-              className="flex-1 bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3.5 flex flex-col"
+              className="bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3.5 flex flex-col min-h-[200px]"
             >
               <CardHeader title="실시간 탄소 배출 / 저감 현황" />
               <div className="flex-1 flex items-center gap-2">
@@ -456,7 +456,7 @@ export default function Home() {
             {/* R3 — 시정 소식 & 공지사항 */}
             <section
               aria-label="시정 소식 및 공지사항"
-              className="flex-1 bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3.5 flex flex-col"
+              className="bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3.5 flex flex-col min-h-[200px]"
             >
               <CardHeader title="시정 소식 & 공지사항" />
 
@@ -492,7 +492,7 @@ export default function Home() {
             {/* R4 — 기후의병 활약상 */}
             <section
               aria-label="기후의병 활약상"
-              className="flex-1 bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3.5 flex flex-col"
+              className="bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3.5 flex flex-col min-h-[200px]"
             >
               <CardHeader title="기후의병 활약상" />
 
@@ -527,8 +527,6 @@ export default function Home() {
 
           </div>{/* /RIGHT PANEL */}
 
-          </div>{/* /flex row */}
-        </div>{/* /max-w container */}
       </div>{/* /Layer 2 content */}
 
     </div>
