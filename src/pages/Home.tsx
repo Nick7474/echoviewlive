@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import { TreePine, Maximize2, Plus, Minus, Layers, Bus, Bike, ArrowUp } from 'lucide-react';
 
-// ─── Card Header ─────────────────────────────────────────────────────────────
+// ─── Card Header (compact) ────────────────────────────────────────────────────
 
 const CardHeader = ({ title, date = '26년 03월 기준' }: { title: string; date?: string }) => (
-  <div className="flex items-center justify-between border-b border-[#e4e8eb] pb-2 mb-2.5 flex-shrink-0">
-    <h2 className="text-[13px] font-bold text-[#212529] leading-tight">{title}</h2>
+  <div className="flex items-center justify-between border-b border-[#e4e8eb] py-[6px] mb-[6px] flex-shrink-0">
+    <h2 className="text-[15px] font-bold text-[#212529] leading-tight">{title}</h2>
     <span className="text-[10px] text-[#414141] flex-shrink-0 ml-2">{date}</span>
   </div>
 );
@@ -18,7 +18,7 @@ const CircleGauge = ({
   label,
   status,
   statusColor,
-  size = 70,
+  size = 64,
 }: {
   value: string;
   label: string;
@@ -26,7 +26,7 @@ const CircleGauge = ({
   statusColor: string;
   size?: number;
 }) => {
-  const r = size / 2 - 8;
+  const r = size / 2 - 7;
   const cx = size / 2;
   const cy = size / 2;
   const circumference = 2 * Math.PI * r;
@@ -38,10 +38,7 @@ const CircleGauge = ({
       <div className="relative" style={{ width: size, height: size }}>
         <svg width={size} height={size}>
           <g transform={`rotate(-90 ${cx} ${cy})`}>
-            <circle
-              cx={cx} cy={cy} r={r}
-              fill="none" stroke="#e5e7eb" strokeWidth="5"
-            />
+            <circle cx={cx} cy={cy} r={r} fill="none" stroke="#e5e7eb" strokeWidth="5" />
             <circle
               cx={cx} cy={cy} r={r}
               fill="none"
@@ -53,10 +50,10 @@ const CircleGauge = ({
           </g>
         </svg>
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-[10px] font-bold text-gray-800 text-center leading-tight px-0.5">{value}</span>
+          <span className="text-[9px] font-bold text-gray-800 text-center leading-tight px-0.5">{value}</span>
         </div>
       </div>
-      <p className="text-[9px] text-gray-500 text-center leading-tight w-16">{label}</p>
+      <p className="text-[9px] text-gray-500 text-center leading-tight w-14">{label}</p>
       <p className="text-[11px] font-bold" style={{ color: statusColor }}>{status}</p>
     </div>
   );
@@ -65,48 +62,39 @@ const CircleGauge = ({
 // ─── Semi-circle Gauge (탄소 배출) ────────────────────────────────────────────
 
 const SemiGauge = ({ value, max = 100 }: { value: number; max?: number }) => {
-  const r = 50;
-  const cx = 75;
-  const cy = 64;
-
-  // Background arc: left (9 o'clock) → right (3 o'clock) through the top
+  const r = 44;
+  const cx = 66;
+  const cy = 56;
   const bgPath = `M ${cx - r} ${cy} A ${r} ${r} 0 0 1 ${cx + r} ${cy}`;
-
-  // Filled arc: partial arc based on value
   const t = Math.min(value / max, 1);
-  // At fraction t along the 180° arc (from 180° to 0° in standard math coords):
-  const mathAngle = Math.PI * (1 - t);
-  const ex = cx + r * Math.cos(mathAngle);
-  const ey = cy - r * Math.sin(mathAngle);
+  const angle = Math.PI * (1 - t);
+  const ex = cx + r * Math.cos(angle);
+  const ey = cy - r * Math.sin(angle);
   const largeArc = t > 0.5 ? 1 : 0;
   const fPath = `M ${cx - r} ${cy} A ${r} ${r} 0 ${largeArc} 1 ${ex.toFixed(2)} ${ey.toFixed(2)}`;
 
   return (
-    <svg width="150" height="76" viewBox="0 0 150 76" overflow="visible">
-      <path d={bgPath} fill="none" stroke="#e5e7eb" strokeWidth="10" strokeLinecap="round" />
+    <svg width="132" height="68" viewBox="0 0 132 68" overflow="visible">
+      <path d={bgPath} fill="none" stroke="#e5e7eb" strokeWidth="9" strokeLinecap="round" />
       {t > 0 && (
-        <path d={fPath} fill="none" style={{ stroke: 'var(--color-primary)' }} strokeWidth="10" strokeLinecap="round" />
+        <path d={fPath} fill="none" style={{ stroke: 'var(--color-primary)' }} strokeWidth="9" strokeLinecap="round" />
       )}
-      <text x={cx} y={cy - 4} textAnchor="middle" fontSize="26" fontWeight="800" fill="#1e2124">{value}</text>
-      <text x={cx} y={cy + 14} textAnchor="middle" fontSize="9" fill="#9CA3AF">탄소 배출 지수</text>
+      <text x={cx} y={cy - 3} textAnchor="middle" fontSize="22" fontWeight="800" fill="#1e2124">{value}</text>
+      <text x={cx} y={cy + 12} textAnchor="middle" fontSize="8" fill="#9CA3AF">탄소 배출 지수</text>
     </svg>
   );
 };
 
-// ─── Energy Bar (grouped dual bar) ───────────────────────────────────────────
+// ─── Energy Bar ───────────────────────────────────────────────────────────────
 
-const EnergyBar = ({
-  label, cur, acc, maxV = 60,
-}: {
-  label: string; cur: number; acc: number; maxV?: number;
-}) => (
-  <div className="flex items-center gap-2">
-    <span className="text-[10px] text-gray-400 w-9 flex-shrink-0 text-right">{label}</span>
-    <div className="flex-1 bg-gray-100 rounded-full h-2">
-      <div className="h-2 rounded-full bg-[var(--color-primary)]" style={{ width: `${Math.min((cur / maxV) * 100, 100)}%` }} />
+const EnergyBar = ({ label, cur, acc, maxV = 60 }: { label: string; cur: number; acc: number; maxV?: number }) => (
+  <div className="flex items-center gap-[8px]">
+    <span className="text-[10px] text-gray-400 w-8 flex-shrink-0 text-right">{label}</span>
+    <div className="flex-1 bg-gray-100 rounded-full h-1.5">
+      <div className="h-1.5 rounded-full bg-[var(--color-primary)]" style={{ width: `${Math.min((cur / maxV) * 100, 100)}%` }} />
     </div>
-    <div className="flex-1 bg-gray-100 rounded-full h-2">
-      <div className="h-2 rounded-full bg-[#017ddd]" style={{ width: `${Math.min((acc / maxV) * 100, 100)}%` }} />
+    <div className="flex-1 bg-gray-100 rounded-full h-1.5">
+      <div className="h-1.5 rounded-full bg-[#017ddd]" style={{ width: `${Math.min((acc / maxV) * 100, 100)}%` }} />
     </div>
   </div>
 );
@@ -119,8 +107,6 @@ export default function Home() {
   }, []);
 
   const [activeTab, setActiveTab] = useState<'news' | 'notice'>('news');
-  // home_cover.png 로드 실패 시 Layer 1 숨김
-  const [coverError, setCoverError] = useState(false);
 
   const datasets = [
     { rank: 1, cat: '교통',   name: '전기차 충전소 이용 현황', count: '1,682', cls: 'bg-[#e1f1f0] text-[var(--color-primary)]' },
@@ -145,13 +131,13 @@ export default function Home() {
   ];
 
   return (
-    // ── 최상위 "스테이지": 지도 배경 전체를 채움 ────────────────────────────
     <div className="relative h-[calc(100vh-80px)] overflow-hidden">
       <h1 className="sr-only">광명시 에코뷰 홈</h1>
 
       {/* ── Layer 0: Leaflet 지도 (전체 배경) z-0 ──────────────────────────── */}
       <div
         className="absolute inset-0 z-0"
+        style={{ pointerEvents: 'auto' }}
         role="img"
         aria-label="광명시 스마트 시티 지도"
       >
@@ -168,366 +154,309 @@ export default function Home() {
         </MapContainer>
       </div>
 
-      {/* ── Layer 1: 커버 이미지 오버레이 z-10 ─────────────────────────────── */}
-      {!coverError && (
-        <img
-          src="/images/home_cover.png"
-          alt=""
-          aria-hidden="true"
-          className="absolute inset-0 z-10 w-full h-full object-cover pointer-events-none select-none"
-          onError={() => setCoverError(true)}
-        />
-      )}
+      {/* ── Layer 1: 그라디언트 오버레이 z-10 (home_cover.png 없음) ─────────── */}
+      <div
+        className="absolute inset-0 z-10 pointer-events-none"
+        style={{
+          background: `
+            radial-gradient(ellipse 60% 80% at 50% 50%, transparent 20%, rgba(225,241,240,0.6) 60%, rgba(225,241,240,0.95) 100%),
+            linear-gradient(to right, rgba(225,241,240,0.95) 0%, transparent 22%, transparent 78%, rgba(225,241,240,0.95) 100%),
+            linear-gradient(to bottom, rgba(225,241,240,0.4) 0%, transparent 12%, transparent 88%, rgba(225,241,240,0.6) 100%)
+          `,
+        }}
+      />
 
       {/* ── Layer 2: 콘텐츠 z-20 ────────────────────────────────────────────── */}
-      <div className="relative z-20 h-full flex items-start px-[90px] pt-[40px] gap-[30px]">
+      <div className="relative z-20 h-full flex items-start px-[90px] pt-[16px] gap-[30px]">
 
-          {/* ════════════════════════════════════════════════════════════════ */}
-          {/* LEFT PANEL                                                       */}
-          {/* ════════════════════════════════════════════════════════════════ */}
-          <div className="w-[380px] flex-shrink-0 flex flex-col gap-[30px] overflow-y-auto max-h-full scrollbar-hide">
+        {/* ══════════════════════════════════════════════════════════════════ */}
+        {/* LEFT PANEL                                                         */}
+        {/* ══════════════════════════════════════════════════════════════════ */}
+        <div className="w-[380px] flex-shrink-0 flex flex-col h-full gap-[14px]">
 
-            {/* L1 — 신재생 에너지 생산현황 */}
-            <section
-              aria-label="신재생 에너지 생산현황"
-              className="bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3.5 flex flex-col min-h-[200px]"
-            >
-              <CardHeader title="신재생 에너지 생산현황" />
-
-              {/* Info box */}
-              <div className="bg-[#f0f3f8] rounded-xl p-2.5 flex gap-3 mb-3 flex-shrink-0">
-                <div className="flex-1 text-center">
-                  <p className="text-[9px] text-gray-500 mb-0.5">금일 생산량</p>
-                  <p className="text-[13px] font-black text-[var(--color-primary)]">
-                    11.88 <span className="text-[9px] font-normal">kWh</span>
-                  </p>
-                </div>
-                <div className="w-px bg-gray-200" />
-                <div className="flex-1 text-center">
-                  <p className="text-[9px] text-gray-500 mb-0.5">당월 누적</p>
-                  <p className="text-[13px] font-black text-[#017ddd]">
-                    56.00 <span className="text-[9px] font-normal">kWh</span>
-                  </p>
-                </div>
+          {/* L1 — 신재생 에너지 생산현황 */}
+          <section
+            aria-label="신재생 에너지 생산현황"
+            className="flex-1 min-h-0 bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3 flex flex-col overflow-hidden"
+          >
+            <CardHeader title="신재생 에너지 생산현황" />
+            <div className="bg-[#f0f3f8] rounded-xl p-2 flex gap-3 mb-2 flex-shrink-0">
+              <div className="flex-1 text-center">
+                <p className="text-[9px] text-gray-500 mb-0.5">금일 생산량</p>
+                <p className="text-[13px] font-black text-[var(--color-primary)]">
+                  11.88 <span className="text-[9px] font-normal">kWh</span>
+                </p>
               </div>
-
-              {/* Grouped dual bars */}
-              <div className="flex-1 flex flex-col justify-center gap-2.5">
-                <EnergyBar label="태양광" cur={52} acc={40} />
-                <EnergyBar label="풍력"   cur={32} acc={22} />
-                <EnergyBar label="지열"   cur={18} acc={14} />
-                <EnergyBar label="바이오" cur={10} acc={8}  />
+              <div className="w-px bg-gray-200" />
+              <div className="flex-1 text-center">
+                <p className="text-[9px] text-gray-500 mb-0.5">당월 누적</p>
+                <p className="text-[13px] font-black text-[#017ddd]">
+                  56.00 <span className="text-[9px] font-normal">kWh</span>
+                </p>
               </div>
-
-              {/* Legend */}
-              <div className="flex items-center gap-4 pt-2 border-t border-gray-100 mt-1 flex-shrink-0">
-                <div className="flex items-center gap-1.5">
-                  <div className="w-2.5 h-2.5 rounded-full bg-[var(--color-primary)]" />
-                  <span className="text-[9px] text-gray-500">당월 생산</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <div className="w-2.5 h-2.5 rounded-full bg-[#017ddd]" />
-                  <span className="text-[9px] text-gray-500">당월 누적</span>
-                </div>
-              </div>
-            </section>
-
-            {/* L2 — 스마트 모빌리티 운영현황 */}
-            <section
-              aria-label="스마트 모빌리티 운영현황"
-              className="bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3.5 flex flex-col min-h-[200px]"
-            >
-              <CardHeader title="스마트 모빌리티 운영현황" />
-              <div className="flex gap-3 flex-1">
-                {/* EV-DRT 버스 */}
-                <div className="flex-1 bg-[#f0f3f8] rounded-xl p-3 flex flex-col items-center justify-center gap-1.5">
-                  <div className="w-10 h-10 rounded-full bg-[var(--color-primary)]/10 flex items-center justify-center">
-                    <Bus size={20} className="text-[var(--color-primary)]" />
-                  </div>
-                  <p className="text-[9px] text-gray-500 text-center leading-tight">친환경 EV-DRT 버스</p>
-                  <p className="text-2xl font-black text-[var(--color-primary)]">
-                    23<span className="text-sm font-normal text-gray-500">대</span>
-                  </p>
-                  <span className="text-[10px] bg-[var(--color-primary)] text-white px-2.5 py-0.5 rounded-full font-bold">
-                    운행중
-                  </span>
-                </div>
-                {/* 공공자전거 */}
-                <div className="flex-1 bg-[#f0f3f8] rounded-xl p-3 flex flex-col items-center justify-center gap-1.5">
-                  <div className="w-10 h-10 rounded-full bg-[#017ddd]/10 flex items-center justify-center">
-                    <Bike size={20} className="text-[#017ddd]" />
-                  </div>
-                  <p className="text-[9px] text-gray-500 text-center leading-tight">공공자전거 이용률</p>
-                  <p className="text-2xl font-black text-[#017ddd]">
-                    0.8<span className="text-sm font-normal text-gray-500">%</span>
-                  </p>
-                  <span className="text-[10px] text-gray-400">전일 대비</span>
-                </div>
-              </div>
-            </section>
-
-            {/* L3 — 통합대기환경지수 */}
-            <section
-              aria-label="통합대기환경지수"
-              className="bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3.5 flex flex-col min-h-[200px]"
-            >
-              <CardHeader title="통합대기환경지수" />
-              <div className="flex-1 flex items-center justify-around px-1">
-                <CircleGauge
-                  value="16㎍/m³"
-                  label="초미세먼지(PM2.5)"
-                  status="보통"
-                  statusColor="#017ddd"
-                />
-                <CircleGauge
-                  value="23㎍/m³"
-                  label="미세먼지(PM10)"
-                  status="좋음"
-                  statusColor="var(--color-primary)"
-                />
-                <CircleGauge
-                  value="0.054ppm"
-                  label="오존(O3)"
-                  status="보통"
-                  statusColor="#017ddd"
-                />
-              </div>
-            </section>
-
-            {/* L4 — 인기 데이터 세트 TOP 5 */}
-            <section
-              aria-label="인기 데이터 세트 TOP 5"
-              className="bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3.5 flex flex-col min-h-[200px]"
-            >
-              <CardHeader title="인기 데이터 세트 TOP 5" />
-              <div className="flex-1 flex flex-col justify-around">
-                {datasets.map((d) => (
-                  <div key={d.rank} className="flex items-center gap-2">
-                    <span className="w-5 h-5 rounded-full bg-gray-100 text-[10px] font-black text-gray-500 flex items-center justify-center flex-shrink-0">
-                      {d.rank}
-                    </span>
-                    <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded flex-shrink-0 ${d.cls}`}>
-                      {d.cat}
-                    </span>
-                    <span className="text-[11px] text-gray-700 flex-1 truncate">{d.name}</span>
-                    <span className="text-[10px] font-bold text-gray-400 flex-shrink-0">{d.count}건</span>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-          </div>{/* /LEFT PANEL */}
-
-          {/* ════════════════════════════════════════════════════════════════ */}
-          {/* CENTER — 투명 (지도+커버 비침) + 히어로 텍스트·컨트롤 버튼        */}
-          {/* ════════════════════════════════════════════════════════════════ */}
-          <div className="flex-1 relative h-full">
-
-            {/* 히어로 텍스트 */}
-            <div className="absolute top-[30px] left-1/2 -translate-x-1/2 text-center pointer-events-none select-none">
-              <p className="text-2xl font-medium text-[#0d2d1c] drop-shadow">데이터로 함께 그리는 미래</p>
-              <h2 className="text-5xl font-bold drop-shadow leading-tight mt-1">
-                <span className="text-[#0d2d1c]">광명시 </span>
-                <span className="text-[var(--color-primary)]">에코뷰</span>
-              </h2>
             </div>
+            <div className="flex-1 flex flex-col justify-center gap-[8px]">
+              <EnergyBar label="태양광" cur={52} acc={40} />
+              <EnergyBar label="풍력"   cur={32} acc={22} />
+              <EnergyBar label="지열"   cur={18} acc={14} />
+              <EnergyBar label="바이오" cur={10} acc={8}  />
+            </div>
+            <div className="flex items-center gap-4 pt-1.5 border-t border-gray-100 mt-1 flex-shrink-0">
+              <div className="flex items-center gap-1.5">
+                <div className="w-2 h-2 rounded-full bg-[var(--color-primary)]" />
+                <span className="text-[9px] text-gray-500">당월 생산</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <div className="w-2 h-2 rounded-full bg-[#017ddd]" />
+                <span className="text-[9px] text-gray-500">당월 누적</span>
+              </div>
+            </div>
+          </section>
 
-            {/* 마일 버튼 그룹 */}
-            <div className="absolute top-4 right-4 flex flex-col gap-2">
-              {mileButtons.map((btn, i) => (
+          {/* L2 — 스마트 모빌리티 운영현황 */}
+          <section
+            aria-label="스마트 모빌리티 운영현황"
+            className="flex-1 min-h-0 bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3 flex flex-col overflow-hidden"
+          >
+            <CardHeader title="스마트 모빌리티 운영현황" />
+            <div className="flex gap-[8px] flex-1 min-h-0">
+              <div className="flex-1 bg-[#f0f3f8] rounded-xl p-2 flex flex-col items-center justify-center gap-1">
+                <div className="w-9 h-9 rounded-full bg-[var(--color-primary)]/10 flex items-center justify-center">
+                  <Bus size={18} className="text-[var(--color-primary)]" />
+                </div>
+                <p className="text-[9px] text-gray-500 text-center leading-tight">친환경 EV-DRT 버스</p>
+                <p className="text-xl font-black text-[var(--color-primary)]">
+                  23<span className="text-xs font-normal text-gray-500">대</span>
+                </p>
+                <span className="text-[9px] bg-[var(--color-primary)] text-white px-2 py-0.5 rounded-full font-bold">운행중</span>
+              </div>
+              <div className="flex-1 bg-[#f0f3f8] rounded-xl p-2 flex flex-col items-center justify-center gap-1">
+                <div className="w-9 h-9 rounded-full bg-[#017ddd]/10 flex items-center justify-center">
+                  <Bike size={18} className="text-[#017ddd]" />
+                </div>
+                <p className="text-[9px] text-gray-500 text-center leading-tight">공공자전거 이용률</p>
+                <p className="text-xl font-black text-[#017ddd]">
+                  0.8<span className="text-xs font-normal text-gray-500">%</span>
+                </p>
+                <span className="text-[9px] text-gray-400">전일 대비</span>
+              </div>
+            </div>
+          </section>
+
+          {/* L3 — 통합대기환경지수 */}
+          <section
+            aria-label="통합대기환경지수"
+            className="flex-1 min-h-0 bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3 flex flex-col overflow-hidden"
+          >
+            <CardHeader title="통합대기환경지수" />
+            <div className="flex-1 flex items-center justify-around px-1 min-h-0">
+              <CircleGauge value="16㎍/m³"  label="초미세먼지(PM2.5)" status="보통" statusColor="#017ddd" />
+              <CircleGauge value="23㎍/m³"  label="미세먼지(PM10)"    status="좋음" statusColor="var(--color-primary)" />
+              <CircleGauge value="0.054ppm" label="오존(O3)"          status="보통" statusColor="#017ddd" />
+            </div>
+          </section>
+
+          {/* L4 — 인기 데이터 세트 TOP 5 */}
+          <section
+            aria-label="인기 데이터 세트 TOP 5"
+            className="flex-1 min-h-0 bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3 flex flex-col overflow-hidden"
+          >
+            <CardHeader title="인기 데이터 세트 TOP 5" />
+            <div className="flex-1 flex flex-col justify-around min-h-0">
+              {datasets.map((d) => (
+                <div key={d.rank} className="flex items-center gap-[8px]">
+                  <span className="w-4 h-4 rounded-full bg-gray-100 text-[9px] font-black text-gray-500 flex items-center justify-center flex-shrink-0">{d.rank}</span>
+                  <span className={`text-[9px] font-bold px-1 py-0.5 rounded flex-shrink-0 ${d.cls}`}>{d.cat}</span>
+                  <span className="text-[11px] text-gray-700 flex-1 truncate">{d.name}</span>
+                  <span className="text-[9px] font-bold text-gray-400 flex-shrink-0">{d.count}건</span>
+                </div>
+              ))}
+            </div>
+          </section>
+
+        </div>{/* /LEFT PANEL */}
+
+        {/* ══════════════════════════════════════════════════════════════════ */}
+        {/* CENTER — 투명 영역 (지도 비침) + 히어로 텍스트·컨트롤              */}
+        {/* ══════════════════════════════════════════════════════════════════ */}
+        <div className="flex-1 relative h-full pointer-events-none">
+
+          {/* 히어로 텍스트 */}
+          <div className="absolute top-[30px] left-1/2 -translate-x-1/2 text-center pointer-events-none select-none">
+            <p className="text-2xl font-medium text-[#0d2d1c] drop-shadow">데이터로 함께 그리는 미래</p>
+            <h2 className="text-5xl font-bold drop-shadow leading-tight mt-1">
+              <span className="text-[#0d2d1c]">광명시 </span>
+              <span className="text-[var(--color-primary)]">에코뷰</span>
+            </h2>
+          </div>
+
+          {/* 마일 버튼 그룹 */}
+          <div className="absolute top-4 right-4 flex flex-col gap-2 pointer-events-auto">
+            {mileButtons.map((btn, i) => (
+              <button
+                key={i}
+                className={`w-[52px] h-[52px] rounded-full flex flex-col items-center justify-center text-[9px] font-bold leading-tight whitespace-pre-line ${btn.cls}`}
+              >
+                {btn.label}
+              </button>
+            ))}
+          </div>
+
+          {/* 지도 컨트롤 버튼 */}
+          <div className="absolute top-4 right-[68px] flex flex-col gap-2 pointer-events-auto">
+            <button
+              aria-label="전체화면"
+              className="w-8 h-8 bg-white border border-gray-200 rounded-lg flex items-center justify-center shadow-sm hover:bg-gray-50 text-gray-600 transition-colors"
+            >
+              <Maximize2 size={13} />
+            </button>
+            <div className="bg-white border border-gray-200 rounded-lg shadow-sm flex flex-col divide-y divide-gray-100">
+              <button aria-label="확대" className="w-8 h-8 flex items-center justify-center hover:bg-gray-50 text-gray-600 transition-colors">
+                <Plus size={13} />
+              </button>
+              <button aria-label="축소" className="w-8 h-8 flex items-center justify-center hover:bg-gray-50 text-gray-600 transition-colors">
+                <Minus size={13} />
+              </button>
+            </div>
+            <button
+              aria-label="레이어"
+              className="w-8 h-8 bg-white border border-gray-200 rounded-lg flex items-center justify-center shadow-sm hover:bg-gray-50 text-gray-600 transition-colors"
+            >
+              <Layers size={13} />
+            </button>
+          </div>
+
+        </div>{/* /CENTER */}
+
+        {/* ══════════════════════════════════════════════════════════════════ */}
+        {/* RIGHT PANEL                                                        */}
+        {/* ══════════════════════════════════════════════════════════════════ */}
+        <div className="w-[380px] flex-shrink-0 flex flex-col h-full gap-[14px]">
+
+          {/* R1 — 시민 참여 프로그램 */}
+          <section
+            aria-label="시민 참여 프로그램"
+            className="flex-1 min-h-0 bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3 flex flex-col overflow-hidden"
+          >
+            <CardHeader title="시민 참여 프로그램" />
+            <div className="flex gap-[8px] flex-1 min-h-0">
+              <div className="flex-1 bg-[#ecf9f0] rounded-xl p-2.5 flex flex-col justify-between">
+                <div>
+                  <p className="text-[9px] font-bold text-[var(--color-primary)] mb-1">Living Lab</p>
+                  <p className="text-[11px] font-bold text-gray-800 leading-snug">우리 동네 환경 개선단 모집</p>
+                </div>
+                <div className="flex items-center gap-2 mt-1.5">
+                  <span className="text-[9px] font-black text-white bg-[var(--color-primary)] px-2 py-0.5 rounded-full">D-7</span>
+                  <span className="text-[11px] font-bold text-[var(--color-primary)]">모집중</span>
+                </div>
+              </div>
+              <div className="flex-1 bg-[#e4effd] rounded-xl p-2.5 flex flex-col justify-between">
+                <div>
+                  <p className="text-[9px] font-bold text-[#00aeef] mb-1">Open Lab</p>
+                  <p className="text-[11px] font-bold text-gray-800 leading-snug">탄소중립 혁신 아이디어 공모전</p>
+                </div>
+                <div className="flex items-center gap-2 mt-1.5">
+                  <span className="text-[9px] font-black text-white bg-[#00aeef] px-2 py-0.5 rounded-full">D-15</span>
+                  <span className="text-[11px] font-bold text-[#00aeef]">접수중</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* R2 — 실시간 탄소 배출/저감 현황 */}
+          <section
+            aria-label="실시간 탄소 배출 및 저감 현황"
+            className="flex-1 min-h-0 bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3 flex flex-col overflow-hidden"
+          >
+            <CardHeader title="실시간 탄소 배출 / 저감 현황" />
+            <div className="flex-1 flex items-center gap-[8px] min-h-0">
+              <div className="flex items-end justify-center flex-shrink-0">
+                <SemiGauge value={72} />
+              </div>
+              <div className="flex-1 bg-[#f0f3f8] rounded-xl p-2.5 space-y-2 self-center">
+                <div>
+                  <p className="text-[9px] text-gray-500">총 배출량</p>
+                  <p className="text-[12px] font-black text-gray-800">239.18 <span className="text-[9px] font-normal">tCO₂eq</span></p>
+                </div>
+                <div>
+                  <p className="text-[9px] text-gray-500">목표 대비 저감률</p>
+                  <p className="text-[12px] font-black text-[var(--color-primary)]">30.53<span className="text-[9px] font-normal">%</span></p>
+                </div>
+                <div className="flex items-center gap-1">
+                  <ArrowUp size={10} className="text-[#e53a4c]" />
+                  <span className="text-[11px] font-bold text-[#e53a4c]">4.8%</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* R3 — 시정 소식 & 공지사항 */}
+          <section
+            aria-label="시정 소식 및 공지사항"
+            className="flex-1 min-h-0 bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3 flex flex-col overflow-hidden"
+          >
+            <CardHeader title="시정 소식 & 공지사항" />
+            <div className="flex gap-0.5 mb-2 bg-gray-100 rounded-full p-0.5 w-fit flex-shrink-0">
+              {(['news', 'notice'] as const).map((tab) => (
                 <button
-                  key={i}
-                  className={`w-[52px] h-[52px] rounded-full flex flex-col items-center justify-center text-[9px] font-bold leading-tight whitespace-pre-line ${btn.cls}`}
+                  key={tab}
+                  onClick={() => setActiveTab(tab)}
+                  className={`text-[11px] font-bold px-3 py-0.5 rounded-full transition-all ${
+                    activeTab === tab ? 'bg-[#017ddd] text-white shadow-sm' : 'text-gray-500'
+                  }`}
                 >
-                  {btn.label}
+                  {tab === 'news' ? '시정 소식' : '공지사항'}
                 </button>
               ))}
             </div>
+            <div className="flex-1 flex flex-col justify-around min-h-0">
+              {news.map((item, i) => (
+                <div key={i} className="flex items-center justify-between gap-2 py-0.5">
+                  <div className="flex items-center gap-1.5 min-w-0">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-primary)] flex-shrink-0" />
+                    <span className="text-[11px] text-gray-700 truncate">{item}</span>
+                  </div>
+                  <span className="text-[9px] text-gray-400 flex-shrink-0">26.03.13</span>
+                </div>
+              ))}
+            </div>
+          </section>
 
-            {/* 지도 컨트롤 버튼 */}
-            <div className="absolute top-4 right-[68px] flex flex-col gap-2">
-              <button
-                aria-label="전체화면"
-                className="w-8 h-8 bg-white border border-gray-200 rounded-lg flex items-center justify-center shadow-sm hover:bg-gray-50 text-gray-600 transition-colors"
-              >
-                <Maximize2 size={13} />
-              </button>
-              <div className="bg-white border border-gray-200 rounded-lg shadow-sm flex flex-col divide-y divide-gray-100">
-                <button
-                  aria-label="확대"
-                  className="w-8 h-8 flex items-center justify-center hover:bg-gray-50 text-gray-600 transition-colors"
-                >
-                  <Plus size={13} />
-                </button>
-                <button
-                  aria-label="축소"
-                  className="w-8 h-8 flex items-center justify-center hover:bg-gray-50 text-gray-600 transition-colors"
-                >
-                  <Minus size={13} />
-                </button>
+          {/* R4 — 기후의병 활약상 */}
+          <section
+            aria-label="기후의병 활약상"
+            className="flex-1 min-h-0 bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3 flex flex-col overflow-hidden"
+          >
+            <CardHeader title="기후의병 활약상" />
+            <div className="flex-1 flex flex-col items-center justify-center gap-1.5 min-h-0">
+              <div className="w-10 h-10 rounded-full bg-[var(--color-primary)]/10 flex items-center justify-center">
+                <TreePine size={22} className="text-[var(--color-primary)]" />
               </div>
-              <button
-                aria-label="레이어"
-                className="w-8 h-8 bg-white border border-gray-200 rounded-lg flex items-center justify-center shadow-sm hover:bg-gray-50 text-gray-600 transition-colors"
-              >
-                <Layers size={13} />
+              <p className="text-[11px] text-gray-500">오늘 광명시가 심은 나무</p>
+              <p className="text-2xl font-black text-gray-900">
+                1,248 <span className="text-sm font-medium text-gray-600">그루</span>
+              </p>
+              <button className="px-4 py-1 bg-[var(--color-primary)] text-white text-[11px] font-bold rounded-lg hover:opacity-90 transition-opacity">
+                참여하기
               </button>
             </div>
-          </div>{/* /CENTER */}
-
-          {/* ════════════════════════════════════════════════════════════════ */}
-          {/* RIGHT PANEL                                                      */}
-          {/* ════════════════════════════════════════════════════════════════ */}
-          <div className="w-[380px] flex-shrink-0 flex flex-col gap-[30px] overflow-y-auto max-h-full scrollbar-hide">
-
-            {/* R1 — 시민 참여 프로그램 */}
-            <section
-              aria-label="시민 참여 프로그램"
-              className="bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3.5 flex flex-col min-h-[200px]"
-            >
-              <CardHeader title="시민 참여 프로그램" />
-              <div className="flex gap-3 flex-1">
-                {/* Living Lab */}
-                <div className="flex-1 bg-[#ecf9f0] rounded-xl p-3 flex flex-col justify-between">
-                  <div>
-                    <p className="text-[9px] font-bold text-[var(--color-primary)] mb-1">Living Lab</p>
-                    <p className="text-[12px] font-bold text-gray-800 leading-snug">
-                      우리 동네 환경 개선단 모집
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-2 mt-2">
-                    <span className="text-[9px] font-black text-white bg-[var(--color-primary)] px-2 py-0.5 rounded-full">
-                      D-7
-                    </span>
-                    <span className="text-[11px] font-bold text-[var(--color-primary)]">모집중</span>
-                  </div>
+            <div className="bg-[#f0f3f8] rounded-xl p-2 grid grid-cols-3 divide-x divide-gray-200 flex-shrink-0 mt-1.5">
+              {[
+                { label: '참여 인원',   value: '4.2만명' },
+                { label: '누적 사용량', value: '1.2억 P' },
+                { label: '총 감축량',   value: '320 t'   },
+              ].map((s) => (
+                <div key={s.label} className="flex flex-col items-center gap-0.5 px-1">
+                  <span className="text-[9px] text-gray-500">{s.label}</span>
+                  <span className="text-[11px] font-black text-gray-800">{s.value}</span>
                 </div>
-                {/* Open Lab */}
-                <div className="flex-1 bg-[#e4effd] rounded-xl p-3 flex flex-col justify-between">
-                  <div>
-                    <p className="text-[9px] font-bold text-[#00aeef] mb-1">Open Lab</p>
-                    <p className="text-[12px] font-bold text-gray-800 leading-snug">
-                      탄소중립 혁신 아이디어 공모전
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-2 mt-2">
-                    <span className="text-[9px] font-black text-white bg-[#00aeef] px-2 py-0.5 rounded-full">
-                      D-15
-                    </span>
-                    <span className="text-[11px] font-bold text-[#00aeef]">접수중</span>
-                  </div>
-                </div>
-              </div>
-            </section>
+              ))}
+            </div>
+          </section>
 
-            {/* R2 — 실시간 탄소 배출/저감 현황 */}
-            <section
-              aria-label="실시간 탄소 배출 및 저감 현황"
-              className="bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3.5 flex flex-col min-h-[200px]"
-            >
-              <CardHeader title="실시간 탄소 배출 / 저감 현황" />
-              <div className="flex-1 flex items-center gap-2">
-                {/* Semi-circle gauge */}
-                <div className="flex items-end justify-center flex-shrink-0">
-                  <SemiGauge value={72} />
-                </div>
-                {/* Stats */}
-                <div className="flex-1 bg-[#f0f3f8] rounded-xl p-3 space-y-2.5 self-center">
-                  <div>
-                    <p className="text-[9px] text-gray-500">총 배출량</p>
-                    <p className="text-[13px] font-black text-gray-800">
-                      239.18 <span className="text-[9px] font-normal">tCO₂eq</span>
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-[9px] text-gray-500">목표 대비 저감률</p>
-                    <p className="text-[13px] font-black text-[var(--color-primary)]">
-                      30.53<span className="text-[9px] font-normal">%</span>
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <ArrowUp size={11} className="text-[#e53a4c]" />
-                    <span className="text-[11px] font-bold text-[#e53a4c]">4.8%</span>
-                  </div>
-                </div>
-              </div>
-            </section>
+        </div>{/* /RIGHT PANEL */}
 
-            {/* R3 — 시정 소식 & 공지사항 */}
-            <section
-              aria-label="시정 소식 및 공지사항"
-              className="bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3.5 flex flex-col min-h-[200px]"
-            >
-              <CardHeader title="시정 소식 & 공지사항" />
-
-              {/* Tab switcher */}
-              <div className="flex gap-0.5 mb-2.5 bg-gray-100 rounded-full p-0.5 w-fit flex-shrink-0">
-                {(['news', 'notice'] as const).map((tab) => (
-                  <button
-                    key={tab}
-                    onClick={() => setActiveTab(tab)}
-                    className={`text-[11px] font-bold px-3 py-1 rounded-full transition-all ${
-                      activeTab === tab ? 'bg-[#017ddd] text-white shadow-sm' : 'text-gray-500'
-                    }`}
-                  >
-                    {tab === 'news' ? '시정 소식' : '공지사항'}
-                  </button>
-                ))}
-              </div>
-
-              {/* News list */}
-              <div className="flex-1 flex flex-col justify-around">
-                {news.map((item, i) => (
-                  <div key={i} className="flex items-center justify-between gap-2 py-0.5">
-                    <div className="flex items-center gap-1.5 min-w-0">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-primary)] flex-shrink-0" />
-                      <span className="text-[12px] text-gray-700 truncate">{item}</span>
-                    </div>
-                    <span className="text-[10px] text-gray-400 flex-shrink-0">26.03.13</span>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            {/* R4 — 기후의병 활약상 */}
-            <section
-              aria-label="기후의병 활약상"
-              className="bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3.5 flex flex-col min-h-[200px]"
-            >
-              <CardHeader title="기후의병 활약상" />
-
-              {/* Main content */}
-              <div className="flex-1 flex flex-col items-center justify-center gap-1.5">
-                <div className="w-11 h-11 rounded-full bg-[var(--color-primary)]/10 flex items-center justify-center">
-                  <TreePine size={24} className="text-[var(--color-primary)]" />
-                </div>
-                <p className="text-[11px] text-gray-500">오늘 광명시가 심은 나무</p>
-                <p className="text-3xl font-black text-gray-900">
-                  1,248 <span className="text-base font-medium text-gray-600">그루</span>
-                </p>
-                <button className="mt-0.5 px-5 py-1.5 bg-[var(--color-primary)] text-white text-[12px] font-bold rounded-lg hover:opacity-90 transition-opacity">
-                  참여하기
-                </button>
-              </div>
-
-              {/* Bottom stats */}
-              <div className="bg-[#f0f3f8] rounded-xl p-2.5 grid grid-cols-3 divide-x divide-gray-200 flex-shrink-0 mt-2">
-                {[
-                  { label: '참여 인원',   value: '4.2만명' },
-                  { label: '누적 사용량', value: '1.2억 P' },
-                  { label: '총 감축량',   value: '320 t'   },
-                ].map((s) => (
-                  <div key={s.label} className="flex flex-col items-center gap-0.5 px-1">
-                    <span className="text-[9px] text-gray-500">{s.label}</span>
-                    <span className="text-[12px] font-black text-gray-800">{s.value}</span>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-          </div>{/* /RIGHT PANEL */}
-
-      </div>{/* /Layer 2 content */}
+      </div>{/* /Layer 2 */}
 
     </div>
   );
