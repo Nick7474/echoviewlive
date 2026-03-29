@@ -57,7 +57,10 @@ const AutoScrollList = ({ children }: { children: React.ReactNode }) => {
   return (
     <div
       ref={scrollRef}
-      className="flex gap-2.5 flex-1 min-h-0 pt-1 overflow-x-auto snap-x select-none cursor-grab active:cursor-grabbing [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+      tabIndex={0}
+      role="region"
+      aria-label="시민 참여 프로그램 자동 스크롤 컨테이너"
+      className="flex gap-2.5 flex-1 min-h-0 pt-1 overflow-x-auto snap-x select-none cursor-grab active:cursor-grabbing hover:cursor-grab focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:-outline-offset-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={onMouseLeave}
       onMouseDown={onMouseDown}
@@ -107,9 +110,9 @@ const CircleGauge = ({
   const subL = label.includes('(') ? label.substring(label.indexOf('(')) : '';
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center" role="img" aria-label={`${label} 지수: ${value} ${unit || ''}, 상태: ${status}`}>
       <div className="relative" style={{ width: size, height: size }}>
-        <svg width={size} height={size}>
+        <svg width={size} height={size} aria-hidden="true">
           <g transform={`rotate(-90 ${cx} ${cy})`}>
             <circle cx={cx} cy={cy} r={r} fill={statusColor} fillOpacity={0.08} />
             <circle cx={cx} cy={cy} r={r} fill="none" stroke={statusColor} strokeOpacity={0.25} strokeWidth={strokeW} />
@@ -398,7 +401,11 @@ export default function Home() {
                 </div>
 
                 {/* Bar Chart Area */}
-                <div className="flex-1 relative mt-[6px] flex flex-col justify-end">
+                <div 
+                  className="flex-1 relative mt-[6px] flex flex-col justify-end"
+                  role="img"
+                  aria-label="신재생 에너지 원별 당월 생산 및 누적 현황 막대 차트"
+                >
                   {/* Background Grid Lines */}
                   <div className="absolute inset-x-0 top-[4px] bottom-[15px] flex flex-col justify-between pointer-events-none z-0">
                     <div className="border-t-[1.5px] border-dashed border-[#e8eaed] w-full" />
@@ -467,7 +474,7 @@ export default function Home() {
               <div className="flex-1 bg-[#f4f6f8] rounded-[10px] px-3.5 py-3 flex flex-col justify-between border border-gray-50/50">
                 <p className="text-[11.5px] font-bold text-gray-800">친환경 EV-DRT 버스</p>
                 <div className="flex items-center justify-between w-full mt-1.5 px-0.5">
-                  <Bus size={32} className="text-[#017ddd]" strokeWidth={2} />
+                  <Bus size={32} className="text-[#017ddd]" strokeWidth={2} aria-hidden="true" />
                   <div className="flex flex-col items-end">
                     <p className="text-[20px] font-black text-gray-900 leading-none tracking-tight">
                       23<span className="text-[11px] font-bold text-gray-600 ml-0.5">대</span>
@@ -481,7 +488,7 @@ export default function Home() {
               <div className="flex-1 bg-[#f4f6f8] rounded-[10px] px-3.5 py-3 flex flex-col justify-between border border-gray-50/50">
                 <p className="text-[11.5px] font-bold text-gray-800">공공자전거 이용률</p>
                 <div className="flex items-center justify-between w-full mt-1.5 px-0.5">
-                  <Bike size={34} className="text-[var(--color-primary)]" strokeWidth={2} />
+                  <Bike size={34} className="text-[var(--color-primary)]" strokeWidth={2} aria-hidden="true" />
                   <div className="flex flex-col items-end">
                     <p className="text-[20px] font-black text-gray-900 leading-none tracking-tight">
                       0.8<span className="text-[11px] font-bold text-gray-600 ml-0.5">%</span>
@@ -579,23 +586,23 @@ export default function Home() {
           <div className="absolute top-[360px] right-[6px] flex flex-col gap-2 pointer-events-auto">
             <button
               aria-label="전체화면"
-              className="w-8 h-8 bg-white border border-gray-200 rounded-lg flex items-center justify-center shadow-sm hover:bg-gray-50 text-gray-600 transition-colors"
+              className="w-8 h-8 bg-white border border-gray-200 rounded-lg flex items-center justify-center shadow-sm hover:bg-gray-50 text-gray-600 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-500"
             >
-              <Maximize2 size={13} />
+              <Maximize2 size={13} aria-hidden="true" />
             </button>
             <div className="bg-white border border-gray-200 rounded-lg shadow-sm flex flex-col divide-y divide-gray-100">
-              <button aria-label="확대" className="w-8 h-8 flex items-center justify-center hover:bg-gray-50 text-gray-600 transition-colors">
-                <Plus size={13} />
+              <button aria-label="확대" className="w-8 h-8 flex items-center justify-center hover:bg-gray-50 text-gray-600 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-500">
+                <Plus size={13} aria-hidden="true" />
               </button>
-              <button aria-label="축소" className="w-8 h-8 flex items-center justify-center hover:bg-gray-50 text-gray-600 transition-colors">
-                <Minus size={13} />
+              <button aria-label="축소" className="w-8 h-8 flex items-center justify-center hover:bg-gray-50 text-gray-600 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-500">
+                <Minus size={13} aria-hidden="true" />
               </button>
             </div>
             <button
               aria-label="레이어"
-              className="w-8 h-8 bg-white border border-gray-200 rounded-lg flex items-center justify-center shadow-sm hover:bg-gray-50 text-gray-600 transition-colors"
+              className="w-8 h-8 bg-white border border-gray-200 rounded-lg flex items-center justify-center shadow-sm hover:bg-gray-50 text-gray-600 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-500"
             >
-              <Layers size={13} />
+              <Layers size={13} aria-hidden="true" />
             </button>
           </div>
 
@@ -659,8 +666,12 @@ export default function Home() {
             <CardHeader title="실시간 탄소 배출 / 저감 현황" />
             <div className="flex-1 flex gap-4 min-h-0 pt-1">
               {/* Gauge */}
-              <div className="w-[140px] flex flex-col items-center justify-center flex-shrink-0 pt-2">
-                <svg width="138" height="74" viewBox="0 0 138 74" className="overflow-visible drop-shadow-sm">
+              <div 
+                className="w-[140px] flex flex-col items-center justify-center flex-shrink-0 pt-2"
+                role="img"
+                aria-label="실시간 탄소 배출 지수: 72"
+              >
+                <svg width="138" height="74" viewBox="0 0 138 74" className="overflow-visible drop-shadow-sm" aria-hidden="true">
                   <defs>
                     <linearGradient id="gaugeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
                       <stop offset="0%" stopColor="#3263c9" />
@@ -710,11 +721,23 @@ export default function Home() {
             className="flex-1 min-h-0 bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3 flex flex-col overflow-hidden"
           >
             <CardHeader title="시정 소식 & 공지사항" />
-            <div className="flex w-full h-[34px] rounded-full border border-gray-300 overflow-hidden mb-3 flex-shrink-0 mt-1">
-              <button className="flex-1 h-full font-bold text-[12.5px] bg-[#0074db] text-white">
+            <div 
+              role="tablist"
+              aria-label="시정 소식 및 공지사항 그룹"
+              className="flex w-full h-[34px] rounded-full border border-gray-300 overflow-hidden mb-3 flex-shrink-0 mt-1"
+            >
+              <button 
+                role="tab" 
+                aria-selected="true"
+                className="flex-1 h-full font-bold text-[12.5px] bg-[#0074db] text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-blue-300"
+              >
                 시정 소식
               </button>
-              <button className="flex-1 h-full font-bold text-[12.5px] bg-white text-gray-600">
+              <button 
+                role="tab" 
+                aria-selected="false"
+                className="flex-1 h-full font-bold text-[12.5px] bg-white text-gray-600 hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-gray-300"
+              >
                 공지사항
               </button>
             </div>
@@ -740,7 +763,7 @@ export default function Home() {
             <div className="flex-1 flex flex-col pt-1 w-full gap-3 justify-center">
               <div className="flex items-center justify-between w-full px-1">
                 <div className="flex items-center gap-4">
-                  <TreePine size={46} className="text-[#5ba653] fill-[#5ba653]" strokeWidth={1} />
+                  <TreePine size={46} className="text-[#5ba653] fill-[#5ba653]" strokeWidth={1} aria-hidden="true" />
                   <div className="flex flex-col">
                     <span className="text-[10.5px] font-semibold text-gray-500 mb-0.5">오늘 광명시가 심은 나무</span>
                     <div className="flex items-baseline gap-1 mt-0.5">
@@ -750,14 +773,17 @@ export default function Home() {
                     <span className="text-[9.5px] font-medium text-gray-500 mt-1.5 px-0.5 tracking-tight">(실시간 탄소 감축량 <strong className="text-gray-800">12.4t</strong> 환산)</span>
                   </div>
                 </div>
-                <button className="bg-[#3ab164] text-white text-[12.5px] font-bold px-3.5 py-2.5 rounded-[8px] flex items-center gap-1 hover:bg-[#349e59] shadow-sm mb-2">
-                  참여하기 <span className="text-[15px] leading-none mb-0.5 ml-0.5">›</span>
+                <button 
+                  aria-label="기후의병 활약상 참여하기"
+                  className="bg-[#3ab164] text-white text-[12.5px] font-bold px-3.5 py-2.5 rounded-[8px] flex items-center gap-1 hover:bg-[#349e59] shadow-sm mb-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3ab164]"
+                >
+                  참여하기 <span aria-hidden="true" className="text-[15px] leading-none mb-0.5 ml-0.5">›</span>
                 </button>
               </div>
               
               <div className="bg-[#f2f4f6] rounded-[10px] px-2 py-3 flex items-center justify-between mx-1 border border-gray-100 mt-1">
                 <div className="flex items-center justify-center gap-2 flex-1">
-                  <div className="w-[18px] text-[#29b057] flex justify-center"><TreePine size={18} className="fill-[#29b057] text-[#29b057]" /></div>
+                  <div className="w-[18px] text-[#29b057] flex justify-center"><TreePine size={18} className="fill-[#29b057] text-[#29b057]" aria-hidden="true" /></div>
                   <div className="flex flex-col">
                     <span className="text-[9.5px] font-medium text-gray-600 mb-0.5">참여 의명</span>
                     <span className="text-[13px] font-black text-gray-900 leading-none">4.2만명</span>
