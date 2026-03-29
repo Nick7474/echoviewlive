@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { 
   BookOpen, 
   FileText, 
@@ -59,11 +59,15 @@ const insights = [
 ];
 
 export default function CarbonInsights() {
+  useEffect(() => {
+    document.title = "탄소중립 인사이트 | 에코뷰";
+  }, []);
   const shouldReduceMotion = useReducedMotion();
   const [activeCategory, setActiveCategory] = useState('전체');
 
   return (
     <div className="max-w-[1560px] mx-auto space-y-16 pb-20">
+      <h1 className="sr-only">탄소중립 인사이트</h1>
       {/* Hero Section - Recipe 4: Dark Luxury Style */}
       <section className="relative bg-black rounded-[40px] p-8 sm:p-16 overflow-hidden text-white group">
         {/* Background Image with Overlay */}

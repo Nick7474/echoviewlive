@@ -27,7 +27,7 @@ import {
   Briefcase,
   AlertCircle
 } from 'lucide-react';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -157,6 +157,9 @@ const categories = [
 ];
 
 export default function DataSearchList() {
+  useEffect(() => {
+    document.title = "데이터 검색/조회 | 에코뷰";
+  }, []);
   const navigate = useNavigate();
   const shouldReduceMotion = useReducedMotion();
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');

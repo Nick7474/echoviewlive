@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { 
   BookOpen, 
   Code2, 
@@ -21,6 +21,9 @@ import {
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 
 export default function DataUsageGuide() {
+  useEffect(() => {
+    document.title = "데이터 활용 가이드 | 에코뷰";
+  }, []);
   const shouldReduceMotion = useReducedMotion();
   const [activeTab, setActiveTab] = useState<'portal' | 'api' | 'format'>('portal');
   const [openFaq, setOpenFaq] = useState<number | null>(null);

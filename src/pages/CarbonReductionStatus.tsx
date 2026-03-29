@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { 
   TrendingDown, 
   Target, 
@@ -48,11 +48,15 @@ const sectorReduction = [
 ];
 
 export default function CarbonReductionStatus() {
+  useEffect(() => {
+    document.title = "탄소감축 현황 | 에코뷰";
+  }, []);
   const shouldReduceMotion = useReducedMotion();
   const [activeYear, setActiveYear] = useState('2026');
 
   return (
     <div className="max-w-[1560px] mx-auto space-y-12 pb-20">
+      <h1 className="sr-only">탄소감축 현황</h1>
       {/* Hero Section - Recipe 2: Editorial Style */}
       <section className="relative bg-slate-900 rounded-[40px] p-8 sm:p-16 overflow-hidden text-white group">
         {/* Background Image with Overlay */}

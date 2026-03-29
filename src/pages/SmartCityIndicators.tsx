@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { 
   Building2, 
   Cpu, 
@@ -65,6 +65,9 @@ const barData = [
 ];
 
 export default function SmartCityIndicators() {
+  useEffect(() => {
+    document.title = "스마트도시 지표 | 에코뷰";
+  }, []);
   const shouldReduceMotion = useReducedMotion();
   const [activeTab, setActiveTab] = useState('전체');
 

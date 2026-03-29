@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { 
   FileText, 
   CheckCircle2, 
@@ -16,6 +16,9 @@ import {
 import { motion, useReducedMotion } from 'motion/react';
 
 export default function DataDownloadRequest() {
+  useEffect(() => {
+    document.title = "데이터 다운로드 신청 | 에코뷰";
+  }, []);
   const shouldReduceMotion = useReducedMotion();
   const [step, setStep] = useState(1);
   const [requestType, setRequestType] = useState<'download' | 'api'>('download');

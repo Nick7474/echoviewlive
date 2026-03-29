@@ -14,10 +14,13 @@ import {
   Trophy,
   Leaf,
 } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 
 export default function LivingLabIntro() {
+  useEffect(() => {
+    document.title = "리빙랩 소개/일정 | 에코뷰";
+  }, []);
   const shouldReduceMotion = useReducedMotion();
   const [activeYear, setActiveYear] = useState(2026);
   const [selectedPhase, setSelectedPhase] = useState<{ category: string, label: string, start: number, end: number } | null>(null);
@@ -87,6 +90,7 @@ export default function LivingLabIntro() {
 
   return (
     <>
+      <h1 className="sr-only">리빙랩 소개 및 일정</h1>
       {/* Notice Bar */}
       <motion.div
         initial={{ opacity: 0, y: -10 }}

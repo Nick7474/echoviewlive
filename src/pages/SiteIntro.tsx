@@ -1,5 +1,6 @@
-import { 
-  Globe, 
+import { useEffect } from 'react';
+import {
+  Globe,
   Database, 
   Users, 
   Activity, 
@@ -18,6 +19,9 @@ import {
 import { motion, useReducedMotion } from 'motion/react';
 
 export default function SiteIntro() {
+  useEffect(() => {
+    document.title = "사이트 소개 | 에코뷰";
+  }, []);
   const shouldReduceMotion = useReducedMotion();
   const keyServices = [
     {

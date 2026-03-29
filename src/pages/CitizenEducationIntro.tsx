@@ -1,5 +1,6 @@
-import { 
-  GraduationCap, 
+import { useEffect } from 'react';
+import {
+  GraduationCap,
   BookOpen, 
   Users, 
   Calendar, 
@@ -16,6 +17,9 @@ import { motion, useReducedMotion } from 'motion/react';
 import { Link } from 'react-router-dom';
 
 export default function CitizenEducationIntro() {
+  useEffect(() => {
+    document.title = "시티즌교육 소개/일정 | 에코뷰";
+  }, []);
   const shouldReduceMotion = useReducedMotion();
   const stats = [
     { label: '누적 수료생', value: '1,240', unit: '명', icon: <Users size={20} /> },

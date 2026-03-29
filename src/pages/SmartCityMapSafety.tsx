@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import { ShieldCheck, MapPin, Siren, BarChart3, Flame, HeartPulse, Bell, Home } from 'lucide-react';
@@ -65,6 +65,9 @@ const TYPE_COLORS: Record<string, string> = {
 };
 
 export default function SmartCityMapSafety() {
+  useEffect(() => {
+    document.title = "안전시설 지도 | 에코뷰";
+  }, []);
   const [selectedTypes, setSelectedTypes] = useState<string[]>(['소화전', 'AED', '비상벨', '대피소']);
 
   const filteredData = useMemo(() => {
@@ -74,7 +77,7 @@ export default function SmartCityMapSafety() {
   const filterContent = (
     <div className="space-y-6">
       <div>
-        <h3 className="text-sm font-bold text-gray-400 mb-4 uppercase tracking-wider">구분</h3>
+        <h2 className="text-sm font-bold text-gray-400 mb-4 uppercase tracking-wider">구분</h2>
         <div className="space-y-3">
             <label className="flex items-center justify-between group cursor-pointer">
             <div className="flex items-center gap-2">
@@ -202,12 +205,13 @@ export default function SmartCityMapSafety() {
   );
 
   return (
-    <SmartCityMapLayout 
-      title="안전 시설 현황" 
+    <SmartCityMapLayout
+      title="안전 시설 현황"
       description="광명시 내 소화전, AED, 비상벨, 대피소 등 시민의 안전을 위한 주요 시설 위치를 확인하세요."
       filterContent={filterContent}
       bottomContent={bottomContent}
     >
+      <h1 className="sr-only">안전시설 지도</h1>
       <MapContainer 
         center={[37.4785, 126.8646]} 
         zoom={14} 

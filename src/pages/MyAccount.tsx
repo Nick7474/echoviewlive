@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { User, Bell, Lock, AlertTriangle } from 'lucide-react';
 import MyPageLayout from '../components/MyPageLayout';
 
@@ -7,6 +7,9 @@ const NOTIF_KEYS: NotifKey[] = ['이메일 공지 수신', 'SMS 알림 수신', 
 const INTERESTS = ['탄소중립', '에너지', '모빌리티', '데이터', '안전·환경'];
 
 export default function MyAccount() {
+  useEffect(() => {
+    document.title = "계정 및 정보관리 | 에코뷰";
+  }, []);
   const [interests, setInterests] = useState<string[]>(['탄소중립', '에너지']);
   const [notifs, setNotifs] = useState<Record<NotifKey, boolean>>({
     '이메일 공지 수신': true,

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   UserPlus,
   Database,
@@ -51,6 +51,9 @@ const faqs = [
 ];
 
 export default function SiteGuide() {
+  useEffect(() => {
+    document.title = "이용안내 | 에코뷰";
+  }, []);
   const shouldReduceMotion = useReducedMotion();
   const [activeTab, setActiveTab] = useState<TabId>('signup');
   const [openFaq, setOpenFaq] = useState<number | null>(null);

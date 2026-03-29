@@ -10,7 +10,7 @@ import {
   ChevronRight,
   MoreHorizontal
 } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
 
 interface Announcement {
@@ -75,6 +75,9 @@ const CATEGORY_CONFIG = {
 };
 
 export default function LivingLabAnnouncements() {
+  useEffect(() => {
+    document.title = "공고 목록/신청 | 에코뷰";
+  }, []);
   const shouldReduceMotion = useReducedMotion();
   const [activeTab, setActiveTab] = useState('전체');
   const [activeCategory, setActiveCategory] = useState('전체');

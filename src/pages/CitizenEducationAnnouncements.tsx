@@ -10,7 +10,7 @@ import {
   Clock,
   CheckCircle2
 } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { Link } from 'react-router-dom';
 
@@ -96,6 +96,9 @@ const educationData: EducationItem[] = [
 ];
 
 export default function CitizenEducationAnnouncements() {
+  useEffect(() => {
+    document.title = "공고 목록/신청 | 에코뷰";
+  }, []);
   const shouldReduceMotion = useReducedMotion();
   const [filter, setFilter] = useState<'all' | 'recruiting' | 'upcoming' | 'completed'>('all');
   const [searchQuery, setSearchQuery] = useState('');
@@ -117,6 +120,7 @@ export default function CitizenEducationAnnouncements() {
 
   return (
     <div className="max-w-[1560px] mx-auto space-y-12">
+      <h1 className="sr-only">시티즌교육 공고 목록</h1>
       {/* Header Section */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 pb-8 border-b border-line-neutral">
         <div className="space-y-4">

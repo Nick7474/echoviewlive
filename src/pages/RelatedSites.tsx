@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { ExternalLink, Globe } from 'lucide-react';
 
 const SITES = [
@@ -58,6 +59,9 @@ const SITES = [
 ];
 
 export default function RelatedSites() {
+  useEffect(() => {
+    document.title = "기타 홈페이지 | 에코뷰";
+  }, []);
   return (
     <div className="max-w-[1560px] mx-auto space-y-12 pb-20">
       {/* Header */}

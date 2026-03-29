@@ -19,7 +19,7 @@ import {
   ChevronRight,
   Download
 } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 
 const STEPS = [
@@ -37,12 +37,16 @@ const CATEGORIES = [
 ];
 
 export default function OpenLabSuggestion() {
+  useEffect(() => {
+    document.title = "오픈랩 주제 제안 | 에코뷰";
+  }, []);
   const shouldReduceMotion = useReducedMotion();
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState('');
 
   return (
     <div className="max-w-[1560px] mx-auto space-y-12">
+      <h1 className="sr-only">오픈랩 주제 제안</h1>
       {/* Header Section */}
       <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-8">
         <div className="space-y-4">

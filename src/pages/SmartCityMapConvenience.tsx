@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import { Heart, MapPin, Siren, BarChart3, Car, Zap, Coffee, Trash2 } from 'lucide-react';
@@ -65,6 +65,9 @@ const TYPE_COLORS: Record<string, string> = {
 };
 
 export default function SmartCityMapConvenience() {
+  useEffect(() => {
+    document.title = "편의시설 지도 | 에코뷰";
+  }, []);
   const [selectedTypes, setSelectedTypes] = useState<string[]>(['주차장', '충전소', '화장실', '스마트벤치']);
 
   const filteredData = useMemo(() => {
@@ -74,7 +77,7 @@ export default function SmartCityMapConvenience() {
   const filterContent = (
     <div className="space-y-6">
       <div>
-        <h3 className="text-sm font-bold text-gray-400 mb-4 uppercase tracking-wider">구분</h3>
+        <h2 className="text-sm font-bold text-gray-400 mb-4 uppercase tracking-wider">구분</h2>
         <div className="space-y-3">
             <label className="flex items-center justify-between group cursor-pointer">
             <div className="flex items-center gap-2">
@@ -202,12 +205,13 @@ export default function SmartCityMapConvenience() {
   );
 
   return (
-    <SmartCityMapLayout 
-      title="편의 시설 현황" 
+    <SmartCityMapLayout
+      title="편의 시설 현황"
       description="주차장, 전기차 충전소, 개방 화장실 등 시민 생활 편의를 위한 시설 정보를 확인하세요."
       filterContent={filterContent}
       bottomContent={bottomContent}
     >
+      <h1 className="sr-only">편의시설 지도</h1>
       <MapContainer 
         center={[37.4785, 126.8646]} 
         zoom={14} 

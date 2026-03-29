@@ -14,7 +14,7 @@ import {
   Lightbulb,
   ArrowRight
 } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
 import { Link } from 'react-router-dom';
 
@@ -80,6 +80,9 @@ const CATEGORY_CONFIG = {
 };
 
 export default function OpenLabAnnouncements() {
+  useEffect(() => {
+    document.title = "공고 목록/신청 | 에코뷰";
+  }, []);
   const shouldReduceMotion = useReducedMotion();
   const [activeTab, setActiveTab] = useState('전체');
   const [activeCategory, setActiveCategory] = useState('전체');
@@ -92,6 +95,7 @@ export default function OpenLabAnnouncements() {
 
   return (
     <div className="space-y-8 max-w-[1560px] mx-auto">
+      <h1 className="sr-only">오픈랩 공고 목록</h1>
       {/* Header Area */}
       <div className="flex flex-col gap-4">
         <div className="flex items-center gap-3">

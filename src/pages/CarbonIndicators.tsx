@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { 
   BarChart3, 
   TrendingDown, 
@@ -154,11 +154,15 @@ const radialData = [
 ];
 
 export default function CarbonIndicators() {
+  useEffect(() => {
+    document.title = "탄소 지표 | 에코뷰";
+  }, []);
   const shouldReduceMotion = useReducedMotion();
   const [activeTab, setActiveTab] = useState('전체');
 
   return (
     <div className="max-w-[1560px] mx-auto space-y-12 pb-20">
+      <h1 className="sr-only">탄소 지표</h1>
       {/* Real-time Update Bar */}
       <div className="bg-[var(--color-primary-subtle)] border border-[var(--color-primary-border)]/20 rounded-2xl px-6 py-3 flex items-center justify-between">
         <div className="flex items-center gap-4">

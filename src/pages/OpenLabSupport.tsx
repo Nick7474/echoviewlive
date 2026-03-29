@@ -1,5 +1,6 @@
-import { 
-  Briefcase, 
+import { useEffect } from 'react';
+import {
+  Briefcase,
   Lightbulb, 
   TrendingUp, 
   Database, 
@@ -19,6 +20,9 @@ import { motion, useReducedMotion } from 'motion/react';
 import { Link } from 'react-router-dom';
 
 export default function OpenLabSupport() {
+  useEffect(() => {
+    document.title = "취창업 지원 | 에코뷰";
+  }, []);
   const shouldReduceMotion = useReducedMotion();
   const stats = [
     { label: '누적 창업 지원', value: '42', unit: '팀', icon: <Rocket size={20} /> },
@@ -76,6 +80,7 @@ export default function OpenLabSupport() {
 
   return (
     <div className="max-w-[1560px] mx-auto space-y-16 sm:space-y-24">
+      <h1 className="sr-only">취창업 지원</h1>
       {/* Hero Section */}
       <section className="relative bg-[#0f2a4a] rounded-[40px] p-8 sm:p-20 overflow-hidden text-white">
         <div className="absolute top-0 right-0 w-full h-full opacity-10 pointer-events-none">
@@ -161,7 +166,7 @@ export default function OpenLabSupport() {
       <section>
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
           <div className="space-y-2">
-            <h3 className="text-3xl font-black text-gray-900 tracking-tight">3대 핵심 지원 프로그램</h3>
+            <h2 className="text-3xl font-black text-gray-900 tracking-tight">3대 핵심 지원 프로그램</h2>
             <p className="text-gray-500 font-medium">실질적인 성장을 돕는 오픈랩만의 차별화된 지원책</p>
           </div>
           <div className="flex items-center gap-2 text-sky-500 font-bold text-sm">
@@ -185,7 +190,7 @@ export default function OpenLabSupport() {
               <div className="space-y-4 mb-8">
                 <div className="space-y-1">
                   <p className="text-[10px] font-black text-sky-500 uppercase tracking-widest">{program.subtitle}</p>
-                  <h4 className="text-xl font-black text-gray-900">{program.title}</h4>
+                  <h3 className="text-xl font-black text-gray-900">{program.title}</h3>
                 </div>
                 <p className="text-gray-500 text-sm leading-relaxed font-medium">
                   {program.desc}
@@ -209,7 +214,7 @@ export default function OpenLabSupport() {
       {/* Roadmap */}
       <section className="bg-gray-50 rounded-[48px] p-8 sm:p-20 border border-line-normal">
         <div className="text-center max-w-2xl mx-auto mb-16 space-y-4">
-          <h3 className="text-3xl font-black text-gray-900 tracking-tight">단계별 성장 로드맵</h3>
+          <h2 className="text-3xl font-black text-gray-900 tracking-tight">단계별 성장 로드맵</h2>
           <p className="text-gray-500 font-medium">아이디어 발굴부터 글로벌 시장 진출까지, 오픈랩이 함께합니다.</p>
         </div>
 
@@ -228,7 +233,7 @@ export default function OpenLabSupport() {
                   {item.step}
                 </div>
                 <div className="space-y-2">
-                  <h5 className={`text-lg font-black ${item.status === 'upcoming' ? 'text-gray-400' : 'text-gray-900'}`}>{item.title}</h5>
+                  <h3 className={`text-lg font-black ${item.status === 'upcoming' ? 'text-gray-400' : 'text-gray-900'}`}>{item.title}</h3>
                   <p className="text-sm text-gray-400 font-medium leading-tight max-w-[180px] mx-auto">{item.desc}</p>
                 </div>
               </div>
@@ -242,7 +247,7 @@ export default function OpenLabSupport() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div className="space-y-8">
             <div className="space-y-4">
-              <h3 className="text-3xl font-black text-gray-900 tracking-tight">추가 지원 혜택</h3>
+              <h2 className="text-3xl font-black text-gray-900 tracking-tight">추가 지원 혜택</h2>
               <p className="text-gray-500 font-medium text-lg leading-relaxed">
                 비즈니스에만 집중할 수 있도록 <br className="hidden sm:block" />
                 다양한 유·무형의 인프라를 전폭적으로 지원합니다.
@@ -263,7 +268,7 @@ export default function OpenLabSupport() {
                     {benefit.icon}
                   </div>
                   <div className="space-y-1">
-                    <h6 className="font-bold text-gray-900">{benefit.title}</h6>
+                    <h3 className="font-bold text-gray-900">{benefit.title}</h3>
                     <p className="text-xs text-gray-400 leading-relaxed font-medium">{benefit.desc}</p>
                   </div>
                 </motion.div>
@@ -290,7 +295,7 @@ export default function OpenLabSupport() {
       {/* FAQ & Contact */}
       <section className="bg-sky-500 rounded-[48px] p-8 sm:p-20 text-white text-center space-y-12">
         <div className="max-w-3xl mx-auto space-y-6">
-          <h3 className="text-3xl sm:text-4xl font-black tracking-tight">궁금한 점이 있으신가요?</h3>
+          <h2 className="text-3xl sm:text-4xl font-black tracking-tight">궁금한 점이 있으신가요?</h2>
           <p className="text-sky-100 text-lg font-medium">
             취창업 지원 프로그램에 대한 상세한 안내와 <br className="hidden sm:block" />
             실시간 상담을 통해 여러분의 고민을 해결해 드립니다.

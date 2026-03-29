@@ -1,5 +1,6 @@
-import { 
-  Building2, 
+import { useEffect } from 'react';
+import {
+  Building2,
   Leaf, 
   Zap, 
   ShieldCheck, 
@@ -10,6 +11,9 @@ import {
 import { motion, useReducedMotion } from 'motion/react';
 
 export default function BusinessIntro() {
+  useEffect(() => {
+    document.title = "사업 소개 | 에코뷰";
+  }, []);
   const shouldReduceMotion = useReducedMotion();
   const businesses = [
     {

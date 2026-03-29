@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ClipboardList, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import MyPageLayout from '../components/MyPageLayout';
@@ -18,6 +18,9 @@ const STATUS_STYLE: Record<string, string> = {
 const FILTER_TABS = ['전체', '리빙랩', '오픈랩', '시민교육'];
 
 export default function MyApplications() {
+  useEffect(() => {
+    document.title = "사업신청내역 | 에코뷰";
+  }, []);
   const [filter, setFilter] = useState('전체');
   const rows = filter === '전체' ? ALL_ROWS : ALL_ROWS.filter(r => r.type === filter);
 

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { 
   Zap, 
   Wind, 
@@ -54,11 +54,15 @@ const sectorData = [
 ];
 
 export default function CarbonNeutralStatus() {
+  useEffect(() => {
+    document.title = "실시간 탄소중립 현황 | 에코뷰";
+  }, []);
   const shouldReduceMotion = useReducedMotion();
   const [activeTab, setActiveTab] = useState('전체');
 
   return (
     <div className="max-w-[1560px] mx-auto space-y-8 pb-20">
+      <h1 className="sr-only">실시간 탄소중립 현황</h1>
       {/* Header Section */}
       <section className="relative rounded-2xl p-6 sm:p-10 shadow-xl overflow-hidden min-h-[280px] flex flex-col lg:flex-row items-center justify-between gap-8 group">
         {/* Background Image with Overlay */}
@@ -82,9 +86,9 @@ export default function CarbonNeutralStatus() {
             <Activity size={14} className="animate-pulse" /> Real-time Dashboard
           </motion.div>
           <div className="space-y-4">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-[1.1] tracking-tight">
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-[1.1] tracking-tight">
               실시간 <span className="text-emerald-400">탄소중립</span> 현황
-            </h1>
+            </h2>
             <p className="text-emerald-50/80 text-lg sm:text-xl font-medium leading-relaxed max-w-2xl">
               광명시 전역의 탄소 배출 및 감축 현황을 실시간 데이터로 모니터링합니다. <br className="hidden lg:block" />
               에너지, 교통, 건물 등 주요 분야별 탄소 발자국을 확인하세요.

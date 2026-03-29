@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Database, Download, Eye, EyeOff, RefreshCw, AlertTriangle } from 'lucide-react';
 import MyPageLayout from '../components/MyPageLayout';
 
@@ -23,6 +23,9 @@ const NEW_REQUESTS = [
 ];
 
 export default function MyDataRequests() {
+  useEffect(() => {
+    document.title = "데이터 신청내역 | 에코뷰";
+  }, []);
   const [activeTab, setActiveTab] = useState<Tab>('다운로드 내역');
   const [showKey, setShowKey] = useState(false);
   const usagePercent = Math.round((142 / 1000) * 100);

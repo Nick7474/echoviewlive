@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { 
   Database, 
   Download, 
@@ -54,6 +54,9 @@ const mockDetailData: DataItem = {
 };
 
 export default function DataDetail() {
+  useEffect(() => {
+    document.title = "데이터 상세 정보 | 에코뷰";
+  }, []);
   const shouldReduceMotion = useReducedMotion();
   const navigate = useNavigate();
   const [isBookmarked, setIsBookmarked] = useState(false);

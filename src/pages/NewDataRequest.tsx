@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { 
   PlusCircle, 
   Search, 
@@ -62,6 +62,9 @@ const mockRequests: RequestItem[] = [
 ];
 
 export default function NewDataRequest() {
+  useEffect(() => {
+    document.title = "신규 데이터 신청 | 에코뷰";
+  }, []);
   const shouldReduceMotion = useReducedMotion();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [filter, setFilter] = useState('전체');

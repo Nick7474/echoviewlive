@@ -10,10 +10,13 @@ import {
   CheckCircle2,
   Clock
 } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 
 export default function NoticeList() {
+  useEffect(() => {
+    document.title = "공지사항 | 에코뷰";
+  }, []);
   const shouldReduceMotion = useReducedMotion();
   const [activeTab, setActiveTab] = useState('notice');
   const [filter, setFilter] = useState('전체');
@@ -46,6 +49,7 @@ export default function NoticeList() {
 
   return (
     <div className="space-y-12 pb-20">
+      <h1 className="sr-only">공지사항</h1>
       {/* Tab Navigation */}
       <div className="flex justify-center">
         <div className="inline-flex p-1.5 bg-gray-100 rounded-2xl border border-line-normal">

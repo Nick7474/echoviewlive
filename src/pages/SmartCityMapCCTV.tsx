@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import { Video, MapPin, Siren, BarChart3 } from 'lucide-react';
@@ -54,6 +54,9 @@ const TYPE_COLORS: Record<string, string> = {
 };
 
 export default function SmartCityMapCCTV() {
+  useEffect(() => {
+    document.title = "CCTV 지도 | 에코뷰";
+  }, []);
   const [selectedTypes, setSelectedTypes] = useState<string[]>(['방범', '교통', '어린이보호']);
 
   const filteredData = useMemo(() => {
@@ -63,7 +66,7 @@ export default function SmartCityMapCCTV() {
   const filterContent = (
     <div className="space-y-6">
       <div>
-        <h3 className="text-sm font-bold text-gray-400 mb-4 uppercase tracking-wider">구분</h3>
+        <h2 className="text-sm font-bold text-gray-400 mb-4 uppercase tracking-wider">구분</h2>
         <div className="space-y-3">
             <label className="flex items-center justify-between group cursor-pointer">
             <div className="flex items-center gap-2">
@@ -191,12 +194,13 @@ export default function SmartCityMapCCTV() {
   );
 
   return (
-    <SmartCityMapLayout 
-      title="스마트 시티 CCTV" 
+    <SmartCityMapLayout
+      title="스마트 시티 CCTV"
       description="광명시 전역의 지능형 CCTV 설치 현황 및 실시간 상태를 확인하실 수 있습니다."
       filterContent={filterContent}
       bottomContent={bottomContent}
     >
+      <h1 className="sr-only">CCTV 지도</h1>
       <MapContainer 
         center={[37.4785, 126.8646]} 
         zoom={14} 

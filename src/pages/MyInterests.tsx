@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Star, Bell, BellOff } from 'lucide-react';
 import MyPageLayout from '../components/MyPageLayout';
 
@@ -16,6 +16,9 @@ type NotifKey = '관심 사업 모집 시작 알림' | '신청 결과 통보 알
 const NOTIF_KEYS: NotifKey[] = ['관심 사업 모집 시작 알림', '신청 결과 통보 알림', '마감 임박 알림 (D-3)'];
 
 export default function MyInterests() {
+  useEffect(() => {
+    document.title = "관심사업 관리 | 에코뷰";
+  }, []);
   const [filter, setFilter] = useState('전체');
   const [notifs, setNotifs] = useState<Record<NotifKey, boolean>>({
     '관심 사업 모집 시작 알림': true,

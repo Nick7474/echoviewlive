@@ -22,11 +22,14 @@ import {
   Zap,
   PenTool
 } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { Link } from 'react-router-dom';
 
 export default function OpenLabIntro() {
+  useEffect(() => {
+    document.title = "오픈랩 소개/일정 | 에코뷰";
+  }, []);
   const shouldReduceMotion = useReducedMotion();
   const [activeYear, setActiveYear] = useState(2026);
 

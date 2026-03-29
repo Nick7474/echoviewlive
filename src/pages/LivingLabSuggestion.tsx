@@ -13,7 +13,7 @@ import {
   History,
   Download
 } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
 
 const STEPS = [
@@ -60,11 +60,15 @@ const ACHIEVEMENTS = [
 ];
 
 export default function LivingLabSuggestion() {
+  useEffect(() => {
+    document.title = "리빙랩 주제 제안 | 에코뷰";
+  }, []);
   const shouldReduceMotion = useReducedMotion();
   const [category, setCategory] = useState('에너지');
 
   return (
     <div className="space-y-16 pb-20">
+      <h1 className="sr-only">리빙랩 주제 제안</h1>
       {/* Hero Section */}
       <section className="relative overflow-hidden rounded-[40px] bg-emerald-900 text-white p-10 sm:p-16">
         <div className="relative z-10 max-w-3xl space-y-6">
