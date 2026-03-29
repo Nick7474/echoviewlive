@@ -143,11 +143,44 @@ export default function Home() {
   ];
 
   return (
-    <div className="bg-[#e1f1f0] w-full">
+    // ── 최상위 "스테이지": 지도가 배경 전체를 채움 ──────────────────────────
+    <div
+      className="relative w-full overflow-hidden"
+      style={{ height: 'calc(100vh - 80px)' }}
+    >
       <h1 className="sr-only">광명시 에코뷰 홈</h1>
 
-      <div className="max-w-[1560px] mx-auto w-full px-3 py-3">
-        <div className="flex gap-3" style={{ height: '960px' }}>
+      {/* ── Layer 0: Leaflet 지도 (전체 배경) ─────────────────────────────── */}
+      <div
+        className="absolute inset-0 z-0"
+        role="img"
+        aria-label="광명시 스마트 시티 지도"
+      >
+        <MapContainer
+          center={[37.4789, 126.8644]}
+          zoom={12}
+          style={{ width: '100%', height: '100%' }}
+          zoomControl={false}
+        >
+          <TileLayer
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          />
+        </MapContainer>
+      </div>
+
+      {/* ── Layer 1: 커버 이미지 오버레이 ─────────────────────────────────── */}
+      <img
+        src="/images/home_cover.png"
+        alt=""
+        aria-hidden="true"
+        className="absolute inset-0 w-full h-full object-cover z-10 pointer-events-none select-none"
+      />
+
+      {/* ── Layer 2: 콘텐츠 (카드 패널 + 지도 컨트롤) ────────────────────── */}
+      <div className="relative z-20 w-full h-full">
+        <div className="max-w-[1560px] mx-auto w-full px-3 py-3 h-full">
+          <div className="flex gap-3 h-full">
 
           {/* ════════════════════════════════════════════════════════════════ */}
           {/* LEFT PANEL                                                       */}
@@ -286,27 +319,12 @@ export default function Home() {
           </div>{/* /LEFT PANEL */}
 
           {/* ════════════════════════════════════════════════════════════════ */}
-          {/* CENTER — MAP                                                     */}
+          {/* CENTER — 투명 영역 (지도+커버가 배경으로 보임) + 컨트롤 버튼      */}
           {/* ════════════════════════════════════════════════════════════════ */}
-          <div
-            className="flex-1 relative rounded-2xl overflow-hidden border border-[#dfe0e4] shadow-sm"
-            role="img"
-            aria-label="광명시 스마트 시티 지도"
-          >
-            <MapContainer
-              center={[37.4789, 126.8644]}
-              zoom={12}
-              style={{ width: '100%', height: '100%', zIndex: 0 }}
-              zoomControl={false}
-            >
-              <TileLayer
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              />
-            </MapContainer>
+          <div className="flex-1 relative">
 
-            {/* Hero text overlay */}
-            <div className="absolute top-6 left-1/2 -translate-x-1/2 z-10 text-center pointer-events-none select-none">
+            {/* 히어로 텍스트 */}
+            <div className="absolute top-6 left-1/2 -translate-x-1/2 text-center pointer-events-none select-none">
               <p className="text-sm font-medium text-[#0d2d1c] drop-shadow">데이터로 함께 그리는 미래</p>
               <p className="text-[2.6rem] font-bold drop-shadow leading-tight">
                 <span className="text-[#0d2d1c]">광명시 </span>
@@ -314,8 +332,8 @@ export default function Home() {
               </p>
             </div>
 
-            {/* Mile buttons — right side column */}
-            <div className="absolute top-4 right-4 z-10 flex flex-col gap-2">
+            {/* 마일 버튼 그룹 */}
+            <div className="absolute top-4 right-4 flex flex-col gap-2">
               {mileButtons.map((btn, i) => (
                 <button
                   key={i}
@@ -326,8 +344,8 @@ export default function Home() {
               ))}
             </div>
 
-            {/* Map controls — left of mile buttons */}
-            <div className="absolute top-4 right-[68px] z-10 flex flex-col gap-2">
+            {/* 지도 컨트롤 버튼 */}
+            <div className="absolute top-4 right-[68px] flex flex-col gap-2">
               <button
                 aria-label="전체화면"
                 className="w-8 h-8 bg-white border border-gray-200 rounded-lg flex items-center justify-center shadow-sm hover:bg-gray-50 text-gray-600 transition-colors"
@@ -355,7 +373,7 @@ export default function Home() {
                 <Layers size={13} />
               </button>
             </div>
-          </div>{/* /CENTER MAP */}
+          </div>{/* /CENTER */}
 
           {/* ════════════════════════════════════════════════════════════════ */}
           {/* RIGHT PANEL                                                      */}
@@ -509,8 +527,10 @@ export default function Home() {
 
           </div>{/* /RIGHT PANEL */}
 
-        </div>
-      </div>
+          </div>{/* /flex row */}
+        </div>{/* /max-w container */}
+      </div>{/* /Layer 2 content */}
+
     </div>
   );
 }
