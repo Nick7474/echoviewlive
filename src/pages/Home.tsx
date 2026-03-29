@@ -406,7 +406,7 @@ export default function Home() {
         <div className="flex-1 relative h-full pointer-events-none">
 
           {/* ── 마일 버튼 그룹 (수정 3: 텍스트 레이블 + 아이콘 원형) ── */}
-          <div className="absolute top-[60px] right-[416px] flex flex-col gap-[16px] items-end pointer-events-auto">
+          <div className="absolute top-[60px] right-[6px] flex flex-col gap-[16px] items-end pointer-events-auto">
             {mileButtons.map((btn, i) => {
               const isActive = activeMile === i;
               return (
@@ -443,7 +443,7 @@ export default function Home() {
           </div>
 
           {/* 지도 컨트롤 버튼 */}
-          <div className="absolute top-[360px] right-[416px] flex flex-col gap-2 pointer-events-auto">
+          <div className="absolute top-[360px] right-[6px] flex flex-col gap-2 pointer-events-auto">
             <button
               aria-label="전체화면"
               className="w-8 h-8 bg-white border border-gray-200 rounded-lg flex items-center justify-center shadow-sm hover:bg-gray-50 text-gray-600 transition-colors"
