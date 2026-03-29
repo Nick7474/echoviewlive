@@ -546,52 +546,78 @@ export default function Home() {
             className="flex-1 min-h-0 bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3 flex flex-col overflow-hidden"
           >
             <CardHeader title="시민 참여 프로그램" />
-            <div className="flex gap-[8px] flex-1 min-h-0">
-              <div className="flex-1 bg-[#ecf9f0] rounded-xl p-2.5 flex flex-col justify-between">
-                <div>
-                  <p className="text-[9px] font-bold text-[var(--color-primary)] mb-1">Living Lab</p>
-                  <p className="text-[11px] font-bold text-gray-800 leading-snug">우리 동네 환경 개선단 모집</p>
+            <div className="flex gap-2.5 flex-1 min-h-0 pt-1">
+              <div className="flex-1 bg-[#edf8f1] rounded-[10px] p-3 flex flex-col justify-between border border-[#e2efe6]">
+                <div className="flex flex-col gap-1.5">
+                  <p className="text-[11px] font-bold text-[#1f8c56]">Living Lab</p>
+                  <p className="text-[13.5px] font-bold text-gray-800 leading-snug tracking-tight">우리 동네 환경<br/>개선단 모집</p>
                 </div>
-                <div className="flex items-center gap-2 mt-1.5">
-                  <span className="text-[9px] font-black text-white bg-[var(--color-primary)] px-2 py-0.5 rounded-full">D-7</span>
-                  <span className="text-[11px] font-bold text-[var(--color-primary)]">모집중</span>
+                <div className="flex items-center gap-2 mt-2">
+                  <span className="text-[10px] font-bold text-white bg-[#34a86b] px-2 py-[3px] rounded">D-7</span>
+                  <span className="text-[11px] font-medium text-gray-700">모집중</span>
                 </div>
               </div>
-              <div className="flex-1 bg-[#e4effd] rounded-xl p-2.5 flex flex-col justify-between">
-                <div>
-                  <p className="text-[9px] font-bold text-[#00aeef] mb-1">Open Lab</p>
-                  <p className="text-[11px] font-bold text-gray-800 leading-snug">탄소중립 혁신 아이디어 공모전</p>
+              <div className="flex-1 bg-[#eaf2fb] rounded-[10px] p-3 flex flex-col justify-between border border-[#e1eaf3]">
+                <div className="flex flex-col gap-1.5">
+                  <p className="text-[11px] font-bold text-[#077bca]">Open Lab</p>
+                  <p className="text-[13.5px] font-bold text-gray-800 leading-snug tracking-tight">탄소중립<br/>혁신 아이디어<br/>공모전</p>
                 </div>
-                <div className="flex items-center gap-2 mt-1.5">
-                  <span className="text-[9px] font-black text-white bg-[#00aeef] px-2 py-0.5 rounded-full">D-15</span>
-                  <span className="text-[11px] font-bold text-[#00aeef]">접수중</span>
+                <div className="flex items-center gap-2 mt-2">
+                  <span className="text-[10px] font-bold text-white bg-[#00a3e8] px-2 py-[3px] rounded">D-15</span>
+                  <span className="text-[11px] font-medium text-gray-700">접수중</span>
                 </div>
               </div>
             </div>
           </section>
 
-          {/* R2 — 실시간 탄소 배출/저감 현황 */}
+          {/* R2 — 실시간 탄소 배출 / 저감 현황 */}
           <section
             aria-label="실시간 탄소 배출 및 저감 현황"
             className="flex-1 min-h-0 bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3 flex flex-col overflow-hidden"
           >
             <CardHeader title="실시간 탄소 배출 / 저감 현황" />
-            <div className="flex-1 flex items-center gap-[8px] min-h-0">
-              <div className="flex items-end justify-center flex-shrink-0">
-                <SemiGauge value={72} />
+            <div className="flex-1 flex gap-4 min-h-0 pt-1">
+              {/* Gauge */}
+              <div className="w-[140px] flex flex-col items-center justify-center flex-shrink-0 pt-2">
+                <svg width="138" height="74" viewBox="0 0 138 74" className="overflow-visible drop-shadow-sm">
+                  <defs>
+                    <linearGradient id="gaugeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stopColor="#3263c9" />
+                      <stop offset="100%" stopColor="#5aa553" />
+                    </linearGradient>
+                  </defs>
+                  {/* Background Arc */}
+                  <path d="M 14 68 A 55 55 0 0 1 124 68" fill="none" stroke="#d5d9de" strokeWidth="22" strokeLinecap="butt" />
+                  {/* Colored Arc (~72%) */}
+                  <path d="M 14 68 A 55 55 0 0 1 108 24" fill="none" stroke="url(#gaugeGrad)" strokeWidth="22" strokeLinecap="butt" />
+                  {/* Needle */}
+                  <path d="M 69 68 L 96 24" stroke="#2b2d30" strokeWidth="5" strokeLinecap="round" />
+                  <circle cx="69" cy="68" r="7" fill="#2b2d30" />
+                </svg>
+                <div className="mt-4 flex items-baseline gap-1.5">
+                  <span className="text-[11.5px] font-medium text-gray-600">탄소 배출 지수</span>
+                  <span className="text-[25px] font-black text-gray-900 tracking-tight leading-none">72</span>
+                </div>
               </div>
-              <div className="flex-1 bg-[#f0f3f8] rounded-xl p-2.5 space-y-2 self-center">
-                <div>
-                  <p className="text-[9px] text-gray-500">총 배출량</p>
-                  <p className="text-[12px] font-black text-gray-800">239.18 <span className="text-[9px] font-normal">tCO₂eq</span></p>
+              
+              {/* Stats */}
+              <div className="flex-1 flex flex-col justify-center bg-[#f4f6f8] rounded-[10px] px-3.5 py-3 border border-gray-50/50">
+                <div className="flex flex-col gap-1 mb-2">
+                  <p className="text-[10px] font-semibold text-gray-600">총 배출량</p>
+                  <p className="text-[17px] font-black text-gray-900 tracking-tight">
+                    239.18 <span className="text-[10.5px] font-bold text-gray-700 ml-0.5">tCO₂eq</span>
+                  </p>
                 </div>
-                <div>
-                  <p className="text-[9px] text-gray-500">목표 대비 저감률</p>
-                  <p className="text-[12px] font-black text-[var(--color-primary)]">30.53<span className="text-[9px] font-normal">%</span></p>
-                </div>
-                <div className="flex items-center gap-1">
-                  <ArrowUp size={10} className="text-[#e53a4c]" />
-                  <span className="text-[11px] font-bold text-[#e53a4c]">4.8%</span>
+                <div className="w-full h-[1.5px] bg-[#e4e7ea] mb-2" />
+                <div className="flex flex-col gap-1">
+                  <p className="text-[10px] font-semibold text-gray-600">목표 대비 저감률</p>
+                  <p className="text-[17px] font-black text-[#1a8b54] tracking-tight flex items-baseline gap-1">
+                    30.53 <span className="text-[11px] font-bold text-[#1a8b54]">%</span>
+                  </p>
+                  <div className="flex items-center gap-0.5 mt-0.5">
+                    <span className="text-[10px] font-black text-[#ed3c4d]">▲</span>
+                    <span className="text-[10.5px] font-bold text-[#ed3c4d]">4.8%</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -603,27 +629,22 @@ export default function Home() {
             className="flex-1 min-h-0 bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3 flex flex-col overflow-hidden"
           >
             <CardHeader title="시정 소식 & 공지사항" />
-            <div className="flex gap-0.5 mb-2 bg-gray-100 rounded-full p-0.5 w-fit flex-shrink-0">
-              {(['news', 'notice'] as const).map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  className={`text-[11px] font-bold px-3 py-0.5 rounded-full transition-all ${
-                    activeTab === tab ? 'bg-[#017ddd] text-white shadow-sm' : 'text-gray-500'
-                  }`}
-                >
-                  {tab === 'news' ? '시정 소식' : '공지사항'}
-                </button>
-              ))}
+            <div className="flex w-full h-[34px] rounded-full border border-gray-300 overflow-hidden mb-3 flex-shrink-0 mt-1">
+              <button className="flex-1 h-full font-bold text-[12.5px] bg-[#0074db] text-white">
+                시정 소식
+              </button>
+              <button className="flex-1 h-full font-bold text-[12.5px] bg-white text-gray-600">
+                공지사항
+              </button>
             </div>
-            <div className="flex-1 flex flex-col justify-around min-h-0">
+            <div className="flex-1 flex flex-col justify-around min-h-0 px-1 pt-1">
               {news.map((item, i) => (
-                <div key={i} className="flex items-center justify-between gap-2 py-0.5">
-                  <div className="flex items-center gap-1.5 min-w-0">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-primary)] flex-shrink-0" />
-                    <span className="text-[11px] text-gray-700 truncate">{item}</span>
+                <div key={i} className="flex items-center justify-between gap-2 py-1">
+                  <div className="flex items-center gap-2 min-w-0">
+                    <span className="w-[4px] h-[4px] rounded-full bg-[#0074db] flex-shrink-0" />
+                    <span className="text-[13px] font-medium text-gray-800 truncate">{item}</span>
                   </div>
-                  <span className="text-[9px] text-gray-400 flex-shrink-0">26.03.13</span>
+                  <span className="text-[10.5px] font-medium text-gray-500 flex-shrink-0">26.03.13</span>
                 </div>
               ))}
             </div>
@@ -635,29 +656,49 @@ export default function Home() {
             className="flex-1 min-h-0 bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3 flex flex-col overflow-hidden"
           >
             <CardHeader title="기후의병 활약상" />
-            <div className="flex-1 flex flex-col items-center justify-center gap-1.5 min-h-0">
-              <div className="w-10 h-10 rounded-full bg-[var(--color-primary)]/10 flex items-center justify-center">
-                <TreePine size={22} className="text-[var(--color-primary)]" />
-              </div>
-              <p className="text-[11px] text-gray-500">오늘 광명시가 심은 나무</p>
-              <p className="text-2xl font-black text-gray-900">
-                1,248 <span className="text-sm font-medium text-gray-600">그루</span>
-              </p>
-              <button className="px-4 py-1 bg-[var(--color-primary)] text-white text-[11px] font-bold rounded-lg hover:opacity-90 transition-opacity">
-                참여하기
-              </button>
-            </div>
-            <div className="bg-[#f0f3f8] rounded-xl p-2 grid grid-cols-3 divide-x divide-gray-200 flex-shrink-0 mt-1.5">
-              {[
-                { label: '참여 인원',   value: '4.2만명' },
-                { label: '누적 사용량', value: '1.2억 P' },
-                { label: '총 감축량',   value: '320 t'   },
-              ].map((s) => (
-                <div key={s.label} className="flex flex-col items-center gap-0.5 px-1">
-                  <span className="text-[9px] text-gray-500">{s.label}</span>
-                  <span className="text-[11px] font-black text-gray-800">{s.value}</span>
+            <div className="flex-1 flex flex-col pt-1 w-full gap-3 justify-center">
+              <div className="flex items-center justify-between w-full px-1">
+                <div className="flex items-center gap-4">
+                  <TreePine size={46} className="text-[#5ba653] fill-[#5ba653]" strokeWidth={1} />
+                  <div className="flex flex-col">
+                    <span className="text-[10.5px] font-semibold text-gray-500 mb-0.5">오늘 광명시가 심은 나무</span>
+                    <div className="flex items-baseline gap-1 mt-0.5">
+                      <span className="text-[30px] font-black text-[#26282a] leading-none tracking-tighter">1,248</span>
+                      <span className="text-[13.5px] font-bold text-gray-700">그루</span>
+                    </div>
+                    <span className="text-[9.5px] font-medium text-gray-500 mt-1.5 px-0.5 tracking-tight">(실시간 탄소 감축량 <strong className="text-gray-800">12.4t</strong> 환산)</span>
+                  </div>
                 </div>
-              ))}
+                <button className="bg-[#3ab164] text-white text-[12.5px] font-bold px-3.5 py-2.5 rounded-[8px] flex items-center gap-1 hover:bg-[#349e59] shadow-sm mb-2">
+                  참여하기 <span className="text-[15px] leading-none mb-0.5 ml-0.5">›</span>
+                </button>
+              </div>
+              
+              <div className="bg-[#f2f4f6] rounded-[10px] px-2 py-3 flex items-center justify-between mx-1 border border-gray-100 mt-1">
+                <div className="flex items-center justify-center gap-2 flex-1">
+                  <div className="w-[18px] text-[#29b057] flex justify-center"><TreePine size={18} className="fill-[#29b057] text-[#29b057]" /></div>
+                  <div className="flex flex-col">
+                    <span className="text-[9.5px] font-medium text-gray-600 mb-0.5">참여 의명</span>
+                    <span className="text-[13px] font-black text-gray-900 leading-none">4.2만명</span>
+                  </div>
+                </div>
+                <div className="w-px h-[24px] bg-gray-200" />
+                <div className="flex items-center justify-center gap-2 flex-1">
+                  <div className="w-[18px] flex justify-center"><div className="w-[14px] h-[14px] rounded-full bg-[#f6a04a]" /></div>
+                  <div className="flex flex-col">
+                    <span className="text-[9.5px] font-medium text-gray-600 mb-0.5">누적 사용량</span>
+                    <span className="text-[13px] font-black text-gray-900 leading-none">1.2억 P</span>
+                  </div>
+                </div>
+                <div className="w-px h-[24px] bg-gray-200" />
+                <div className="flex items-center justify-center gap-2 flex-1 pl-1">
+                  <div className="w-[18px] flex justify-center"><div className="text-[#a5b4c7] font-black text-[15px] relative">X<div className="absolute inset-0 bg-[#6d9be8] opacity-10 mix-blend-overlay"></div></div></div>
+                  <div className="flex flex-col">
+                    <span className="text-[9.5px] font-medium text-gray-600 mb-0.5">총 감축량</span>
+                    <span className="text-[13px] font-black text-gray-900 leading-none">320 t</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </section>
 
