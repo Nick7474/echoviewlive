@@ -16,46 +16,57 @@ const CardHeader = ({ title, date = '26년 03월 기준' }: { title: string; dat
 
 const CircleGauge = ({
   value,
+  unit,
   label,
   status,
   statusColor,
-  size = 64,
+  size = 76,
 }: {
   value: string;
+  unit?: string;
   label: string;
   status: string;
   statusColor: string;
   size?: number;
 }) => {
-  const r = size / 2 - 7;
+  const strokeW = 4.5;
+  const r = size / 2 - strokeW / 2;
   const cx = size / 2;
   const cy = size / 2;
   const circumference = 2 * Math.PI * r;
-  const fillPct = status === '좋음' ? 0.22 : status === '보통' ? 0.55 : 0.82;
+  const fillPct = status === '좋음' ? 0.18 : status === '보통' ? 0.28 : 0.6;
   const filled = fillPct * circumference;
 
+  const mainL = label.includes('(') ? label.substring(0, label.indexOf('(')) : label;
+  const subL = label.includes('(') ? label.substring(label.indexOf('(')) : '';
+
   return (
-    <div className="flex flex-col items-center gap-1">
+    <div className="flex flex-col items-center">
       <div className="relative" style={{ width: size, height: size }}>
         <svg width={size} height={size}>
           <g transform={`rotate(-90 ${cx} ${cy})`}>
-            <circle cx={cx} cy={cy} r={r} fill="none" stroke="#e5e7eb" strokeWidth="5" />
+            <circle cx={cx} cy={cy} r={r} fill={statusColor} fillOpacity={0.08} />
+            <circle cx={cx} cy={cy} r={r} fill="none" stroke={statusColor} strokeOpacity={0.25} strokeWidth={strokeW} />
             <circle
               cx={cx} cy={cy} r={r}
               fill="none"
-              style={{ stroke: statusColor }}
-              strokeWidth="5"
+              stroke={statusColor}
+              strokeWidth={strokeW}
               strokeDasharray={`${filled} ${circumference - filled}`}
-              strokeLinecap="round"
+              strokeLinecap="butt"
             />
           </g>
         </svg>
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-[9px] font-bold text-gray-800 text-center leading-tight px-0.5">{value}</span>
+        <div className="absolute inset-0 flex flex-col items-center justify-center pt-0.5">
+          <span className="text-[18px] font-black text-gray-900 leading-[1.1] tracking-tight">{value}</span>
+          {unit && <span className="text-[9.5px] font-bold text-gray-600 leading-none">{unit}</span>}
         </div>
       </div>
-      <p className="text-[9px] text-gray-500 text-center leading-tight w-14">{label}</p>
-      <p className="text-[11px] font-bold" style={{ color: statusColor }}>{status}</p>
+      <div className="flex flex-col items-center leading-[1.3] mt-2 mb-1">
+        <p className="text-[11.5px] font-bold text-gray-800 tracking-tight">{mainL}</p>
+        {subL && <p className="text-[10px] font-semibold text-gray-600">{subL}</p>}
+      </div>
+      <p className="text-[11.5px] font-bold" style={{ color: statusColor }}>{status}</p>
     </div>
   );
 };
@@ -423,9 +434,9 @@ export default function Home() {
           >
             <CardHeader title="통합대기환경지수" />
             <div className="flex-1 flex items-center justify-around px-1 min-h-0">
-              <CircleGauge value="16㎍/m³"  label="초미세먼지(PM2.5)" status="보통" statusColor="#017ddd" />
-              <CircleGauge value="23㎍/m³"  label="미세먼지(PM10)"    status="좋음" statusColor="var(--color-primary)" />
-              <CircleGauge value="0.054ppm" label="오존(O3)"          status="보통" statusColor="#017ddd" />
+              <CircleGauge value="16"    unit="μg/m³" label="초미세먼지(PM2.5)" status="보통" statusColor="#017ddd" />
+              <CircleGauge value="23"    unit="μg/m³" label="미세먼지(PM10)"    status="좋음" statusColor="var(--color-primary)" />
+              <CircleGauge value="0.054" unit="ppm"   label="오존(O3)"          status="보통" statusColor="#017ddd" />
             </div>
           </section>
 
