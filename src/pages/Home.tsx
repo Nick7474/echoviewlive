@@ -446,13 +446,20 @@ export default function Home() {
             className="flex-1 min-h-0 bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3 flex flex-col overflow-hidden"
           >
             <CardHeader title="인기 데이터 세트 TOP 5" />
-            <div className="flex-1 flex flex-col justify-around min-h-0">
+            <div className="flex-1 flex flex-col justify-between py-1 px-1 min-h-0">
               {datasets.map((d) => (
-                <div key={d.rank} className="flex items-center gap-[8px]">
-                  <span className="w-4 h-4 rounded-full bg-gray-100 text-[9px] font-black text-gray-500 flex items-center justify-center flex-shrink-0">{d.rank}</span>
-                  <span className={`text-[9px] font-bold px-1 py-0.5 rounded flex-shrink-0 ${d.cls}`}>{d.cat}</span>
-                  <span className="text-[11px] text-gray-700 flex-1 truncate">{d.name}</span>
-                  <span className="text-[9px] font-bold text-gray-400 flex-shrink-0">{d.count}건</span>
+                <div key={d.rank} className="flex items-center justify-between">
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <span className="text-[13px] font-bold text-gray-800 w-[14px] text-right flex-shrink-0">{d.rank}.</span>
+                    <span className={`text-[10px] font-bold h-[20px] w-[42px] flex items-center justify-center rounded-[4px] flex-shrink-0 ${d.cls}`}>
+                      {d.cat}
+                    </span>
+                    <span className="text-[12.5px] font-medium text-gray-800 truncate">{d.name}</span>
+                  </div>
+                  <div className="text-right flex-shrink-0">
+                    <span className="text-[14px] font-black text-gray-900">{d.count}</span>
+                    <span className="text-[12px] font-medium text-gray-600 ml-[2px]">건</span>
+                  </div>
                 </div>
               ))}
             </div>
