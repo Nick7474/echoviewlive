@@ -140,7 +140,7 @@ export default function CarbonNeutralStatus() {
               <div key={idx} className="bg-white p-6 rounded-2xl shadow-sm border border-line-normal space-y-4">
                 <div className="flex items-center justify-between">
                   <p className="text-xs font-black text-slate-400 uppercase tracking-widest">{stat.label}</p>
-                  <div className={`flex items-center gap-1 text-xs font-black ${stat.color === 'rose' ? 'text-rose-500' : 'text-emerald-500'}`}>
+                  <div className={`flex items-center gap-1 text-xs font-black ${stat.color === 'rose' ? 'text-[var(--color-status-negative)]' : 'text-[var(--color-status-positive)]'}`}>
                     <ArrowUpRight size={14} /> {stat.trendValue}
                   </div>
                 </div>
@@ -204,9 +204,9 @@ export default function CarbonNeutralStatus() {
             </h3>
             <div className="space-y-4">
               {[
-                { label: '오늘 총 배출', value: '4,218', unit: 'tCO2', color: 'text-rose-500' },
-                { label: '산림·녹지 흡수', value: '-312', unit: 'tCO2', color: 'text-emerald-500' },
-                { label: '재생에너지 상쇄', value: '-428', unit: 'tCO2', color: 'text-emerald-500' },
+                { label: '오늘 총 배출', value: '4,218', unit: 'tCO2', color: 'text-[var(--color-status-negative)]' },
+                { label: '산림·녹지 흡수', value: '-312', unit: 'tCO2', color: 'text-[var(--color-status-positive)]' },
+                { label: '재생에너지 상쇄', value: '-428', unit: 'tCO2', color: 'text-[var(--color-status-positive)]' },
               ].map((item, idx) => (
                 <div key={idx} className="flex items-center justify-between py-2 border-b border-line-neutral last:border-0">
                   <span className="text-sm font-bold text-slate-500">{item.label}</span>
@@ -215,7 +215,7 @@ export default function CarbonNeutralStatus() {
               ))}
               <div className="pt-4 mt-4 border-t-2 border-line-normal flex items-center justify-between">
                 <span className="text-base font-black text-slate-900">순 배출량</span>
-                <span className="text-lg font-black text-rose-500">3,478 tCO2</span>
+                <span className="text-lg font-black text-[var(--color-status-negative)]">3,478 tCO2</span>
               </div>
             </div>
           </section>
@@ -223,7 +223,7 @@ export default function CarbonNeutralStatus() {
           {/* Weather Status Widget */}
           <section className="bg-white rounded-2xl p-8 shadow-sm border border-line-normal space-y-6">
             <h3 className="text-lg font-black text-slate-900 flex items-center gap-2">
-              <Cloud className="text-blue-500" size={20} /> 기상 현황
+              <Cloud className="text-[var(--color-status-info)]" size={20} /> 기상 현황
             </h3>
             <div className="space-y-5">
               {[
@@ -344,7 +344,7 @@ export default function CarbonNeutralStatus() {
                     <span className="text-sm font-bold text-slate-600">{row.energy}</span>
                   </td>
                   <td className="px-8 py-5">
-                    <span className="text-sm font-black text-emerald-600">{row.carbon}</span>
+                    <span className="text-sm font-black text-[var(--color-status-positive)]">{row.carbon}</span>
                   </td>
                   <td className="px-8 py-5">
                     <span className="text-sm font-medium text-slate-500">{row.temp}</span>

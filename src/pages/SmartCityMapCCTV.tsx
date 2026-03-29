@@ -50,7 +50,7 @@ const TYPE_COLORS: Record<string, string> = {
   '방범':    'var(--color-primary)',
   '교통':    'var(--color-status-info)',
   '어린이보호': 'var(--color-status-cautionary)',
-  '시설관리': '#7c3aed',
+  '시설관리': '#5b21b6',
 };
 
 export default function SmartCityMapCCTV() {
@@ -70,14 +70,14 @@ export default function SmartCityMapCCTV() {
         <div className="space-y-3">
             <label className="flex items-center justify-between group cursor-pointer">
             <div className="flex items-center gap-2">
-              <input type="checkbox" defaultChecked className="w-4 h-4 rounded border-line-normal text-primary focus:ring-primary" />
+              <input type="checkbox" defaultChecked className="w-4 h-4 rounded border-line-normal accent-[var(--color-primary)] focus:ring-[var(--color-primary)]" />
               <span className="text-[15px] font-medium text-gray-700 group-hover:text-primary transition-colors">화재</span>
             </div>
             <span className="text-[15px] font-bold text-red-500">0 <span className="text-gray-400 font-normal">건</span></span>
           </label>
           <label className="flex items-center justify-between group cursor-pointer">
             <div className="flex items-center gap-2">
-              <input type="checkbox" defaultChecked className="w-4 h-4 rounded border-line-normal text-primary focus:ring-primary" />
+              <input type="checkbox" defaultChecked className="w-4 h-4 rounded border-line-normal accent-[var(--color-primary)] focus:ring-[var(--color-primary)]" />
               <span className="text-[15px] font-medium text-gray-700 group-hover:text-primary transition-colors">구조</span>
             </div>
             <span className="text-[15px] font-bold text-primary">6 <span className="text-gray-400 font-normal">건</span></span>
@@ -100,7 +100,7 @@ export default function SmartCityMapCCTV() {
                     setSelectedTypes(selectedTypes.filter(t => t !== type));
                   }
                 }}
-                className="w-4 h-4 rounded border-line-normal text-primary focus:ring-primary" 
+                className="w-4 h-4 rounded border-line-normal accent-[var(--color-primary)] focus:ring-[var(--color-primary)]" 
               />
               <span className="text-[15px] font-medium text-gray-700 group-hover:text-primary transition-colors">{type}</span>
             </label>
