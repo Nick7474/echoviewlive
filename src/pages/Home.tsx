@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { MapContainer, TileLayer } from 'react-leaflet';
-import { TreePine, Maximize2, Plus, Minus, Layers, Bus, Bike, ArrowUp } from 'lucide-react';
+import { MapContainer, TileLayer, GeoJSON, CircleMarker, Popup } from 'react-leaflet';
+import type { PathOptions } from 'leaflet';
+import { TreePine, Maximize2, Plus, Minus, Layers, Bus, Bike, ArrowUp, Zap, Car, ShieldCheck, Database } from 'lucide-react';
 
 // ─── Card Header (compact) ────────────────────────────────────────────────────
 
@@ -99,6 +100,67 @@ const EnergyBar = ({ label, cur, acc, maxV = 60 }: { label: string; cur: number;
   </div>
 );
 
+// ─── GeoJSON 광명시 경계 (근사 폴리곤) ────────────────────────────────────────
+
+const gwangmyeongBoundary = {
+  type: 'Feature' as const,
+  properties: {},
+  geometry: {
+    type: 'Polygon' as const,
+    coordinates: [[
+      [126.8305, 37.4495],
+      [126.8480, 37.4390],
+      [126.8700, 37.4370],
+      [126.8980, 37.4450],
+      [126.9100, 37.4680],
+      [126.9080, 37.4980],
+      [126.8860, 37.5180],
+      [126.8540, 37.5200],
+      [126.8260, 37.5040],
+      [126.8200, 37.4760],
+      [126.8305, 37.4495],
+    ]],
+  },
+};
+
+const boundaryStyle: PathOptions = {
+  color: '#069F7C',
+  weight: 2.5,
+  opacity: 0.8,
+  fillColor: '#069F7C',
+  fillOpacity: 0.06,
+  dashArray: '6 4',
+};
+
+// ─── CircleMarker 데이터 ──────────────────────────────────────────────────────
+
+type MarkerCategory = 'energy' | 'mobility' | 'safety' | 'data';
+
+const MAP_MARKERS: { id: number; lat: number; lng: number; category: MarkerCategory; label: string; value: string }[] = [
+  { id: 1, lat: 37.4782, lng: 126.8642, category: 'energy',   label: '태양광 발전소',      value: '52 kWh' },
+  { id: 2, lat: 37.4732, lng: 126.8720, category: 'energy',   label: '풍력 발전소',        value: '18 kWh' },
+  { id: 3, lat: 37.4852, lng: 126.8578, category: 'mobility', label: 'EV-DRT 정류장',     value: '운행중' },
+  { id: 4, lat: 37.4796, lng: 126.8504, category: 'mobility', label: '공공자전거 스테이션', value: '12대 대기중' },
+  { id: 5, lat: 37.4810, lng: 126.8700, category: 'safety',   label: '소화전',             value: '정상' },
+  { id: 6, lat: 37.4750, lng: 126.8632, category: 'safety',   label: 'AED',               value: '정상' },
+  { id: 7, lat: 37.4765, lng: 126.8550, category: 'data',     label: '대기질 센서',        value: '보통' },
+  { id: 8, lat: 37.4830, lng: 126.8645, category: 'data',     label: '교통 CCTV',         value: '정상 운영중' },
+];
+
+const MARKER_COLORS: Record<MarkerCategory, string> = {
+  energy:   '#faad14',
+  mobility: '#069F7C',
+  safety:   '#ef4444',
+  data:     '#7c3aed',
+};
+
+const MARKER_LABELS: Record<MarkerCategory, string> = {
+  energy:   '에너지',
+  mobility: '모빌리티',
+  safety:   '안전',
+  data:     '데이터',
+};
+
 // ─── Main Component ──────────────────────────────────────────────────────────
 
 export default function Home() {
@@ -107,6 +169,7 @@ export default function Home() {
   }, []);
 
   const [activeTab, setActiveTab] = useState<'news' | 'notice'>('news');
+  const [activeMile, setActiveMile] = useState(0);
 
   const datasets = [
     { rank: 1, cat: '교통',   name: '전기차 충전소 이용 현황', count: '1,682', cls: 'bg-[#e1f1f0] text-[var(--color-primary)]' },
@@ -124,11 +187,14 @@ export default function Home() {
   ];
 
   const mileButtons = [
-    { label: '에너지\n마일',   cls: 'bg-[#faad14] text-white shadow-md' },
-    { label: '모빌리티\n마일', cls: 'bg-white border border-gray-200 text-gray-600 shadow-sm' },
-    { label: '안전\n마일',     cls: 'bg-white border border-gray-200 text-gray-600 shadow-sm' },
-    { label: '데이터\n마일',   cls: 'bg-white border border-gray-200 text-gray-600 shadow-sm' },
+    { label: '에너지 마일',   Icon: Zap,        activeColor: '#faad14', activeBg: 'bg-[#faad14]' },
+    { label: '모빌리티 마일', Icon: Car,        activeColor: '#069F7C', activeBg: 'bg-[#069F7C]' },
+    { label: '안전 마일',     Icon: ShieldCheck, activeColor: '#ef4444', activeBg: 'bg-[#ef4444]' },
+    { label: '데이터 마일',   Icon: Database,   activeColor: '#7c3aed', activeBg: 'bg-[#7c3aed]' },
   ];
+
+  // home_cover.png 유무 확인 — 실제 파일명 대소문자 그대로 사용
+  const coverSrc = '/images/Home_Cover.png';
 
   return (
     <div className="relative h-[calc(100vh-80px)] overflow-hidden">
@@ -151,13 +217,60 @@ export default function Home() {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           />
+          {/* 광명시 경계 GeoJSON */}
+          <GeoJSON
+            data={gwangmyeongBoundary as GeoJSON.Feature}
+            style={() => boundaryStyle}
+          />
+          {/* 카테고리별 CircleMarker 핀 */}
+          {MAP_MARKERS.map((m) => (
+            <CircleMarker
+              key={m.id}
+              center={[m.lat, m.lng]}
+              radius={7}
+              pathOptions={{
+                color: '#fff',
+                weight: 2,
+                fillColor: MARKER_COLORS[m.category],
+                fillOpacity: 0.95,
+              }}
+            >
+              <Popup>
+                <div className="text-xs min-w-[120px]">
+                  <span
+                    className="inline-block px-1.5 py-0.5 rounded text-white font-bold text-[10px] mb-1"
+                    style={{ backgroundColor: MARKER_COLORS[m.category] }}
+                  >
+                    {MARKER_LABELS[m.category]}
+                  </span>
+                  <p className="font-bold text-gray-800">{m.label}</p>
+                  <p className="text-gray-500">{m.value}</p>
+                </div>
+              </Popup>
+            </CircleMarker>
+          ))}
         </MapContainer>
       </div>
 
-      {/* ── Layer 1: 그라디언트 오버레이 z-10 (home_cover.png 없음) ─────────── */}
+      {/* ── Layer 1: 커버 이미지 오버레이 z-10 ──────────────────────────────── */}
+      <img
+        src={coverSrc}
+        alt=""
+        aria-hidden="true"
+        className="absolute inset-0 z-10 w-full h-full object-cover pointer-events-none"
+        onError={(e) => {
+          // 이미지 로드 실패 시 그라디언트로 대체
+          const el = e.currentTarget;
+          el.style.display = 'none';
+          const fallback = el.nextElementSibling as HTMLElement | null;
+          if (fallback) fallback.style.display = 'block';
+        }}
+      />
+      {/* 커버 이미지 fallback 그라디언트 (기본 숨김) */}
       <div
         className="absolute inset-0 z-10 pointer-events-none"
         style={{
+          display: 'none',
           background: `
             radial-gradient(ellipse 60% 80% at 50% 50%, transparent 20%, rgba(225,241,240,0.6) 60%, rgba(225,241,240,0.95) 100%),
             linear-gradient(to right, rgba(225,241,240,0.95) 0%, transparent 22%, transparent 78%, rgba(225,241,240,0.95) 100%),
@@ -167,12 +280,21 @@ export default function Home() {
       />
 
       {/* ── Layer 2: 콘텐츠 z-20 ────────────────────────────────────────────── */}
-      <div className="relative z-20 h-full flex items-start px-[90px] pt-[16px] gap-[30px]">
+      <div className="relative z-20 h-full flex items-start px-[90px] pt-[16px] gap-[30px] pb-[24px]">
+
+        {/* 히어로 텍스트 — Layer 2 내 절대 위치 */}
+        <div className="absolute top-[60px] left-[444px] text-left pointer-events-none select-none z-10">
+          <p className="text-[28px] font-medium text-[#0d2d1c] drop-shadow-sm leading-tight">데이터로 함께 그리는 미래</p>
+          <h2 className="text-[56px] font-bold drop-shadow-sm leading-tight mt-1">
+            <span className="text-[#0d2d1c]">광명시 </span>
+            <span className="text-[var(--color-primary)]">에코뷰</span>
+          </h2>
+        </div>
 
         {/* ══════════════════════════════════════════════════════════════════ */}
         {/* LEFT PANEL                                                         */}
         {/* ══════════════════════════════════════════════════════════════════ */}
-        <div className="w-[380px] flex-shrink-0 flex flex-col h-full gap-[14px]">
+        <div className="w-[380px] flex-shrink-0 flex flex-col h-full gap-[14px] mb-[24px]">
 
           {/* L1 — 신재생 에너지 생산현황 */}
           <section
@@ -277,29 +399,45 @@ export default function Home() {
         </div>{/* /LEFT PANEL */}
 
         {/* ══════════════════════════════════════════════════════════════════ */}
-        {/* CENTER — 투명 영역 (지도 비침) + 히어로 텍스트·컨트롤              */}
+        {/* CENTER — 투명 영역 (지도 비침) + 컨트롤                           */}
         {/* ══════════════════════════════════════════════════════════════════ */}
         <div className="flex-1 relative h-full pointer-events-none">
 
-          {/* 히어로 텍스트 */}
-          <div className="absolute top-[30px] left-1/2 -translate-x-1/2 text-center pointer-events-none select-none">
-            <p className="text-2xl font-medium text-[#0d2d1c] drop-shadow">데이터로 함께 그리는 미래</p>
-            <h2 className="text-5xl font-bold drop-shadow leading-tight mt-1">
-              <span className="text-[#0d2d1c]">광명시 </span>
-              <span className="text-[var(--color-primary)]">에코뷰</span>
-            </h2>
-          </div>
-
-          {/* 마일 버튼 그룹 */}
-          <div className="absolute top-4 right-4 flex flex-col gap-2 pointer-events-auto">
-            {mileButtons.map((btn, i) => (
-              <button
-                key={i}
-                className={`w-[52px] h-[52px] rounded-full flex flex-col items-center justify-center text-[9px] font-bold leading-tight whitespace-pre-line ${btn.cls}`}
-              >
-                {btn.label}
-              </button>
-            ))}
+          {/* ── 마일 버튼 그룹 (수정 3: 텍스트 레이블 + 아이콘 원형) ── */}
+          <div className="absolute top-4 right-4 flex flex-col gap-[16px] items-end pointer-events-auto">
+            {mileButtons.map((btn, i) => {
+              const isActive = activeMile === i;
+              return (
+                <button
+                  key={i}
+                  onClick={() => setActiveMile(i)}
+                  className="flex items-center gap-[8px] group"
+                  aria-pressed={isActive}
+                >
+                  {/* 텍스트 레이블 */}
+                  <span
+                    className={`text-[12px] font-bold drop-shadow transition-colors ${
+                      isActive ? 'text-gray-900' : 'text-gray-600 group-hover:text-gray-800'
+                    }`}
+                  >
+                    {btn.label}
+                  </span>
+                  {/* 아이콘 원형 */}
+                  <div
+                    className={`w-[44px] h-[44px] rounded-full flex items-center justify-center shadow-md transition-all ${
+                      isActive
+                        ? `${btn.activeBg} scale-110`
+                        : 'bg-white border border-gray-200 group-hover:scale-105'
+                    }`}
+                  >
+                    <btn.Icon
+                      size={18}
+                      className={isActive ? 'text-white' : 'text-gray-500'}
+                    />
+                  </div>
+                </button>
+              );
+            })}
           </div>
 
           {/* 지도 컨트롤 버튼 */}
@@ -331,7 +469,7 @@ export default function Home() {
         {/* ══════════════════════════════════════════════════════════════════ */}
         {/* RIGHT PANEL                                                        */}
         {/* ══════════════════════════════════════════════════════════════════ */}
-        <div className="w-[380px] flex-shrink-0 flex flex-col h-full gap-[14px]">
+        <div className="w-[380px] flex-shrink-0 flex flex-col h-full gap-[14px] mb-[24px]">
 
           {/* R1 — 시민 참여 프로그램 */}
           <section

@@ -117,15 +117,19 @@ export default function Layout() {
   return (
     <div className="min-h-screen flex flex-col font-sans text-gray-800">
       {/* GNB (Global Navigation Bar) */}
-      <header 
+      <header
         ref={menuRef}
         className="sticky top-0 z-50 bg-white border-b border-line-neutral shadow-sm"
         onMouseEnter={() => setIsFullMenuOpen(true)}
         onMouseLeave={() => setIsFullMenuOpen(false)}
       >
-        <div className="max-w-[1560px] mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
+        {/* 홈(/)일 때: 로고 left-[90px], 메뉴 center, 계정/알림 right-[90px] */}
+        <div className={location.pathname === '/'
+          ? 'relative w-full h-20 flex items-center'
+          : 'max-w-[1560px] mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between'
+        }>
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2">
+          <Link to="/" className={`flex items-center gap-2 ${location.pathname === '/' ? 'absolute left-[90px]' : ''}`}>
             <img src="/images/echo_logo.png" alt="에코뷰" className="h-9 w-auto" />
             <div className="flex flex-col">
               <span className="text-xs font-medium text-gray-500 leading-tight">광명시 통합플랫폼</span>
@@ -134,18 +138,18 @@ export default function Layout() {
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center h-full ml-auto mr-auto -translate-x-5">
+          <nav className={`hidden lg:flex items-center h-full ${location.pathname === '/' ? 'absolute left-1/2 -translate-x-1/2' : 'ml-auto mr-auto -translate-x-5'}`}>
             <ul className="grid grid-cols-6 h-full w-[1080px]">
               {NAVIGATION_MENU.map((menu) => {
                 const isMenuOpen = current1Depth?.title === menu.title;
                 return (
-                  <li 
-                    key={menu.title} 
+                  <li
+                    key={menu.title}
                     className="h-full flex items-center justify-center"
                     onMouseEnter={() => setHoveredMenu(menu.title)}
                   >
-                    <Link 
-                      to={menu.path} 
+                    <Link
+                      to={menu.path}
                       className={`text-sm xl:text-[17px] font-bold h-full flex items-center px-2 hover:text-primary transition-colors relative group ${isMenuOpen ? 'text-primary' : 'text-gray-700'}`}
                     >
                       {menu.title}
@@ -160,7 +164,7 @@ export default function Layout() {
           </nav>
 
           {/* User Info & Mobile Menu Toggle */}
-          <div className="flex items-center gap-3 sm:gap-6">
+          <div className={`flex items-center gap-3 sm:gap-6 ${location.pathname === '/' ? 'absolute right-[90px]' : ''}`}>
             <div className="hidden sm:flex items-center gap-4">
               <button aria-label="알림" className="p-2 text-gray-500 hover:bg-gray-100 rounded-full transition-colors relative">
                 <Bell size={20} />
