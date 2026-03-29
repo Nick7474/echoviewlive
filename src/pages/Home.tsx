@@ -385,26 +385,33 @@ export default function Home() {
             className="flex-1 min-h-0 bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3 flex flex-col overflow-hidden"
           >
             <CardHeader title="스마트 모빌리티 운영현황" />
-            <div className="flex gap-[8px] flex-1 min-h-0">
-              <div className="flex-1 bg-[#f0f3f8] rounded-xl p-2 flex flex-col items-center justify-center gap-1">
-                <div className="w-9 h-9 rounded-full bg-[var(--color-primary)]/10 flex items-center justify-center">
-                  <Bus size={18} className="text-[var(--color-primary)]" />
+            <div className="flex gap-3 flex-1 min-h-0 mt-1">
+              {/* EV-DRT 버스 */}
+              <div className="flex-1 bg-[#f4f6f8] rounded-[10px] px-3.5 py-3 flex flex-col justify-between border border-gray-50/50">
+                <p className="text-[11.5px] font-bold text-gray-800">친환경 EV-DRT 버스</p>
+                <div className="flex items-center justify-between w-full mt-1.5 px-0.5">
+                  <Bus size={32} className="text-[#017ddd]" strokeWidth={2} />
+                  <div className="flex flex-col items-end">
+                    <p className="text-[20px] font-black text-gray-900 leading-none tracking-tight">
+                      23<span className="text-[11px] font-bold text-gray-600 ml-0.5">대</span>
+                    </p>
+                    <span className="text-[10px] text-gray-500 font-medium mt-1">운행중</span>
+                  </div>
                 </div>
-                <p className="text-[9px] text-gray-500 text-center leading-tight">친환경 EV-DRT 버스</p>
-                <p className="text-xl font-black text-[var(--color-primary)]">
-                  23<span className="text-xs font-normal text-gray-500">대</span>
-                </p>
-                <span className="text-[9px] bg-[var(--color-primary)] text-white px-2 py-0.5 rounded-full font-bold">운행중</span>
               </div>
-              <div className="flex-1 bg-[#f0f3f8] rounded-xl p-2 flex flex-col items-center justify-center gap-1">
-                <div className="w-9 h-9 rounded-full bg-[#017ddd]/10 flex items-center justify-center">
-                  <Bike size={18} className="text-[#017ddd]" />
+              
+              {/* 공공자전거 이용률 */}
+              <div className="flex-1 bg-[#f4f6f8] rounded-[10px] px-3.5 py-3 flex flex-col justify-between border border-gray-50/50">
+                <p className="text-[11.5px] font-bold text-gray-800">공공자전거 이용률</p>
+                <div className="flex items-center justify-between w-full mt-1.5 px-0.5">
+                  <Bike size={34} className="text-[var(--color-primary)]" strokeWidth={2} />
+                  <div className="flex flex-col items-end">
+                    <p className="text-[20px] font-black text-gray-900 leading-none tracking-tight">
+                      0.8<span className="text-[11px] font-bold text-gray-600 ml-0.5">%</span>
+                    </p>
+                    <span className="text-[10px] text-gray-500 font-medium mt-1">전일 대비</span>
+                  </div>
                 </div>
-                <p className="text-[9px] text-gray-500 text-center leading-tight">공공자전거 이용률</p>
-                <p className="text-xl font-black text-[#017ddd]">
-                  0.8<span className="text-xs font-normal text-gray-500">%</span>
-                </p>
-                <span className="text-[9px] text-gray-400">전일 대비</span>
               </div>
             </div>
           </section>
