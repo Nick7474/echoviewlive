@@ -203,7 +203,7 @@ export default function Home() {
       {/* ── Layer 0: Leaflet 지도 (전체 배경) z-0 ──────────────────────────── */}
       <div
         className="absolute inset-0 z-0"
-        style={{ pointerEvents: 'auto' }}
+        style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'auto' }}
         role="img"
         aria-label="광명시 스마트 시티 지도"
       >
@@ -258,6 +258,7 @@ export default function Home() {
         alt=""
         aria-hidden="true"
         className="absolute inset-0 z-10 w-full h-full object-cover pointer-events-none"
+        style={{ pointerEvents: 'none' }}
         onError={(e) => {
           // 이미지 로드 실패 시 그라디언트로 대체
           const el = e.currentTarget;
@@ -271,6 +272,7 @@ export default function Home() {
         className="absolute inset-0 z-10 pointer-events-none"
         style={{
           display: 'none',
+          pointerEvents: 'none',
           background: `
             radial-gradient(ellipse 60% 80% at 50% 50%, transparent 20%, rgba(225,241,240,0.6) 60%, rgba(225,241,240,0.95) 100%),
             linear-gradient(to right, rgba(225,241,240,0.95) 0%, transparent 22%, transparent 78%, rgba(225,241,240,0.95) 100%),
@@ -280,10 +282,10 @@ export default function Home() {
       />
 
       {/* ── Layer 2: 콘텐츠 z-20 ────────────────────────────────────────────── */}
-      <div className="relative z-20 h-full flex items-start px-[90px] pt-[16px] gap-[30px] pb-[24px]">
+      <div className="relative z-20 h-full flex items-start px-[90px] pt-[16px] gap-[30px] pb-[24px] pointer-events-none">
 
         {/* 히어로 텍스트 — Layer 2 내 절대 위치 */}
-        <div className="absolute top-[60px] left-[444px] text-left pointer-events-none select-none z-10">
+        <div className="absolute top-[60px] left-[504px] text-left pointer-events-none select-none z-10">
           <p className="text-[28px] font-medium text-[#0d2d1c] drop-shadow-sm leading-tight">데이터로 함께 그리는 미래</p>
           <h2 className="text-[56px] font-bold drop-shadow-sm leading-tight mt-1">
             <span className="text-[#0d2d1c]">광명시 </span>
@@ -294,7 +296,7 @@ export default function Home() {
         {/* ══════════════════════════════════════════════════════════════════ */}
         {/* LEFT PANEL                                                         */}
         {/* ══════════════════════════════════════════════════════════════════ */}
-        <div className="w-[380px] flex-shrink-0 flex flex-col h-full gap-[14px] mb-[24px]">
+        <div className="w-[380px] flex-shrink-0 flex flex-col h-full gap-[14px] mb-[24px] pointer-events-auto">
 
           {/* L1 — 신재생 에너지 생산현황 */}
           <section
@@ -404,7 +406,7 @@ export default function Home() {
         <div className="flex-1 relative h-full pointer-events-none">
 
           {/* ── 마일 버튼 그룹 (수정 3: 텍스트 레이블 + 아이콘 원형) ── */}
-          <div className="absolute top-4 right-4 flex flex-col gap-[16px] items-end pointer-events-auto">
+          <div className="absolute top-[60px] right-[408px] flex flex-col gap-[16px] items-end pointer-events-auto">
             {mileButtons.map((btn, i) => {
               const isActive = activeMile === i;
               return (
@@ -441,7 +443,7 @@ export default function Home() {
           </div>
 
           {/* 지도 컨트롤 버튼 */}
-          <div className="absolute top-4 right-[68px] flex flex-col gap-2 pointer-events-auto">
+          <div className="absolute top-[360px] right-[408px] flex flex-col gap-2 pointer-events-auto">
             <button
               aria-label="전체화면"
               className="w-8 h-8 bg-white border border-gray-200 rounded-lg flex items-center justify-center shadow-sm hover:bg-gray-50 text-gray-600 transition-colors"
@@ -469,7 +471,7 @@ export default function Home() {
         {/* ══════════════════════════════════════════════════════════════════ */}
         {/* RIGHT PANEL                                                        */}
         {/* ══════════════════════════════════════════════════════════════════ */}
-        <div className="w-[380px] flex-shrink-0 flex flex-col h-full gap-[14px] mb-[24px]">
+        <div className="w-[380px] flex-shrink-0 flex flex-col h-full gap-[14px] mb-[24px] pointer-events-auto">
 
           {/* R1 — 시민 참여 프로그램 */}
           <section
