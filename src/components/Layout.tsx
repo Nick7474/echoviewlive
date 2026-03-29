@@ -60,10 +60,12 @@ export default function Layout() {
   };
 
   // Find current 1Depth menu for sidebar
-  const current1Depth = NAVIGATION_MENU.find(menu => {
-    if (location.pathname !== '/' && location.pathname.startsWith(menu.path) && menu.path !== '/') return true;
-    return menu.children?.some(child => isSectionActive(child));
-  }) || NAVIGATION_MENU.find(menu => menu.title === '데이터');
+  const current1Depth = location.pathname === '/' 
+    ? undefined 
+    : (NAVIGATION_MENU.find(menu => {
+        if (location.pathname !== '/' && location.pathname.startsWith(menu.path) && menu.path !== '/') return true;
+        return menu.children?.some(child => isSectionActive(child));
+      }) || NAVIGATION_MENU.find(menu => menu.title === '데이터'));
 
   // Dynamic Breadcrumb Logic
   const getBreadcrumb = () => {
