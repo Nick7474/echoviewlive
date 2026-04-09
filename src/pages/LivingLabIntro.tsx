@@ -39,7 +39,7 @@ export default function LivingLabIntro() {
         phases: [
           { label: '공모 준비', start: 2, end: 3, color: 'bg-gray-100 text-gray-400' },
           { label: '모집·선정', start: 4, end: 5, color: 'bg-orange-500 text-white' },
-          { label: '실증 운영', start: 6, end: 10, color: 'bg-green-500 text-white' },
+          { label: '실증 운영', start: 6, end: 10, color: 'bg-[#10B981] text-white' },
           { label: '성과 분석', start: 11, end: 12, color: 'bg-sky-500 text-white' },
         ]
       },
@@ -49,7 +49,7 @@ export default function LivingLabIntro() {
         phases: [
           { label: '계획 수립', start: 1, end: 3, color: 'bg-blue-500 text-white' },
           { label: '모집·선정', start: 4, end: 5, color: 'bg-orange-500 text-white' },
-          { label: '실증 운영', start: 6, end: 9, color: 'bg-green-500 text-white' },
+          { label: '실증 운영', start: 6, end: 9, color: 'bg-[#10B981] text-white' },
           { label: '결과', start: 10, end: 12, color: 'bg-sky-500 text-white' },
         ]
       },
@@ -85,7 +85,7 @@ export default function LivingLabIntro() {
     { icon: Trophy,      label: '누적 리빙랩 과제', value: '18',   unit: '건', bg: 'bg-amber-50',  color: 'text-amber-500' },
     { icon: Users,       label: '시민 참여자',      value: '1,248', unit: '명', bg: 'bg-blue-50',   color: 'text-blue-500' },
     { icon: FlaskConical,label: '현재 진행 과제',   value: '6',    unit: '건', bg: 'bg-orange-50', color: 'text-orange-500' },
-    { icon: Leaf,        label: '탄소감축 기여량',  value: '320',  unit: 't',  bg: 'bg-green-50',  color: 'text-green-500' },
+    { icon: Leaf,        label: '탄소감축 기여량',  value: '320',  unit: 't',  bg: 'bg-emerald-50',  color: 'text-[#10B981]' },
   ];
 
   return (
@@ -96,10 +96,10 @@ export default function LivingLabIntro() {
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
-        className="bg-[#1a3a2a] text-white rounded-2xl p-4 mb-6 flex items-center justify-between shadow-lg"
+        className="bg-[#0d2a4a] text-white rounded-2xl p-4 mb-6 flex items-center justify-between shadow-lg"
       >
         <div className="flex items-center gap-4 overflow-hidden">
-          <div className="bg-[#2ecc71] text-white px-3 py-1 rounded-full text-xs font-bold flex-shrink-0 flex items-center gap-1">
+          <div className="bg-[#0C8AE5] text-white px-3 py-1 rounded-full text-xs font-bold flex-shrink-0 flex items-center gap-1">
             <Bell size={12} fill="currentColor" /> 공지
           </div>
           <p className="text-sm sm:text-base font-medium truncate">
@@ -147,7 +147,7 @@ export default function LivingLabIntro() {
             transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
             className="bg-white/85 backdrop-blur-sm p-6 rounded-xl w-full max-w-[420px] border border-white/40 shadow-2xl"
           >
-            <div className="inline-flex items-center gap-2 bg-[var(--color-primary)] text-white px-4 py-1.5 rounded-full text-xs font-black mb-4 shadow-lg shadow-emerald-200/50">
+            <div className="inline-flex items-center gap-2 bg-[var(--color-primary)] text-white px-4 py-1.5 rounded-full text-xs font-black mb-4 shadow-lg shadow-blue-200/50">
               <FlaskConical size={14} fill="white" fillOpacity={0.2} />
               <span>Living Lab</span>
             </div>
@@ -314,11 +314,11 @@ export default function LivingLabIntro() {
             >
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center text-emerald-600">
+                  <div className="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center text-[#0C8AE5]">
                     <Calendar size={20} />
                   </div>
                   <div>
-                    <span className="text-xs font-black text-emerald-500 tracking-widest uppercase">{selectedPhase.category}</span>
+                    <span className="text-xs font-black text-[#0C8AE5] tracking-widest uppercase">{selectedPhase.category}</span>
                     <h5 className="text-xl font-black text-gray-900">{selectedPhase.label}</h5>
                   </div>
                 </div>
@@ -349,7 +349,7 @@ export default function LivingLabIntro() {
                   // Optional: scroll to notice bar or something
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
-                className="w-full py-4 bg-[#1a3a2a] text-white font-black rounded-2xl shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-95 transition-all"
+                className="w-full py-4 bg-[var(--color-primary)] text-white font-black rounded-2xl shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-95 transition-all"
               >
                 관련 공고 확인하기
               </button>
@@ -361,7 +361,7 @@ export default function LivingLabIntro() {
       {/* Promotion Process */}
       <section className="mb-16 sm:mb-24">
         <h4 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-12">추진 절차</h4>
-        <div className="bg-emerald-50/30 rounded-[40px] p-8 sm:p-16 border border-line-normal">
+        <div className="bg-blue-50/30 rounded-[40px] p-8 sm:p-16 border border-line-normal">
           <div className="relative">
             {/* Connector Line (Desktop) */}
             <div className="absolute top-[120px] left-[10%] right-[10%] h-0.5 bg-line-normal hidden md:block z-0" />
@@ -436,7 +436,7 @@ export default function LivingLabIntro() {
 
                   {/* Connector Arrow (MD only) */}
                   {idx < 3 && (
-                    <div className="hidden md:flex absolute top-[120px] right-0 translate-x-1/2 -translate-y-1/2 text-emerald-200">
+                    <div className="hidden md:flex absolute top-[120px] right-0 translate-x-1/2 -translate-y-1/2 text-blue-200">
                       <ChevronRight size={24} strokeWidth={3} />
                     </div>
                   )}
@@ -468,7 +468,7 @@ export default function LivingLabIntro() {
                 transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
                 className="bg-white p-6 rounded-3xl border border-line-normal shadow-sm text-right relative"
               >
-                <div className="absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-emerald-500 rounded-full border-4 border-white shadow-sm hidden md:block" />
+                <div className="absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-[#10B981] rounded-full border-4 border-white shadow-sm hidden md:block" />
                 <h5 className="text-xl font-black text-gray-900 mb-2">광명시</h5>
                 <p className="text-sm text-gray-500 leading-relaxed">행정적 지원, 예산 확보 및<br />리빙랩 결과의 정책 반영</p>
               </motion.div>
@@ -480,7 +480,7 @@ export default function LivingLabIntro() {
                 transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.2 }}
                 className="bg-white p-6 rounded-3xl border border-line-normal shadow-sm text-right relative"
               >
-                <div className="absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-emerald-500 rounded-full border-4 border-white shadow-sm hidden md:block" />
+                <div className="absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-[#10B981] rounded-full border-4 border-white shadow-sm hidden md:block" />
                 <h5 className="text-xl font-black text-gray-900 mb-2">운영지원단</h5>
                 <p className="text-sm text-gray-500 leading-relaxed">리빙랩 운영 총괄 및<br />시민 참여 프로세스 관리</p>
               </motion.div>
@@ -493,7 +493,7 @@ export default function LivingLabIntro() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
-                className="w-56 h-56 sm:w-72 sm:h-72 bg-[var(--color-primary)] rounded-full flex flex-col items-center justify-center text-white shadow-[0_30px_60px_rgba(6,159,124,0.3)] text-center p-8 relative"
+                className="w-56 h-56 sm:w-72 sm:h-72 bg-[var(--color-primary)] rounded-full flex flex-col items-center justify-center text-white shadow-[0_30px_60px_rgba(12,138,229,0.3)] text-center p-8 relative"
               >
                 <div className="absolute inset-0 rounded-full border-8 border-white/20 animate-pulse" />
                 <span className="text-4xl sm:text-5xl font-black mb-3 tracking-tight">시민</span>
@@ -510,7 +510,7 @@ export default function LivingLabIntro() {
                 transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.1 }}
                 className="bg-white p-6 rounded-3xl border border-line-normal shadow-sm text-left relative"
               >
-                <div className="absolute -left-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-emerald-500 rounded-full border-4 border-white shadow-sm hidden md:block" />
+                <div className="absolute -left-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-[#10B981] rounded-full border-4 border-white shadow-sm hidden md:block" />
                 <h5 className="text-xl font-black text-gray-900 mb-2">전문가/기업</h5>
                 <p className="text-sm text-gray-500 leading-relaxed">기술 자문, 솔루션 구현 및<br />데이터 분석 지원</p>
               </motion.div>
@@ -522,7 +522,7 @@ export default function LivingLabIntro() {
                 transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.3 }}
                 className="bg-white p-6 rounded-3xl border border-line-normal shadow-sm text-left relative"
               >
-                <div className="absolute -left-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-emerald-500 rounded-full border-4 border-white shadow-sm hidden md:block" />
+                <div className="absolute -left-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-[#10B981] rounded-full border-4 border-white shadow-sm hidden md:block" />
                 <h5 className="text-xl font-black text-gray-900 mb-2">데이터 스테이션</h5>
                 <p className="text-sm text-gray-500 leading-relaxed">실증 데이터 수집·저장 및<br />공유 플랫폼 제공</p>
               </motion.div>

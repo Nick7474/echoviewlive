@@ -320,7 +320,28 @@ export default function Home() {
   ];
 
   return (
+    <>
+    {/* ── 메인 컨테이너: 뷰포트 전체 높이 ─────────────────────────────────── */}
     <div className="relative h-[calc(100vh-80px)] overflow-hidden">
+
+      {/* ── Layer 0: BG 이미지 — 2560×1080px 고정, 가로 정중앙 ────────────── */}
+      {/* maxWidth:none → Tailwind preflight max-width:100% 무력화 (스케일 방지) */}
+      <img
+        src="/images/Mapbg2.jpg"
+        alt=""
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: '2560px',
+          height: '1080px',
+          maxWidth: 'none',
+          pointerEvents: 'none',
+          zIndex: 0,
+        }}
+      />
       <h1 className="sr-only">광명시 에코뷰 홈</h1>
       <style>{`
         @keyframes fadeInUpPin {
@@ -331,14 +352,6 @@ export default function Home() {
           animation: fadeInUpPin 0.975s cubic-bezier(0.2, 0.8, 0.2, 1) both;
         }
       `}</style>
-      
-      {/* ── Layer 0: 배경 이미지 (Mapbg) z-0 ──────────────────────────────── */}
-      <img
-        src="/images/Mapbg.jpg"
-        alt=""
-        aria-hidden="true"
-        className="absolute inset-0 z-0 w-full h-full object-cover pointer-events-none"
-      />
 
       {/* ── Layer 1: 지도 이미지 묶음 + 좌표 연동 핀 화면 중앙 z-10 ──────────────────────── */}
       <div 
@@ -865,5 +878,21 @@ export default function Home() {
       </div>{/* /Layer 2 */}
 
     </div>
+
+    {/* ── Footer: 일반 흐름 — 스크롤 시 아래에서 올라옴 ──────────────────── */}
+    <footer className="bg-white border-t border-[#e8e8e8] h-[92px] flex items-center flex-shrink-0">
+      <div className="flex items-center gap-[80px]" style={{ marginLeft: '138px' }}>
+        <img src="/images/Footer_logo.png" alt="광명시" style={{ height: '48px', width: 'auto', flexShrink: 0, maxWidth: 'none' }} />
+        <div className="flex flex-col gap-[8px]">
+          <p className="text-[12px] text-[#444] leading-normal font-normal" style={{ opacity: 0.6 }}>
+            우)14234 | 경기도 광명시 시청로 20 | 광명시 민원콜센터: 1688-3399 (02-2680-2114)
+          </p>
+          <p className="text-[12px] text-[#444] leading-normal font-normal" style={{ opacity: 0.6 }}>
+            COPYRIGHT(C) 2022 GWANGMYEONG CITY. ALL RIGHTS RESERVED.
+          </p>
+        </div>
+      </div>
+    </footer>
+    </>
   );
 }

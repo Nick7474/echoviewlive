@@ -465,20 +465,20 @@ export default function Layout() {
         </main>
       </div>
 
-      {/* Footer */}
-      <footer className="bg-gray-50 border-t border-line-normal py-10 sm:py-16">
-        <div className="max-w-[1560px] mx-auto px-4 sm:px-6">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-            <div className="flex items-center">
-              <img src="/images/Footer_logo.png" alt="광명시" className="h-10 w-auto" />
-            </div>
-            <div className="text-center md:text-right">
-              <p className="text-sm text-gray-500 mb-2">우)14234 경기도 광명시 시청로 20 | 광명시 민원콜센터: 1688-3399 (02-2680-2114)</p>
-              <p className="text-xs text-gray-400 uppercase tracking-wider">COPYRIGHT(C) 2022 GWANGMYEONG CITY. ALL RIGHTS RESERVED.</p>
-            </div>
+      {/* Footer — 홈 페이지는 내부에 자체 footer 포함, 여기서는 숨김 */}
+      {location.pathname !== '/' && <footer className="bg-white border-t border-[#e8e8e8] h-[92px] flex items-center flex-shrink-0">
+        <div className="max-w-[1560px] w-full mx-auto px-[138px] flex items-center gap-[80px]">
+          <img src="/images/Footer_logo.png" alt="광명시" className="h-[48px] w-auto flex-shrink-0" />
+          <div className="flex flex-col gap-[8px]">
+            <p className="text-[12px] text-[#444] opacity-60 leading-normal font-normal">
+              우)14234 | 경기도 광명시 시청로 20 | 광명시 민원콜센터: 1688-3399 (02-2680-2114)
+            </p>
+            <p className="text-[12px] text-[#444] opacity-60 leading-normal font-normal">
+              COPYRIGHT(C) 2022 GWANGMYEONG CITY. ALL RIGHTS RESERVED.
+            </p>
           </div>
         </div>
-      </footer>
+      </footer>}
     </div>
   );
 }

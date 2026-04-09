@@ -1,6 +1,6 @@
-/* EcoView Design Tokens v3.0 — KRDS 기반 */
-/* ⚠️ 접근성: #069F7C 텍스트 직접 사용 금지 (대비 3.36:1) */
-/* ✅ 텍스트용: --color-primary-on-surface (#028567, 4.61:1 AA) */
+/* EcoView Design Tokens v3.1 — KRDS 기반 */
+/* ✅ Primary: #0C8AE5 (Blue) — 광명시 에코뷰 브랜드 컬러 */
+/* ✅ 텍스트용: --color-primary-on-surface (#0870BA, AA 대비) */
 
 :root {
   --gray-0: #ffffff; --gray-5: #f4f5f6; --gray-10: #e6e8ea;
@@ -8,23 +8,31 @@
   --gray-50: #6d7882; --gray-60: #58616a; --gray-70: #464c53;
   --gray-80: #33363d; --gray-90: #1e2124; --gray-95: #131416;
 
+  /* Teal 팔레트 (보조 그린 계열 — 스케줄, 탄소 등 콘텐츠용) */
   --teal-10: #002119; --teal-20: #014133; --teal-30: #01654E;
   --teal-40: #028567; --teal-45: #059171; --teal-50: #069F7C;
   --teal-55: #07BD94; --teal-60: #08E0AE; --teal-70: #46E9C4;
   --teal-80: #8DE3CF; --teal-90: #C7E8E0; --teal-95: #E3EFED;
   --teal-99: #F4F9F8;
 
-  --color-primary:             var(--teal-50);
-  --color-primary-strong:      var(--teal-45);
-  --color-primary-heavy:       var(--teal-40);
-  --color-primary-hover:       var(--teal-45);
-  --color-primary-active:      var(--teal-40);
-  --color-primary-subtle:      var(--teal-95);
-  --color-primary-muted:       var(--teal-90);
-  --color-primary-border:      var(--teal-40);
+  /* Blue 팔레트 (Primary — 브랜드 주색상) */
+  --blue-10: #001f3d; --blue-20: #00336b; --blue-30: #065A9E;
+  --blue-40: #0870BA; --blue-45: #0A7DD0; --blue-50: #0C8AE5;
+  --blue-55: #2E9FEE; --blue-60: #54B4F2; --blue-70: #84CBF6;
+  --blue-80: #B0DDF9; --blue-90: #C2E0F8; --blue-95: #E3F0FC;
+  --blue-99: #F4F9FE;
+
+  --color-primary:             var(--blue-50);  /* #0C8AE5 */
+  --color-primary-strong:      var(--blue-45);  /* #0A7DD0 */
+  --color-primary-heavy:       var(--blue-40);  /* #0870BA */
+  --color-primary-hover:       var(--blue-45);
+  --color-primary-active:      var(--blue-40);
+  --color-primary-subtle:      var(--blue-95);  /* #E3F0FC */
+  --color-primary-muted:       var(--blue-90);  /* #C2E0F8 */
+  --color-primary-border:      var(--blue-40);
   --color-primary-text-on:     #ffffff;
-  --color-primary-on-surface:  var(--teal-40);
-  --color-primary-on-surface-aaa: var(--teal-30);
+  --color-primary-on-surface:  var(--blue-40);
+  --color-primary-on-surface-aaa: var(--blue-30);  /* #065A9E */
 
   --color-label-bolder:      var(--gray-95);
   --color-label-normal:      var(--gray-90);
@@ -43,7 +51,7 @@
   --color-border-light:   var(--gray-20);
   --color-border-normal:  var(--gray-30);
   --color-border-strong:  var(--gray-60);
-  --color-border-primary: var(--teal-40);
+  --color-border-primary: var(--blue-40);
   --color-border-danger:  #de3412;
   --color-border-success: #228738;
 
@@ -88,8 +96,8 @@
 
 @media (prefers-contrast: more) {
   :root {
-    --color-primary:            var(--teal-40);
-    --color-primary-on-surface: var(--teal-30);
+    --color-primary:            var(--blue-40);
+    --color-primary-on-surface: var(--blue-30);
     --color-label-bolder:       #000000;
     --color-label-normal:       var(--gray-95);
     --color-label-subtle:       var(--gray-80);

@@ -3,16 +3,16 @@
 @import './tokens/tokens.css';
 
 @theme {
-  --color-primary:             #069F7C;
-  --color-primary-strong:      #059171;
-  --color-primary-heavy:       #028567;
-  --color-primary-hover:       #059171;
-  --color-primary-active:      #028567;
-  --color-primary-subtle:      #E3EFED;
-  --color-primary-muted:       #C7E8E0;
-  --color-primary-border:      #028567;
-  --color-primary-on-surface:  #028567;
-  --color-primary-on-surface-aaa: #01654E;
+  --color-primary:             #0C8AE5;
+  --color-primary-strong:      #0A7DD0;
+  --color-primary-heavy:       #0870BA;
+  --color-primary-hover:       #0A7DD0;
+  --color-primary-active:      #0870BA;
+  --color-primary-subtle:      #E3F0FC;
+  --color-primary-muted:       #C2E0F8;
+  --color-primary-border:      #0870BA;
+  --color-primary-on-surface:  #0870BA;
+  --color-primary-on-surface-aaa: #065A9E;
 
   --color-label-bolder:      #131416;
   --color-label-normal:      #1e2124;
