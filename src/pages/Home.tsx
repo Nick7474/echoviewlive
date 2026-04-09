@@ -379,7 +379,7 @@ export default function Home() {
           
           {/* MAP PINS (좌표계가 지도 해상도에 완벽 종속됨) */}
           {activeMile !== 4 && getActivePins().map((pin, idx) => (
-            <div 
+            <div
               key={pin.id}
               className="absolute z-30 anim-pin-enter"
               style={{ left: pin.x, top: pin.y, animationDelay: `${idx * 0.18}s` }}
@@ -389,10 +389,16 @@ export default function Home() {
                 className="pointer-events-auto flex group transition-all duration-300 hover:scale-110 hover:-translate-y-[6px]"
                 aria-label={`${pin.title} 상세 보기`}
               >
-                <img 
-                  src={getPinIcon()} 
-                  alt="" 
-                  className="w-[70px] h-[80px] object-contain drop-shadow-[0_6px_12px_rgba(0,0,0,0.15)]" 
+                <img
+                  src={getPinIcon()}
+                  alt=""
+                  style={{
+                    width: 70,
+                    height: 83,
+                    display: 'block',
+                    flexShrink: 0,
+                    filter: 'contrast(1.15) saturate(1.4)',
+                  }}
                 />
                 <div className="absolute top-[14px] left-[62px] bg-white/80 backdrop-blur-xl rounded-[12px] shadow-[0_8px_32px_0_rgba(31,38,135,0.12)] px-[14px] py-[10px] flex flex-col items-start min-w-[max-content] pointer-events-none border border-white/70 text-left">
                   <span className="text-[12.5px] font-[800] text-[#1E2124] leading-tight tracking-[0.2px] mb-1.5">{pin.title}</span>
@@ -641,33 +647,41 @@ export default function Home() {
             })}
           </div>
 
-          {/* Map Pin Modal (Pins moved to Layer 1 map wrapper) */}
+          {/* ── 핀 상세 모달 (중앙, 최상단 레이어) ── */}
           {selectedPin && (
-            <div className="absolute inset-0 z-50 flex items-center justify-center pointer-events-none">
-              <div className="w-[360px] h-[180px] bg-white/85 backdrop-blur-xl rounded-[16px] shadow-[0_8px_32px_0_rgba(36,40,37,0.15)] p-[22px] relative flex flex-col border border-white/70 pointer-events-auto">
-                <button 
+            <div
+              className="absolute inset-0 flex items-center justify-center pointer-events-auto"
+              style={{ zIndex: 9999 }}
+              onClick={() => setSelectedPin(null)}
+            >
+              <div
+                className="relative bg-white/90 backdrop-blur-xl rounded-[16px] p-[22px] w-[320px] shadow-[0_8px_32px_0_rgba(36,40,37,0.15)]"
+                style={{ border: '1px solid #DFE0E4' }}
+                onClick={(e: React.MouseEvent) => e.stopPropagation()}
+              >
+                {/* 닫기 버튼 — 모달 우상단 16px */}
+                <button
                   onClick={() => setSelectedPin(null)}
-                  className="absolute top-[18px] right-[18px] p-1 text-[#999] hover:text-[#333] transition-colors bg-white/50 rounded-full hover:bg-white"
+                  className="absolute top-[16px] right-[16px] w-[28px] h-[28px] flex items-center justify-center rounded-full hover:bg-[#f4f5f6] text-[#6d7882] hover:text-[#1e2124] transition-colors"
                   aria-label="닫기"
                 >
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                    <path d="M1 1l12 12M13 1L1 13" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+                  </svg>
                 </button>
-                <div className="flex flex-col h-full justify-between">
-                  <div>
-                    <h3 className="text-[17px] font-bold text-[#111] leading-snug tracking-tight pr-6">{selectedPin.detailTitle}</h3>
-                    <p className="text-[12px] font-medium text-[#777] mt-1.5 tracking-tight flex items-center gap-1">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                      {selectedPin.address}
-                    </p>
-                  </div>
-                  <div className="grid grid-cols-3 gap-2 bg-[#F0F3F8] rounded-[10px] p-[10px] mt-3 border border-transparent">
-                    {selectedPin.detailItems.map((item, idx) => (
-                      <div key={idx} className="flex flex-col items-center justify-center text-center px-1">
-                        <span className="text-[10px] text-[#555] font-[600] mb-1 tracking-tight break-keep leading-tight">{item.label}</span>
-                        <span className={`text-[13.5px] ${getMetricsColor()} font-[800] tracking-tight leading-none`}>{item.value}</span>
-                      </div>
-                    ))}
-                  </div>
+                {/* 모달 헤더 */}
+                <div className="mb-[14px] pr-[32px]">
+                  <p className="text-[13px] text-[#6d7882] mb-[2px]">{selectedPin.address}</p>
+                  <h3 className="text-[17px] font-bold text-[#1e2124] leading-tight">{selectedPin.detailTitle}</h3>
+                </div>
+                {/* 지표 그리드 */}
+                <div className="grid grid-cols-3 gap-[8px]">
+                  {selectedPin.detailItems.map((item: { label: string; value: string }, i: number) => (
+                    <div key={i} className="bg-[#f4f5f6] rounded-[10px] px-[10px] py-[10px] flex flex-col gap-[4px]">
+                      <span className="text-[11px] text-[#6d7882]">{item.label}</span>
+                      <span className="text-[14px] font-bold text-[#1e2124]">{item.value}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
