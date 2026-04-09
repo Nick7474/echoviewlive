@@ -1,0 +1,120 @@
+/* EcoView Design Tokens v3.0 — KRDS 기반 */
+/* ⚠️ 접근성: #069F7C 텍스트 직접 사용 금지 (대비 3.36:1) */
+/* ✅ 텍스트용: --color-primary-on-surface (#028567, 4.61:1 AA) */
+
+:root {
+  --gray-0: #ffffff; --gray-5: #f4f5f6; --gray-10: #e6e8ea;
+  --gray-20: #cdd1d5; --gray-30: #b1b8be; --gray-40: #8a949e;
+  --gray-50: #6d7882; --gray-60: #58616a; --gray-70: #464c53;
+  --gray-80: #33363d; --gray-90: #1e2124; --gray-95: #131416;
+
+  --teal-10: #002119; --teal-20: #014133; --teal-30: #01654E;
+  --teal-40: #028567; --teal-45: #059171; --teal-50: #069F7C;
+  --teal-55: #07BD94; --teal-60: #08E0AE; --teal-70: #46E9C4;
+  --teal-80: #8DE3CF; --teal-90: #C7E8E0; --teal-95: #E3EFED;
+  --teal-99: #F4F9F8;
+
+  --color-primary:             var(--teal-50);
+  --color-primary-strong:      var(--teal-45);
+  --color-primary-heavy:       var(--teal-40);
+  --color-primary-hover:       var(--teal-45);
+  --color-primary-active:      var(--teal-40);
+  --color-primary-subtle:      var(--teal-95);
+  --color-primary-muted:       var(--teal-90);
+  --color-primary-border:      var(--teal-40);
+  --color-primary-text-on:     #ffffff;
+  --color-primary-on-surface:  var(--teal-40);
+  --color-primary-on-surface-aaa: var(--teal-30);
+
+  --color-label-bolder:      var(--gray-95);
+  --color-label-normal:      var(--gray-90);
+  --color-label-subtle:      var(--gray-70);
+  --color-label-alternative: var(--gray-60);
+  --color-label-assistive:   var(--gray-50);
+  --color-label-disabled:    var(--gray-40);
+  --color-label-inverse:     var(--gray-0);
+
+  --color-bg-normal:     var(--gray-0);
+  --color-bg-normal-alt: var(--gray-5);
+  --color-bg-subtle:     var(--gray-10);
+  --color-bg-elevated:   var(--gray-0);
+  --color-bg-inverse:    var(--gray-90);
+
+  --color-border-light:   var(--gray-20);
+  --color-border-normal:  var(--gray-30);
+  --color-border-strong:  var(--gray-60);
+  --color-border-primary: var(--teal-40);
+  --color-border-danger:  #de3412;
+  --color-border-success: #228738;
+
+  --color-line-normal:  rgba(177,184,190,0.55);
+  --color-line-neutral: rgba(177,184,190,0.38);
+  --color-line-strong:  rgba(88,97,106,0.55);
+
+  --color-fill-normal:      rgba(109,120,130,0.08);
+  --color-fill-strong:      rgba(109,120,130,0.16);
+  --color-fill-alternative: rgba(109,120,130,0.05);
+
+  --color-status-positive:   #228738;
+  --color-status-cautionary: #9e6a00;
+  --color-status-negative:   #de3412;
+  --color-status-info:       #0b78cb;
+
+  --radius-xsmall: 2px; --radius-small: 4px;
+  --radius-medium: 8px; --radius-large: 12px;
+  --radius-xlarge: 16px; --radius-max: 1000px;
+  --radius-sm: 4px; --radius-md: 8px;
+  --radius-lg: 12px; --radius-xl: 16px;
+
+  --gap-1: 2px; --gap-2: 4px; --gap-3: 8px; --gap-4: 12px;
+  --gap-5: 16px; --gap-6: 20px; --gap-7: 24px; --gap-8: 32px;
+  --gap-9: 40px; --gap-10: 48px; --gap-11: 64px; --gap-12: 80px;
+  --gap-normal: var(--gap-6);
+  --padding-card-tiny: var(--gap-2);
+  --margin-platform: var(--gap-6);
+
+  --padding-1: 2px; --padding-2: 4px; --padding-3: 8px;
+  --padding-4: 10px; --padding-5: 12px; --padding-6: 16px;
+  --padding-7: 20px; --padding-8: 24px; --padding-9: 32px;
+  --padding-10: 40px;
+
+  --fs-heading-large: 32px; --fs-heading-medium: 24px;
+  --fs-heading-small: 19px; --fs-heading-xsmall: 17px;
+  --fs-body-large: 19px; --fs-body-medium: 17px;
+  --fs-body-small: 15px; --fs-body-xsmall: 13px;
+  --fs-label-medium: 17px; --fs-label-small: 15px;
+  --fs-label-xsmall: 13px;
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --color-primary:            var(--teal-40);
+    --color-primary-on-surface: var(--teal-30);
+    --color-label-bolder:       #000000;
+    --color-label-normal:       var(--gray-95);
+    --color-label-subtle:       var(--gray-80);
+    --color-label-alternative:  var(--gray-70);
+    --color-label-assistive:    var(--gray-60);
+    --color-border-normal:      var(--gray-50);
+    --color-border-strong:      var(--gray-80);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-primary-on-surface);
+  outline-offset: 2px;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --fs-heading-large: 24px;
+    --fs-heading-medium: 22px;
+  }
+}

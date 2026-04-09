@@ -1,0 +1,52 @@
+{
+  "Gray": {
+    "0":   {"$value": "#ffffff", "$type": "color"},
+    "5":   {"$value": "#f4f5f6", "$type": "color"},
+    "10":  {"$value": "#e6e8ea", "$type": "color"},
+    "20":  {"$value": "#cdd1d5", "$type": "color"},
+    "30":  {"$value": "#b1b8be", "$type": "color"},
+    "40":  {"$value": "#8a949e", "$type": "color"},
+    "50":  {"$value": "#6d7882", "$type": "color"},
+    "60":  {"$value": "#58616a", "$type": "color"},
+    "70":  {"$value": "#464c53", "$type": "color"},
+    "80":  {"$value": "#33363d", "$type": "color"},
+    "90":  {"$value": "#1e2124", "$type": "color"},
+    "95":  {"$value": "#131416", "$type": "color"},
+    "100": {"$value": "#000000", "$type": "color"}
+  },
+  "Teal": {
+    "10":  {"$value": "#002119", "$type": "color"},
+    "20":  {"$value": "#014133", "$type": "color"},
+    "30":  {"$value": "#01654E", "$type": "color"},
+    "40":  {"$value": "#028567", "$type": "color"},
+    "45":  {"$value": "#059171", "$type": "color"},
+    "50":  {"$value": "#069F7C", "$type": "color"},
+    "55":  {"$value": "#07BD94", "$type": "color"},
+    "60":  {"$value": "#08E0AE", "$type": "color"},
+    "70":  {"$value": "#46E9C4", "$type": "color"},
+    "80":  {"$value": "#8DE3CF", "$type": "color"},
+    "90":  {"$value": "#C7E8E0", "$type": "color"},
+    "95":  {"$value": "#E3EFED", "$type": "color"},
+    "99":  {"$value": "#F4F9F8", "$type": "color"}
+  },
+  "Success": {
+    "5":  {"$value": "#eaf6ec", "$type": "color"},
+    "50": {"$value": "#228738", "$type": "color"},
+    "60": {"$value": "#267337", "$type": "color"}
+  },
+  "Danger": {
+    "5":  {"$value": "#fdefec", "$type": "color"},
+    "50": {"$value": "#de3412", "$type": "color"},
+    "60": {"$value": "#bd2c0f", "$type": "color"}
+  },
+  "Warning": {
+    "5":  {"$value": "#fff3db", "$type": "color"},
+    "50": {"$value": "#9e6a00", "$type": "color"},
+    "60": {"$value": "#8a5c00", "$type": "color"}
+  },
+  "Information": {
+    "5":  {"$value": "#e7f4fe", "$type": "color"},
+    "50": {"$value": "#0b78cb", "$type": "color"},
+    "60": {"$value": "#096ab3", "$type": "color"}
+  }
+}
