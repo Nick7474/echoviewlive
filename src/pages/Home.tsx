@@ -213,19 +213,32 @@ export default function Home() {
     y: string;
   } | null>(null);
 
-  // When activeMile changes, close the detail modal.
+  type CarbonRegion = { id: number; name: string; level: string; co2: string; color: string; x: string; y: string; desc: string; };
+  const [hoveredRegion, setHoveredRegion] = useState<CarbonRegion | null>(null);
+  const [selectedRegion, setSelectedRegion] = useState<CarbonRegion | null>(null);
+
+  const carbonRegions = [
+    { id: 1, name: '광명권역',     x: '35%', y: '28%', level: '나쁨',    co2: '85 ppm',  color: '#F59E0B', desc: '주거지구 밀집으로 인한 생활 탄소' },
+    { id: 2, name: '철산권역',     x: '65%', y: '20%', level: '보통',    co2: '42 ppm',  color: '#10B981', desc: '상업단지 및 교통량에 따른 일정 배출' },
+    { id: 3, name: '하안권역',     x: '65%', y: '45%', level: '매우 나쁨', co2: '112 ppm', color: '#E53A4C', desc: '산업 및 상업 혼합 지대의 높은 배출' },
+    { id: 4, name: '학온권역',     x: '35%', y: '65%', level: '좋음',    co2: '21 ppm',  color: '#3B82F6', desc: '풍부한 녹지 면적으로 탄소 저감 우수' },
+    { id: 5, name: '소하·일직권역', x: '65%', y: '75%', level: '나쁨',   co2: '78 ppm',  color: '#F59E0B', desc: 'KTX 역세권 및 복합 시설 가동 집중' },
+  ];
+
+  // When activeMile changes, close all modals.
   useEffect(() => {
     setSelectedPin(null);
+    setSelectedRegion(null);
   }, [activeMile]);
 
-  // Auto-cycle tabs every 6 seconds if idle (no modal open)
+  // Auto-cycle: 모달 열림 / 호버 중에는 정지
   useEffect(() => {
-    if (selectedPin !== null) return;
+    if (selectedPin !== null || selectedRegion !== null || hoveredRegion !== null) return;
     const timer = setTimeout(() => {
       setActiveMile((prev) => (prev + 1) % 5);
     }, 9000);
     return () => clearTimeout(timer);
-  }, [activeMile, selectedPin]);
+  }, [activeMile, selectedPin, selectedRegion, hoveredRegion]);
 
   // 에너지 마일: 7핀 (철산권역 2, 광명권역 2, 하안권역 2, 학온/소하권역 1)
   const pinsEnergy = [
@@ -248,7 +261,7 @@ export default function Home() {
     { x: '68%', y: '76%', id: 13, title: '공유자전거', metrics: '12대 대기', address: '광명시 일직동 5', detailTitle: 'KTX 광명역 자전거 스테이션', detailItems: [{ label: '대기대수', value: '12대' }, { label: '일 이용', value: '45회' }, { label: '가동상태', value: '운영중' }] },
   ];
 
-  // 안전 마일: 5핀
+  // 세이프티 마일: 5핀
   const pinsSafety = [
     { x: '48%', y: '10%', id: 14, title: 'CCTV 24h', metrics: '통합관제중', address: '광명시 철산동 3', detailTitle: '철산역 스마트 안전폴', detailItems: [{ label: '카메라 수', value: '4대' }, { label: '센서', value: '미세먼지, 소음' }, { label: '상태', value: '실시간 관제중' }] },
     { x: '18%', y: '32%', id: 15, title: '폭염 대피', metrics: '에어돔 가동', address: '광명시 광명동 11', detailTitle: '광명동 사거리 쿨링 포그 시스템', detailItems: [{ label: '온도', value: '24도' }, { label: '전력', value: '태양광 연계' }, { label: '상태', value: '가동 대기' }] },
@@ -314,7 +327,7 @@ export default function Home() {
   const mileButtons = [
     { label: '에너지 마일',     imgOn: '/images/Property 1=00_Btn_Home_Energy_On.png',   imgOff: '/images/Property 1=01_Btn_Home_Energy_Off.png' },
     { label: '모빌리티 마일',   imgOn: '/images/Property 1=10_Btn_Home_Mobility_On.png', imgOff: '/images/Property 1=11_Btn_Home_Mobility_Off.png' },
-    { label: '안전 마일',       imgOn: '/images/Property 1=20_Btn_Home_Safety_On.png',   imgOff: '/images/Property 1=21_Btn_Home_Safety_Off.png' },
+    { label: '세이프티 마일',   imgOn: '/images/Property 1=20_Btn_Home_Safety_On.png',   imgOff: '/images/Property 1=21_Btn_Home_Safety_Off.png' },
     { label: '데이터 마일',     imgOn: '/images/Property 1=30_Btn_Home_Data_On.png',     imgOff: '/images/Property 1=31_Btn_Home_Data_Off.png' },
     { label: '탄소 배출 농도', imgOn: '/images/Property 1=40_Btn_Home_Co2_On.png',       imgOff: '/images/Property 1=41_Btn_Home_Co2_Off.png' },
   ];
@@ -322,7 +335,7 @@ export default function Home() {
   return (
     <>
     {/* ── 메인 컨테이너: 뷰포트 전체 높이 ─────────────────────────────────── */}
-    <div className="relative h-[calc(100vh-80px)] overflow-hidden">
+    <div className="relative h-[838px] overflow-hidden">
 
       {/* ── Layer 0: BG 이미지 — 2560×1080px 고정, 가로 정중앙 ────────────── */}
       {/* maxWidth:none → Tailwind preflight max-width:100% 무력화 (스케일 방지) */}
@@ -357,26 +370,73 @@ export default function Home() {
       <div 
         className="absolute z-10 pointer-events-none flex justify-center items-center"
         style={{
-          top: 'calc(50% + 28px)',
+          top: 68,
           left: '50%',
-          transform: 'translate(-50%, -50%)',
-          height: '95%',
+          transform: 'translateX(-50%)',
         }}
       >
-        <div className="relative h-full inline-block pointer-events-none">
+        <div className="relative inline-block pointer-events-none">
           <img
             src="/images/MAP1.png"
             alt=""
             aria-hidden="true"
-            className={`h-full w-auto transition-opacity duration-[900ms] ease-in-out ${activeMile === 4 ? 'opacity-0' : 'opacity-100'}`}
+            className={`transition-opacity duration-[900ms] ease-in-out ${activeMile === 4 ? 'opacity-0' : 'opacity-100'}`}
+            style={{ width: 508, height: 755, display: 'block' }}
           />
           <img
             src="/images/Map2.png"
             alt=""
             aria-hidden="true"
-            className={`absolute inset-0 h-full w-full object-contain transition-opacity duration-[900ms] ease-in-out ${activeMile === 4 ? 'opacity-100' : 'opacity-0'}`}
+            className={`absolute inset-0 transition-opacity duration-[900ms] ease-in-out ${activeMile === 4 ? 'opacity-100' : 'opacity-0'}`}
+            style={{ width: 508, height: 755, display: 'block' }}
           />
           
+          {/* ── 탄소 배출 권역 핫스팟 (activeMile === 4) ── */}
+          {/* ── 탄소 배출 권역 핫스팟 — 핀과 동일한 hover(요약) + click(모달) 패턴 ── */}
+          {activeMile === 4 && carbonRegions.map((region) => (
+            <div
+              key={region.id}
+              className="absolute z-20 anim-pin-enter"
+              style={{ left: region.x, top: region.y, animationDelay: `${region.id * 0.15}s` }}
+            >
+              <button
+                className="pointer-events-auto flex group transition-all duration-300 hover:scale-110 hover:-translate-y-[6px]"
+                onMouseEnter={() => setHoveredRegion(region)}
+                onMouseLeave={() => setHoveredRegion(null)}
+                onClick={() => setSelectedRegion(region)}
+                aria-label={`${region.name} 탄소 배출 상세 보기`}
+              >
+                {/* 마커 아이콘 — 글로스모피즘 */}
+                <div
+                  className="w-[28px] h-[28px] rounded-full flex items-center justify-center flex-shrink-0 backdrop-blur-md transition-transform"
+                  style={{
+                    backgroundColor: `${region.color}28`,
+                    border: `1.5px solid ${region.color}80`,
+                    boxShadow: `0 2px 10px 0 ${region.color}40, inset 0 1px 0 rgba(255,255,255,0.35)`,
+                  }}
+                >
+                  <div
+                    className="w-[9px] h-[9px] rounded-full"
+                    style={{ backgroundColor: region.color, boxShadow: `0 0 5px 1px ${region.color}90` }}
+                  />
+                </div>
+                {/* 호버 요약 카드 — 핀 라벨과 동일 스타일 */}
+                {hoveredRegion?.id === region.id && (
+                  <div className="absolute top-[4px] left-[36px] bg-white/85 backdrop-blur-xl rounded-[12px] shadow-[0_8px_32px_0_rgba(31,38,135,0.12)] px-[14px] py-[10px] flex flex-col items-start min-w-[max-content] pointer-events-none border border-white/70 text-left">
+                    <span className="text-[12.5px] font-[800] text-[#1E2124] leading-tight tracking-[0.2px] mb-[4px]">{region.name}</span>
+                    <div className="flex items-center gap-[6px]">
+                      <span className="text-[14px] font-[900] leading-tight" style={{ color: region.color }}>{region.co2}</span>
+                      <span
+                        className="text-[10px] font-[700] px-[6px] py-[2px] rounded-[4px] text-white leading-none"
+                        style={{ backgroundColor: region.color }}
+                      >{region.level}</span>
+                    </div>
+                  </div>
+                )}
+              </button>
+            </div>
+          ))}
+
           {/* MAP PINS (좌표계가 지도 해상도에 완벽 종속됨) */}
           {activeMile !== 4 && getActivePins().map((pin, idx) => (
             <div
@@ -411,7 +471,7 @@ export default function Home() {
       </div>
 
       {/* ── Layer 2: 콘텐츠 z-20 ────────────────────────────────────────────── */}
-      <div className="relative z-20 h-full flex items-start px-[90px] pt-[16px] gap-[30px] pb-[24px] pointer-events-none">
+      <div className="relative z-20 h-full flex items-start px-[90px] pt-[16px] gap-[30px] pb-[20px] pointer-events-none">
 
         {/* 히어로 텍스트 — Layer 2 내 절대 위치 */}
         <div className="absolute top-[30px] left-[504px] text-left pointer-events-none select-none z-10">
@@ -425,12 +485,12 @@ export default function Home() {
         {/* ══════════════════════════════════════════════════════════════════ */}
         {/* LEFT PANEL                                                         */}
         {/* ══════════════════════════════════════════════════════════════════ */}
-        <div className="w-[380px] flex-shrink-0 flex flex-col h-full gap-[14px] mb-[24px] pointer-events-auto">
+        <div className="w-[380px] flex-shrink-0 flex flex-col gap-[14px] pointer-events-auto">
 
           {/* L1 — 신재생 에너지 생산현황 */}
           <section
             aria-label="신재생 에너지 생산현황"
-            className="flex-1 min-h-0 bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3 flex flex-col overflow-hidden"
+            className="h-[190px] flex-shrink-0 bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3 flex flex-col overflow-hidden"
           >
             <CardHeader title="신재생 에너지 생산현황" />
             
@@ -515,7 +575,7 @@ export default function Home() {
           {/* L2 — 스마트 모빌리티 운영현황 */}
           <section
             aria-label="스마트 모빌리티 운영현황"
-            className="flex-1 min-h-0 bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3 flex flex-col overflow-hidden"
+            className="h-[190px] flex-shrink-0 bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3 flex flex-col overflow-hidden"
           >
             <CardHeader title="스마트 모빌리티 운영현황" />
             <div className="flex gap-[16px] flex-1 min-h-0 mt-1">
@@ -562,7 +622,7 @@ export default function Home() {
           {/* L3 — 통합대기환경지수 */}
           <section
             aria-label="통합대기환경지수"
-            className="flex-1 min-h-0 bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3 flex flex-col overflow-hidden"
+            className="h-[190px] flex-shrink-0 bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3 flex flex-col overflow-hidden"
           >
             <CardHeader title="통합대기환경지수" />
             <div className="flex-1 flex items-center justify-around px-1 min-h-0">
@@ -575,7 +635,7 @@ export default function Home() {
           {/* L4 — 인기 데이터 세트 TOP 5 */}
           <section
             aria-label="인기 데이터 세트 TOP 5"
-            className="flex-1 min-h-0 bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3 flex flex-col overflow-hidden"
+            className="h-[190px] flex-shrink-0 bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3 flex flex-col overflow-hidden"
           >
             <CardHeader title="인기 데이터 세트 TOP 5" />
             <div className="flex-1 flex flex-col justify-between py-1 px-1 min-h-0">
@@ -647,6 +707,57 @@ export default function Home() {
             })}
           </div>
 
+          {/* ── 탄소 권역 상세 모달 (중앙, 최상단 레이어) ── */}
+          {selectedRegion && (
+            <div
+              className="absolute inset-0 flex items-center justify-center pointer-events-auto"
+              style={{ zIndex: 9999 }}
+              onClick={() => setSelectedRegion(null)}
+            >
+              <div
+                className="relative bg-white/90 backdrop-blur-xl rounded-[16px] p-[22px] w-[340px] shadow-[0_8px_32px_0_rgba(36,40,37,0.15)]"
+                style={{ border: '1px solid #DFE0E4' }}
+                onClick={(e: React.MouseEvent) => e.stopPropagation()}
+              >
+                {/* 닫기 버튼 */}
+                <button
+                  onClick={() => setSelectedRegion(null)}
+                  className="absolute top-[16px] right-[16px] w-[28px] h-[28px] flex items-center justify-center rounded-full hover:bg-[#f4f5f6] text-[#6d7882] hover:text-[#1e2124] transition-colors"
+                  aria-label="닫기"
+                >
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                    <path d="M1 1l12 12M13 1L1 13" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+                  </svg>
+                </button>
+                {/* 헤더 */}
+                <div className="mb-[14px] pr-[32px]">
+                  <div className="flex items-center gap-[6px] mb-[4px]">
+                    <div className="w-[10px] h-[10px] rounded-full flex-shrink-0" style={{ backgroundColor: selectedRegion.color }} />
+                    <p className="text-[13px] text-[#6d7882]">탄소 배출 농도</p>
+                  </div>
+                  <h3 className="text-[17px] font-bold text-[#1e2124] leading-tight">{selectedRegion.name}</h3>
+                </div>
+                {/* 지표 그리드 */}
+                <div className="grid grid-cols-3 gap-[8px] mb-[12px]">
+                  {[
+                    { label: '실시간 농도', value: selectedRegion.co2 },
+                    { label: '오염 수준',  value: selectedRegion.level },
+                    { label: '상태',       value: selectedRegion.level === '좋음' ? '양호' : selectedRegion.level === '보통' ? '관찰중' : '주의' },
+                  ].map((item, i) => (
+                    <div key={i} className="bg-[#f4f5f6] rounded-[10px] px-[10px] py-[10px] flex flex-col gap-[4px]">
+                      <span className="text-[11px] text-[#6d7882]">{item.label}</span>
+                      <span className="text-[13px] font-bold text-[#1e2124]">{item.value}</span>
+                    </div>
+                  ))}
+                </div>
+                {/* 설명 */}
+                <div className="bg-[#f4f5f6] rounded-[10px] px-[14px] py-[10px]">
+                  <p className="text-[11.5px] text-[#555] leading-[1.6] break-keep">{selectedRegion.desc}</p>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* ── 핀 상세 모달 (중앙, 최상단 레이어) ── */}
           {selectedPin && (
             <div
@@ -692,12 +803,12 @@ export default function Home() {
         {/* ══════════════════════════════════════════════════════════════════ */}
         {/* RIGHT PANEL                                                        */}
         {/* ══════════════════════════════════════════════════════════════════ */}
-        <div className="w-[380px] flex-shrink-0 flex flex-col h-full gap-[14px] mb-[24px] pointer-events-auto">
+        <div className="w-[380px] flex-shrink-0 flex flex-col gap-[14px] pointer-events-auto">
 
           {/* R1 — 시민 참여 프로그램 */}
           <section
             aria-label="시민 참여 프로그램"
-            className="flex-1 min-h-0 bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3 flex flex-col overflow-hidden"
+            className="h-[190px] flex-shrink-0 bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3 flex flex-col overflow-hidden"
           >
             <CardHeader title="시민 참여 프로그램" />
             <AutoScrollList>
@@ -742,7 +853,7 @@ export default function Home() {
           {/* R2 — 실시간 탄소 배출 */}
           <section
             aria-label="실시간 탄소 배출"
-            className="flex-1 min-h-0 bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3 flex flex-col overflow-hidden"
+            className="h-[190px] flex-shrink-0 bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3 flex flex-col overflow-hidden"
           >
             <CardHeader title="실시간 탄소 배출" />
             <div className="flex-1 flex gap-4 min-h-0 pt-1">
@@ -784,7 +895,7 @@ export default function Home() {
           {/* R3 — 시정 소식 & 공지사항 */}
           <section
             aria-label="시정 소식 및 공지사항"
-            className="flex-1 min-h-0 bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3 flex flex-col overflow-hidden"
+            className="h-[190px] flex-shrink-0 bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3 flex flex-col overflow-hidden"
           >
             <CardHeader title="시정 소식 & 공지사항" />
             <div 
@@ -823,7 +934,7 @@ export default function Home() {
           {/* R4 — 기후의병 활약상 */}
           <section
             aria-label="기후의병 활약상"
-            className="flex-1 min-h-0 bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3 flex flex-col overflow-hidden"
+            className="h-[190px] flex-shrink-0 bg-white border border-[#dfe0e4] rounded-2xl shadow-sm p-3 flex flex-col overflow-hidden"
           >
             <CardHeader title="기후의병 활약상" />
             <div className="flex-1 flex flex-col pt-[6px] w-full gap-[12px] justify-center">
@@ -888,6 +999,23 @@ export default function Home() {
           </section>
 
         </div>{/* /RIGHT PANEL */}
+
+        {/* ── 탄소 배출 농도 범례 — 기후의병 패널 좌측 20px, 하단 정렬 ── */}
+        {activeMile === 4 && (
+          <div
+            className="absolute bg-white/85 backdrop-blur-xl rounded-[12px] shadow-[0_8px_32px_0_rgba(31,38,135,0.12)] px-[16px] py-[14px] pointer-events-auto border border-white/70 z-30 w-[200px]"
+            style={{ right: 490, bottom: 20 }}
+          >
+            <span className="text-[13px] font-[800] text-[#1E2124] leading-tight tracking-[0.2px] block mb-[12px]">탄소 배출 농도 범례</span>
+            <div className="flex flex-col gap-[6px] w-full">
+              <div className="w-full h-[10px] rounded-full" style={{ background: 'linear-gradient(to right, #3B82F6, #10B981, #FACC15, #F59E0B, #E53A4C)' }} />
+              <div className="flex justify-between items-center px-[2px]">
+                <span className="text-[11px] font-[800] text-[#3B82F6] tracking-tight">좋음</span>
+                <span className="text-[11px] font-[800] text-[#E53A4C] tracking-tight">나쁨</span>
+              </div>
+            </div>
+          </div>
+        )}
 
       </div>{/* /Layer 2 */}
 
